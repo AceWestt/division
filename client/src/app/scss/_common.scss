@@ -1,0 +1,172 @@
+.app * {
+	box-sizing: border-box;
+	position: relative;
+	font-family: Mont, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	white-space: pre-wrap;
+}
+
+body {
+	overflow: hidden;
+}
+
+.app a {
+	text-decoration: none;
+}
+
+button {
+	border: transparent;
+	outline: none;
+	background: transparent;
+}
+
+.btn {
+	font-size: 0.833vw;
+	color: #000;
+	cursor: pointer;
+	font-weight: 600;
+	text-align: center;
+	@media #{$mobileQuery} {
+		font-size: 14px;
+	}
+	&.btn-with-icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		svg,
+		img {
+			margin-right: 0.521vw;
+		}
+		span {
+			font-weight: 600;
+		}
+	}
+	&.btn-tranparent {
+		background: transparent;
+		border: transparent;
+	}
+	&.btn-link {
+		&::before {
+			content: '';
+			position: absolute;
+			top: calc(100% + 1px);
+			left: 0;
+			width: 0;
+			height: 1px;
+			background: #000;
+			transition: width 0.3s;
+		}
+		&:hover {
+			&::before {
+				width: 100%;
+			}
+		}
+		&.btn-footer {
+			color: #fff;
+			&::before {
+				background: #fff;
+			}
+		}
+	}
+	&.btn-primary {
+		background: $mainColor;
+		color: #fff;
+		padding: 0.729vw 1.771vw;
+		border-radius: 1000px;
+		transition: all 0.3s;
+		@media #{$mobileQuery} {
+			padding: 10px 35px;
+		}
+		&:hover {
+			background: $mainColorDarker;
+		}
+		&.btn-outlined {
+			border: 2px solid $mainColor;
+			background: transparent;
+			color: $mainColor;
+			&:hover {
+				background: $mainColor;
+				color: #fff;
+			}
+		}
+	}
+	&.btn-icon {
+		svg {
+			rect {
+				transition: fill 0.3s;
+			}
+		}
+	}
+	&.btn-outlined {
+		border-radius: 1000px;
+		padding: 0.729vw 1.771vw;
+		transition: all 0.3s;
+		@media #{$mobileQuery} {
+			padding: 10px 35px;
+		}
+		&.btn-footer {
+			color: #fff;
+			border: 2px solid #fff;
+		}
+		&:hover {
+			border: 2px solid transparent;
+			background: $mainColor;
+		}
+	}
+}
+
+.title-holder {
+	width: 100%;
+	margin-left: -20px;
+	margin-top: 3.49vw;
+	margin-bottom: 6.51vw;
+	padding-left: 20px;
+	display: flex;
+	@media #{$mobileQuery} {
+		padding: 40px 0;
+		height: 150px;
+	}
+	.curtains-canvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 1;
+	}
+	.logoPlane {
+		img {
+			opacity: 0;
+		}
+	}
+	img {
+		width: 44.555vw;
+		height: 7.813vw;
+		@media #{$mobileQuery} {
+			width: 260px;
+		}
+	}
+}
+
+.app {
+	width: 100%;
+	padding: 3.125vw 0 0 0;
+	@media #{$mobileQuery} {
+		padding: 30px 0 0 0;
+	}
+}
+
+.section {
+	display: flex;
+	width: 100%;
+	padding: 0 3.125vw;
+	flex-direction: column;
+	@media #{$mobileQuery} {
+		padding: 0 20px;
+	}
+	.section-container {
+		width: 100%;
+	}
+}

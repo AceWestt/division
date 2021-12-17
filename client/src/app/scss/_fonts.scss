@@ -1,0 +1,88 @@
+@mixin fontFaceProps($weight, $style) {
+	font-weight: $weight;
+	font-style: $style;
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-Thin.ttf');
+	@include fontFaceProps(100, normal);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-ThinItalic.ttf');
+	@include fontFaceProps(100, italic);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-ExtraLight.ttf');
+	@include fontFaceProps(200, normal);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-ExtraLightItalic.ttf');
+	@include fontFaceProps(200, italic);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-Light.ttf');
+	@include fontFaceProps(300, normal);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-LightItalic.ttf');
+	@include fontFaceProps(300, italic);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-Regular.ttf');
+	@include fontFaceProps(400, normal);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-RegularItalic.ttf');
+	@include fontFaceProps(400, italic);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-SemiBold.ttf');
+	@include fontFaceProps(600, normal);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-SemiBoldItalic.ttf');
+	@include fontFaceProps(600, italic);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-Bold.ttf');
+	@include fontFaceProps(700, normal);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-BoldItalic.ttf');
+	@include fontFaceProps(700, italic);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-Black.ttf');
+	@include fontFaceProps(900, normal);
+}
+
+@font-face {
+	font-family: Mont;
+	src: url('./fonts/Mont-BlackItalic.ttf');
+	@include fontFaceProps(900, italic);
+}

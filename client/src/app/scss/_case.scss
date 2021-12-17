@@ -1,0 +1,67 @@
+.section.section-case {
+	.title {
+		font-size: 3.125vw;
+		line-height: 3.385vw;
+		font-weight: 800;
+		color: #000;
+		margin-bottom: 2.344vw;
+	}
+	.subtitle {
+		font-weight: 600;
+		font-size: 2.083vw;
+		line-height: 2.656vw;
+		max-width: 47.5vw;
+		margin-bottom: 5.208vw;
+	}
+	.block {
+		width: 100%;
+		display: flex;
+		align-items: flex-start;
+		margin-bottom: 5.208vw;
+		label {
+			width: 50%;
+			font-weight: 600;
+			font-size: 1.563vw;
+			line-height: 1.771vw;
+			color: #000;
+		}
+		.text {
+			max-height: 39.479vw;
+			p {
+				margin: 0;
+				font-size: 0.938vw;
+				line-height: 1.198vw;
+				font-weight: 600;
+				color: #000;
+			}
+		}
+	}
+	.hero {
+		margin-left: -3.125vw;
+		width: calc(100% + 6.25vw);
+		margin-bottom: 5.208vw;
+		img {
+			width: 100%;
+		}
+	}
+	.gallery {
+		width: 100%;
+		margin-bottom: 10.417vw;
+		.imgs {
+			margin-left: -3.125vw;
+			width: calc(100% + 6.25vw);
+			img {
+				width: 100%;
+				margin-bottom: 1.302vw;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	.btn-holder {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 10.417vw;
+	}
+}
