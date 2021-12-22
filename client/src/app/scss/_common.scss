@@ -72,11 +72,15 @@ button {
 	&.btn-primary {
 		background: $mainColor;
 		color: #fff;
-		padding: 0.729vw 1.771vw;
+		padding: 0 1.771vw;
 		border-radius: 1000px;
 		transition: all 0.3s;
+		height: 2.5vw;
+		display: flex;
+		align-items: center;
 		@media #{$mobileQuery} {
-			padding: 2.667vw 9.333vw;
+			padding: 0 9.333vw;
+			height: 12.8vw;
 		}
 		&:hover {
 			background: $mainColorDarker;
@@ -100,10 +104,14 @@ button {
 	}
 	&.btn-outlined {
 		border-radius: 1000px;
-		padding: 0.729vw 1.771vw;
+		padding: 0 1.771vw;
 		transition: all 0.3s;
+		display: flex;
+		height: 2.5vw;
+		align-items: center;
 		@media #{$mobileQuery} {
-			padding: 2.667vw 9.333vw;
+			padding: 0 9.333vw;
+			height: 12.8vw;
 		}
 		&.btn-footer {
 			color: #fff;
