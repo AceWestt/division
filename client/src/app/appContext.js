@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 const AppContext = React.createContext();
-const smallScreenBreakPoint = 375;
+const smallScreenBreakPoint = 768;
 
 const AppProvider = ({ children }) => {
 	const [isSoundOn, setIsSoundOn] = useState(false);
