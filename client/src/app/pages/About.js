@@ -12,9 +12,12 @@ import { newsItems } from './about/sampleNews';
 import { useAppContext } from '../appContext';
 import { teamMembers } from './about/sampleTeamMembers';
 import logofooter from '../images/footer-logo.svg';
+import locationIcnMobile from '../images/location-about-mobile.svg';
+import faceBookIcnMobile from '../images/facebook-icn-about-mobile.svg';
+import instagramIcnMobile from '../images/instagram-icn-about-mobile.svg';
 
 const About = () => {
-	const { setIsFooterDisabled } = useAppContext();
+	const { smallScreen, setIsFooterDisabled } = useAppContext();
 
 	useEffect(() => {
 		setIsFooterDisabled(true);
@@ -42,7 +45,7 @@ const About = () => {
 				<img src={sloganImg} alt="img" />
 			</div>
 			<MediaBlock />
-			<TeamBlock />
+			{smallScreen ? <TeamBlockMobile /> : <TeamBlock />}
 		</div>
 	);
 };
@@ -146,6 +149,111 @@ const TeamBlock = () => {
 					</a>
 				</div>
 				<div className="address">г. Ташкент улица Тадбиркор 78</div>
+			</div>
+		</div>
+	);
+};
+
+const TeamBlockMobile = () => {
+	const teamArrayLength = teamMembers.length;
+	const teamCountMax = Math.ceil(teamArrayLength / 2);
+	let teamArrayToRender = [];
+	for (let i = 0; i < teamCountMax; i++) {
+		teamArrayToRender.push(teamMembers.slice(i * 2, (i + 1) * 2));
+	}
+
+	const [activeIndex, setActiveIndex] = useState(0);
+	const lastIndex = teamCountMax - 1;
+
+	useEffect(() => {
+		if (activeIndex < 0) {
+			setActiveIndex(lastIndex);
+		}
+		if (activeIndex > lastIndex) {
+			setActiveIndex(0);
+		}
+	}, [activeIndex, lastIndex]);
+
+	useEffect(() => {
+		let slider = setInterval(() => {
+			setActiveIndex(activeIndex + 1);
+		}, 10000);
+		return () => {
+			clearInterval(slider);
+		};
+	}, [activeIndex]);
+
+	const getPositionClass = (index) => {
+		let position = 'next-slide';
+		if (index === activeIndex) {
+			position = 'active-slide';
+		}
+		if (index === activeIndex - 1 || (activeIndex === 0 && index === lastIndex)) {
+			position = 'last-slide';
+		}
+		return position;
+	};
+
+	return (
+		<div className="team-block">
+			<div className="head">
+				<div className="title-block">
+					<div className="title">Наша команда</div>
+					<img src={teamBlockArt} alt="наша команда" />
+				</div>
+				<div className="team-members-block">
+					<div className="team-members-wrap">
+						<div className="team-members">
+							{teamArrayToRender.map((arrayGroup, index) => {
+								return (
+									<div
+										className={`team-group ${getPositionClass(index)}`}
+										key={`team-group-${index}`}
+									>
+										{arrayGroup.map((member, mIndex) => {
+											return (
+												<div className="team-member" key={`team-member-${mIndex}`}>
+													<img src={member.img} alt="member" />
+													<div className="name">{member.name}</div>
+													<div className="title">{member.title}</div>
+												</div>
+											);
+										})}
+									</div>
+								);
+							})}
+						</div>
+					</div>
+					<div className="team-member-slider-control">
+						<img
+							src={teamControlBtn}
+							alt="left"
+							className="control to-left"
+							onClick={() => setActiveIndex(activeIndex - 1)}
+						/>
+						<img
+							src={teamControlBtn}
+							alt="left"
+							className="control to-right"
+							onClick={() => setActiveIndex(activeIndex + 1)}
+						/>
+					</div>
+				</div>
+			</div>
+			<div className="foot">
+				<div className="address">
+					<img src={locationIcnMobile} alt="location" />
+					<span>г. Ташкент улица Тадбиркор 78</span>
+				</div>
+				<img src={logofooter} alt="logo" />
+				<div className="social-links">
+					<a href="https://www.instagram.com/" className="btn btn-link btn-footer">
+						<img src={instagramIcnMobile} alt="instagram" />
+					</a>
+					<a href="https://www.facebook.com/" className="btn btn-link btn-footer">
+						<img src={faceBookIcnMobile} alt="facebook" />
+					</a>
+				</div>
 			</div>
 		</div>
 	);

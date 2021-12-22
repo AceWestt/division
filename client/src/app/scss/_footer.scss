@@ -4,16 +4,16 @@
 	padding-bottom: 3.125vw;
 	height: auto;
 	@media #{$mobileQuery} {
-		padding-bottom: 40px;
+		padding-bottom: 10.667vw;
 	}
 	h4 {
 		font-size: 2.083vw;
 		font-weight: 600;
 		margin: 9.479vw 0 0 0;
 		@media #{$mobileQuery} {
-			margin: 45px 0 0 0;
-			font-size: 20px;
-			line-height: 21px;
+			margin: 12vw 0 0 0;
+			font-size: 5.333vw;
+			line-height: 5.6vw;
 		}
 	}
 	.contact-block {
@@ -22,7 +22,7 @@
 		margin-top: 5.729vw;
 		flex-wrap: wrap;
 		@media #{$mobileQuery} {
-			margin-top: 50px;
+			margin-top: 13.333vw;
 		}
 		.form-side {
 			width: 55vw;
@@ -42,7 +42,7 @@
 					display: flex;
 					margin-bottom: 3.438vw;
 					@media #{$mobileQuery} {
-						margin-bottom: 36px;
+						margin-bottom: 9.6vw;
 					}
 					input {
 						width: 100%;
@@ -54,8 +54,8 @@
 						background: transparent;
 						border-bottom: 0.104vw solid #fff;
 						@media #{$mobileQuery} {
-							padding: 0 18px 11px 18px;
-							font-size: 14px;
+							padding: 0 4.8vw 2.933vw 4.8vw;
+							font-size: 3.733vw;
 							border-bottom: 1px solid #fff;
 						}
 					}
@@ -73,7 +73,7 @@
 					&.msg {
 						margin-bottom: 2.292vw;
 						@media #{$mobileQuery} {
-							margin-bottom: 40px;
+							margin-bottom: 10.667vw;
 						}
 					}
 					&.warning {
@@ -85,13 +85,13 @@
 					&.submit {
 						margin-bottom: 0;
 						@media #{$mobileQuery} {
-							margin-bottom: 67px;
+							margin-bottom: 17.867vw;
 							justify-content: center;
 						}
 						.btn {
 							width: 10.833vw;
 							@media #{$mobileQuery} {
-								width: 180px;
+								width: 48vw;
 							}
 						}
 					}
@@ -108,29 +108,29 @@
 				align-items: flex-start;
 				margin-bottom: 3.125vw;
 				@media #{$mobileQuery} {
-					margin-bottom: 40px;
+					margin-bottom: 10.667vw;
 				}
 				label {
 					font-size: 0.833vw;
 					font-weight: 600;
 					margin-bottom: 2.083vw;
 					@media #{$mobileQuery} {
-						font-size: 18px;
+						font-size: 4.8vw;
 						font-weight: 800;
-						margin-bottom: 30px;
+						margin-bottom: 8vw;
 					}
 				}
 				.btn {
 					font-size: 1.042vw;
 					@media #{$mobileQuery} {
-						font-size: 16px;
+						font-size: 4.267vw;
 						font-weight: 600;
 					}
 				}
 				span {
 					font-size: 1.042vw;
 					@media #{$mobileQuery} {
-						font-size: 16px;
+						font-size: 4.267vw;
 						font-weight: 600;
 					}
 				}
@@ -164,12 +164,12 @@
 		align-items: center;
 		justify-content: space-between;
 		@media #{$mobileQuery} {
-			margin-top: 60px;
+			margin-top: 16vw;
 		}
 		img {
 			width: 1.563vw;
 			@media #{$mobileQuery} {
-				width: 30px;
+				width: 8vw;
 			}
 		}
 		.social-links {
@@ -179,7 +179,7 @@
 			@media #{$mobileQuery} {
 				gap: 5px;
 				a {
-					font-size: 16px;
+					font-size: 4.267vw;
 				}
 			}
 		}

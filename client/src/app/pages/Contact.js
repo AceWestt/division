@@ -2,6 +2,7 @@ import React from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import titleImg from '../images/page-title-contact.svg';
 import logo from '../images/logo-contact.svg';
+import logoMobile from '../images/logo-contact-mobile.svg';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 
 const Contact = () => {
@@ -16,6 +17,9 @@ const Contact = () => {
 								<Placemark geometry={[41.270079, 69.23447]} />
 							</Map>
 						</YMaps>
+					</div>
+					<div className="logo-mobile">
+						<img src={logoMobile} alt="logo" />
 					</div>
 				</div>
 				<div className="side side-details">

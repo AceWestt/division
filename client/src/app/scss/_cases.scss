@@ -1,8 +1,14 @@
 .section.section-home.section-cases {
 	padding-bottom: 10.417vw;
+	@media #{$mobileQuery} {
+		padding-bottom: 13.333vw;
+	}
 	.btn-holder {
 		.btn {
 			width: 7.969vw;
+			@media #{$mobileQuery} {
+				width: 49.6vw;
+			}
 		}
 	}
 }

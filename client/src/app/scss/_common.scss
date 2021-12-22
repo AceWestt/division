@@ -28,7 +28,7 @@ button {
 	font-weight: 600;
 	text-align: center;
 	@media #{$mobileQuery} {
-		font-size: 14px;
+		font-size: 3.733vw;
 	}
 	&.btn-with-icon {
 		display: flex;
@@ -76,7 +76,7 @@ button {
 		border-radius: 1000px;
 		transition: all 0.3s;
 		@media #{$mobileQuery} {
-			padding: 10px 35px;
+			padding: 2.667vw 9.333vw;
 		}
 		&:hover {
 			background: $mainColorDarker;
@@ -103,7 +103,7 @@ button {
 		padding: 0.729vw 1.771vw;
 		transition: all 0.3s;
 		@media #{$mobileQuery} {
-			padding: 10px 35px;
+			padding: 2.667vw 9.333vw;
 		}
 		&.btn-footer {
 			color: #fff;
@@ -118,14 +118,15 @@ button {
 
 .title-holder {
 	width: 100%;
-	margin-left: -20px;
+	margin-left: -1.042vw;
 	margin-top: 3.49vw;
 	margin-bottom: 6.51vw;
-	padding-left: 20px;
+	padding-left: 1.042vw;
 	display: flex;
 	@media #{$mobileQuery} {
-		padding: 40px 0;
-		height: 150px;
+		padding: 8vw 0;
+		margin-left: -5.333vw;
+		padding-left: 5.333vw;
 	}
 	.curtains-canvas {
 		position: absolute;
@@ -145,7 +146,8 @@ button {
 		width: 44.555vw;
 		height: 7.813vw;
 		@media #{$mobileQuery} {
-			width: 260px;
+			width: 69.333vw;
+			height: 10.933vw;
 		}
 	}
 }
@@ -154,7 +156,7 @@ button {
 	width: 100%;
 	padding: 3.125vw 0 0 0;
 	@media #{$mobileQuery} {
-		padding: 30px 0 0 0;
+		padding: 8vw 0 0 0;
 	}
 }
 
@@ -164,7 +166,7 @@ button {
 	padding: 0 3.125vw;
 	flex-direction: column;
 	@media #{$mobileQuery} {
-		padding: 0 20px;
+		padding: 0 5.333vw;
 	}
 	.section-container {
 		width: 100%;

@@ -6,6 +6,11 @@
 		font-weight: 600;
 		margin-bottom: 3.125vw;
 		color: #000;
+		@media #{$mobileQuery} {
+			font-size: 5.333vw;
+			line-height: 6.667vw;
+			margin-bottom: 8vw;
+		}
 		span {
 			font-weight: 800;
 		}
@@ -16,15 +21,26 @@
 		width: 100%;
 		gap: 1.042vw;
 		margin-bottom: 3.125vw;
+		@media #{$mobileQuery} {
+			gap: 1.067vw;
+			margin-bottom: 8vw;
+		}
 		img {
 			height: 36.458vw;
 			object-fit: cover;
 			width: 23.438vw;
+			@media #{$mobileQuery} {
+				height: 40vw;
+				width: 22.133vw;
+			}
 			&:first-child {
 				width: 100%;
 			}
 			&:nth-child(2) {
 				width: 44.792vw;
+				@media #{$mobileQuery} {
+					width: 42.933vw;
+				}
 			}
 		}
 	}
@@ -35,21 +51,37 @@
 		width: 100%;
 		color: #000;
 		margin-bottom: 1.042vw;
+		@media #{$mobileQuery} {
+			margin-bottom: 16vw;
+			font-size: 5.333vw;
+			line-height: 6.667vw;
+		}
 	}
 	.slogan-wrap {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 5.208vw;
+		@media #{$mobileQuery} {
+			margin-bottom: 16vw;
+		}
 		span {
 			font-weight: 800;
 			font-size: 3.125vw;
 			line-height: 4.01vw;
 			max-width: 56.25vw;
+			@media #{$mobileQuery} {
+				font-size: 24px;
+				line-height: 28px;
+				max-width: 100%;
+			}
 		}
 		img {
 			width: 33.021vw;
 			flex-shrink: 0;
+			@media #{$mobileQuery} {
+				display: none;
+			}
 		}
 	}
 	.media-block {
@@ -57,13 +89,18 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-
 		> .title {
 			font-weight: 800;
 			font-size: 0.938vw;
 			line-height: 1.198vw;
 			color: #000000;
 			margin-bottom: 3.125vw;
+			@media #{$mobileQuery} {
+				font-size: 4.8vw;
+				line-height: 6.133vw;
+				margin-bottom: 8vw;
+				font-weight: 600;
+			}
 		}
 		.news-wrap {
 			width: calc(100% + 6.25vw);
@@ -78,22 +115,41 @@
 			cursor: url('./cursors/cursor-news-about.svg'), auto;
 			user-select: none;
 			@include scrollbars(0.156vw, 1000px, rgba(0, 0, 0, 0.5), transparent);
+			@media #{$mobileQuery} {
+				width: calc(100% + 10.667vw);
+				margin-left: -5.333vw;
+				margin-right: -5.333vw;
+				padding-left: 5.333vw;
+				padding-right: 5.333vw;
+				padding-bottom: 1.067vw;
+				margin-bottom: 32vw;
+			}
 			.news {
 				display: flex;
 				gap: 2.083vw;
 				user-select: none;
+				@media #{$mobileQuery} {
+					gap: 5.333vw;
+				}
 				.news-item {
 					width: 34.375vw;
 					display: flex;
 					flex-direction: column;
 					user-select: none;
 					cursor: url('./cursors/cursor-news-about.svg'), auto;
+					@media #{$mobileQuery} {
+						width: 74.667vw;
+					}
 					img {
 						width: 100%;
 						height: 19.271vw;
 						object-fit: cover;
 						margin-bottom: 1.563vw;
 						pointer-events: none;
+						@media #{$mobileQuery} {
+							height: 42.133vw;
+							margin-bottom: 3.2vw;
+						}
 					}
 					.date {
 						font-weight: 600;
@@ -101,12 +157,21 @@
 						line-height: 1.198vw;
 						color: #000;
 						margin-bottom: 1.042vw;
+						@media #{$mobileQuery} {
+							font-size: 3.2vw;
+							line-height: 4vw;
+							margin-bottom: 5.333vw;
+						}
 					}
 					.title {
 						font-weight: 600;
 						font-size: 1.25vw;
 						line-height: 1.615vw;
 						color: #000;
+						@media #{$mobileQuery} {
+							font-size: 4.267vw;
+							line-height: 5.333vw;
+						}
 					}
 				}
 			}
@@ -120,23 +185,45 @@
 		padding: 0 3.125vw;
 		background: #000;
 		color: #fff;
+		@media #{$mobileQuery} {
+			margin: 0 -5.333vw;
+			padding: 0 5.333vw;
+			width: calc(100% + 10.667vw);
+		}
 		.head {
 			display: flex;
 			justify-content: space-between;
 			flex-wrap: wrap;
 			margin-top: 5.208vw;
+			@media #{$mobileQuery} {
+				margin-top: 8vw;
+			}
 			.title-block {
 				gap: 4.167vw;
 				display: flex;
 				flex-direction: column;
 				width: 21.875vw;
+				@media #{$mobileQuery} {
+					gap: auto;
+					width: 100%;
+					flex-direction: row;
+					justify-content: space-between;
+					margin-bottom: 8vw;
+				}
 				.title {
 					font-weight: 600;
 					font-size: 4.688vw;
 					line-height: 5.052vw;
+					@media #{$mobileQuery} {
+						font-size: 4.267vw;
+						line-height: 5.333vw;
+					}
 				}
 				img {
 					width: 8.385vw;
+					@media #{$mobileQuery} {
+						width: 16vw;
+					}
 				}
 			}
 			.team-members-block {
@@ -144,6 +231,11 @@
 				display: flex;
 				flex-direction: column;
 				gap: 2.604vw;
+				@media #{$mobileQuery} {
+					width: 100%;
+					flex-direction: column-reverse;
+					gap: 8vw;
+				}
 				.team-members-wrap {
 					width: 100%;
 					.team-members {
@@ -151,7 +243,10 @@
 						display: flex;
 						// overflow-x: scroll;
 						overflow: hidden;
-						height: 35.417vw;
+						height: 37.417vw;
+						@media #{$mobileQuery} {
+							height: 74vw;
+						}
 						.team-group {
 							width: 100%;
 							flex-shrink: 0;
@@ -164,26 +259,46 @@
 							left: 0;
 							opacity: 0;
 							transition: all 0.4s;
+							@media #{$mobileQuery} {
+								gap: 5.333vw;
+								flex-wrap: nowrap;
+							}
 							.team-member {
-								width: 10.417vw;
+								width: 10.317vw;
 								display: flex;
 								flex-direction: column;
+								@media #{$mobileQuery} {
+									width: 100%;
+								}
 								img {
 									width: 100%;
 									height: 14.063vw;
 									margin-bottom: 1.042vw;
 									object-fit: cover;
+									@media #{$mobileQuery} {
+										height: 56.533vw;
+										margin-bottom: 4.267vw;
+									}
 								}
 								.name {
 									font-weight: 600;
 									font-size: 0.938vw;
 									line-height: 0.99vw;
 									margin-bottom: 0.833vw;
+									@media #{$mobileQuery} {
+										font-size: 4.267vw;
+										line-height: 4.533vw;
+										margin-bottom: 2.667vw;
+									}
 								}
 								.title {
 									font-weight: 600;
 									font-size: 0.833vw;
 									line-height: 0.885vw;
+									@media #{$mobileQuery} {
+										font-size: 3.2vw;
+										line-height: 3.467vw;
+									}
 								}
 							}
 							&.active-slide {
@@ -203,9 +318,15 @@
 					display: flex;
 					justify-content: flex-end;
 					gap: 1.302vw;
+					@media #{$mobileQuery} {
+						gap: 10.667vw;
+					}
 					.control {
 						width: 1.146vw;
 						cursor: pointer;
+						@media #{$mobileQuery} {
+							width: 5.867vw;
+						}
 						&.to-right {
 							transform: scaleX(-1);
 						}
@@ -221,12 +342,14 @@
 			align-items: center;
 			justify-content: space-between;
 			@media #{$mobileQuery} {
-				margin-top: 3.125vw;
+				margin-top: 16vw;
+				margin-bottom: 5.333vw;
+				flex-wrap: wrap;
 			}
-			img {
+			> img {
 				width: 1.563vw;
 				@media #{$mobileQuery} {
-					width: 1.563vw;
+					width: 8vw;
 				}
 			}
 			.social-links {
@@ -234,9 +357,12 @@
 				align-items: center;
 				gap: 0.26vw;
 				@media #{$mobileQuery} {
-					gap: 0.26vw;
+					gap: 16vw;
+					padding-right: 29.333vw;
 					a {
-						font-size: 0.833vw;
+						img {
+							height: 5.333vw;
+						}
 					}
 				}
 			}
@@ -245,7 +371,17 @@
 				font-weight: 600;
 				color: #fff;
 				@media #{$mobileQuery} {
-					display: none;
+					width: 100%;
+					display: flex;
+					align-items: center;
+					font-size: 3.2vw;
+					line-height: 4vw;
+					gap: 2.667vw;
+					justify-content: center;
+					margin-bottom: 8vw;
+					img {
+						width: 2.667vw;
+					}
 				}
 			}
 		}

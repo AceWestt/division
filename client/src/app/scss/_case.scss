@@ -1,10 +1,19 @@
 .section.section-case {
+	@media #{$mobileQuery} {
+		margin-top: 10.667vw;
+	}
 	.title {
 		font-size: 3.125vw;
 		line-height: 3.385vw;
 		font-weight: 800;
 		color: #000;
 		margin-bottom: 2.344vw;
+		@media #{$mobileQuery} {
+			font-weight: 900;
+			font-size: 6.4vw;
+			line-height: 8.267vw;
+			margin-bottom: 10.667vw;
+		}
 	}
 	.subtitle {
 		font-weight: 600;
@@ -12,27 +21,51 @@
 		line-height: 2.656vw;
 		max-width: 47.5vw;
 		margin-bottom: 5.208vw;
+		@media #{$mobileQuery} {
+			font-weight: 800;
+			font-size: 4.8vw;
+			line-height: 6.133vw;
+			max-width: 100%;
+			margin-bottom: 8vw;
+		}
 	}
 	.block {
 		width: 100%;
 		display: flex;
 		align-items: flex-start;
 		margin-bottom: 5.208vw;
+		@media #{$mobileQuery} {
+			margin-bottom: 8vw;
+			flex-direction: column;
+			gap: 8vw;
+		}
 		label {
 			width: 50%;
 			font-weight: 600;
 			font-size: 1.563vw;
 			line-height: 1.771vw;
 			color: #000;
+			@media #{$mobileQuery} {
+				width: 100%;
+				font-size: 4.8vw;
+				line-height: 113.55%;
+			}
 		}
 		.text {
-			max-height: 39.479vw;
+			max-width: 800px;
+			@media #{$mobileQuery} {
+				max-width: 100%;
+			}
 			p {
 				margin: 0;
 				font-size: 0.938vw;
 				line-height: 1.198vw;
 				font-weight: 600;
 				color: #000;
+				@media #{$mobileQuery} {
+					font-size: 4.267vw;
+					line-height: 5.333vw;
+				}
 			}
 		}
 	}
@@ -40,6 +73,11 @@
 		margin-left: -3.125vw;
 		width: calc(100% + 6.25vw);
 		margin-bottom: 5.208vw;
+		@media #{$mobileQuery} {
+			margin-left: -5.333vw;
+			width: calc(100% + 10.667vw);
+			margin-bottom: 8vw;
+		}
 		img {
 			width: 100%;
 		}
@@ -47,12 +85,22 @@
 	.gallery {
 		width: 100%;
 		margin-bottom: 10.417vw;
+		@media #{$mobileQuery} {
+			margin-bottom: 13.333vw;
+		}
 		.imgs {
 			margin-left: -3.125vw;
 			width: calc(100% + 6.25vw);
+			@media #{$mobileQuery} {
+				width: calc(100% + 10.667vw);
+				margin-left: -5.333vw;
+			}
 			img {
 				width: 100%;
 				margin-bottom: 1.302vw;
+				@media #{$mobileQuery} {
+					margin-bottom: 1.333vw;
+				}
 				&:last-child {
 					margin-bottom: 0;
 				}
@@ -63,5 +111,8 @@
 		display: flex;
 		justify-content: center;
 		margin-bottom: 10.417vw;
+		@media #{$mobileQuery} {
+			margin-bottom: 13.333vw;
+		}
 	}
 }
