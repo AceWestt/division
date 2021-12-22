@@ -78,6 +78,7 @@ button {
 		height: 2.5vw;
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		@media #{$mobileQuery} {
 			padding: 0 9.333vw;
 			height: 12.8vw;
@@ -109,6 +110,7 @@ button {
 		display: flex;
 		height: 2.5vw;
 		align-items: center;
+		justify-content: center;
 		@media #{$mobileQuery} {
 			padding: 0 9.333vw;
 			height: 12.8vw;
