@@ -243,7 +243,7 @@
 						display: flex;
 						// overflow-x: scroll;
 						overflow: hidden;
-						height: 38.417vw;
+						height: 37.417vw;
 						@media #{$mobileQuery} {
 							height: 74vw;
 						}
@@ -293,7 +293,7 @@
 								}
 								.title {
 									font-weight: 600;
-									font-size: 0.833vw;
+									font-size: 0.729vw;
 									line-height: 0.885vw;
 									@media #{$mobileQuery} {
 										font-size: 3.2vw;
