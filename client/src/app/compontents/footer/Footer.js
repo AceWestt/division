@@ -18,9 +18,10 @@ const Footer = () => {
 	return (
 		<div className="section section-footer">
 			<h4>
-				Напишите нам, <br />
+				Напишите нам,
+				<br />
 				наши специалисты свяжутся
-				<br /> с вами в ближайшее время
+				<br />с вами в ближайшее время
 			</h4>
 			<div className="block contact-block">
 				<div className="side form-side">
@@ -38,7 +39,7 @@ const Footer = () => {
 							<input type="text" placeholder="Пару слов о проекте*" />
 						</div>
 						<div className="footer-form-control warning">
-							<p>Заполняя данные, вы соглашаетесь с политикой конфиденциалности</p>
+							<p>Заполняя данные, вы соглашаетесь с политикой конфиденциальности</p>
 						</div>
 						<div className="footer-form-control submit">
 							<button className="btn btn-outlined btn-footer" type="submit">

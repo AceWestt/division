@@ -261,8 +261,15 @@ const TeamBlockMobile = () => {
 
 const MediaBlock = () => {
 	const [isScroll, setIsScroll] = useState(false);
+	const [speed, setSpeed] = useState(5);
 	const [posx, setPosx] = useState(0);
 	const newsRef = useRef(null);
+
+	useEffect(() => {
+		const width = newsRef.current.scrollWidth;
+		setSpeed(width * 0.005);
+	}, []);
+
 	return (
 		<div className="media-block">
 			<div className="title">Медиа</div>
@@ -282,9 +289,9 @@ const MediaBlock = () => {
 				onMouseMove={(e) => {
 					if (isScroll) {
 						if (e.pageX > posx) {
-							newsRef.current.scrollLeft -= 5;
+							newsRef.current.scrollLeft -= speed;
 						} else {
-							newsRef.current.scrollLeft += 5;
+							newsRef.current.scrollLeft += speed;
 						}
 						setPosx(e.pageX);
 					}
