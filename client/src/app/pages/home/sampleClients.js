@@ -7,7 +7,6 @@ import bsd from '../../images/clients/bsd.svg';
 import ahadmix from '../../images/clients/ahadmix.svg';
 import actimel from '../../images/clients/actimel.svg';
 import adler from '../../images/clients/adler.svg';
-import mms from '../../images/clients/mms.svg';
 import snickers from '../../images/clients/snickers.svg';
 import skittles from '../../images/clients/skittles.svg';
 import mars from '../../images/clients/mars.svg';
@@ -31,7 +30,6 @@ import danisimo from '../../images/clients/danisimo.svg';
 import john_deere from '../../images/clients/john_deere.svg';
 import jelibon from '../../images/clients/jelibon.svg';
 import kinder from '../../images/clients/kinder.svg';
-import twix from '../../images/clients/twix.svg';
 import belebeevskiy from '../../images/clients/belebeevskiy.svg';
 import sello from '../../images/clients/sello.svg';
 import relax from '../../images/clients/relax.svg';
@@ -49,7 +47,6 @@ import calve from '../../images/clients/calve.svg';
 export const clients = [
 	[aeroStar, tema, mondolez, whiskas, havas, bsd, ahadmix, actimel, adler],
 	[
-		mms,
 		snickers,
 		skittles,
 		mars,
@@ -77,7 +74,6 @@ export const clients = [
 		john_deere,
 		jelibon,
 		kinder,
-		twix,
 		belebeevskiy,
 		sello,
 		relax,
