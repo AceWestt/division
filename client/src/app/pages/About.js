@@ -264,10 +264,11 @@ const MediaBlock = () => {
 	const [speed, setSpeed] = useState(5);
 	const [posx, setPosx] = useState(0);
 	const newsRef = useRef(null);
+	const newsitemRef = useRef(null);
 
 	useEffect(() => {
-		const width = newsRef.current.offsetWidth;
-		setSpeed(width * 0.005);
+		const width = newsitemRef.current.offsetWidth;
+		setSpeed(width * 0.0455);
 	}, []);
 
 	return (
@@ -306,6 +307,7 @@ const MediaBlock = () => {
 								rel="noreferrer"
 								className="news-item"
 								key={`news-${i}`}
+								ref={newsitemRef}
 							>
 								<img src={n.img} alt={n.title} />
 								<div className="date">{n.date}</div>
