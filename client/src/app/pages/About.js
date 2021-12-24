@@ -266,7 +266,7 @@ const MediaBlock = () => {
 	const newsRef = useRef(null);
 
 	useEffect(() => {
-		const width = newsRef.current.scrollWidth;
+		const width = newsRef.current.offsetWidth;
 		setSpeed(width * 0.005);
 	}, []);
 
