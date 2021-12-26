@@ -6,16 +6,20 @@ import { Vec2 } from 'curtainsjs';
 import { vertexShader, fragmentShader } from '../../utils/shaders/shaders';
 
 const LogoHolder = () => {
+	const resetRef = useRef(null);
 	return (
 		<div className="logo-holder">
-			<Curtains pixelRatio={Math.min(1.5, window.devicePixelRatio)}>
-				<Curtain />
+			<Curtains
+				pixelRatio={Math.min(1.5, window.devicePixelRatio)}
+				watchScroll={false}
+			>
+				<Curtain resetRef={resetRef} />
 			</Curtains>
 		</div>
 	);
 };
 
-const Curtain = () => {
+const Curtain = ({ resetRef }) => {
 	const [plane, setPlane] = useState(null);
 
 	const mousePosition = useRef(new Vec2());
@@ -125,6 +129,7 @@ const Curtain = () => {
 	const onAfterResize = (plane) => {
 		setResolution(plane);
 	};
+
 	return (
 		<Plane
 			className="logoPlane"
@@ -136,8 +141,14 @@ const Curtain = () => {
 			onReady={onReady}
 			onRender={onRender}
 			onAfterResize={onAfterResize}
+			watchScroll={false}
 		>
-			<img src={logoMain} alt="logo" data-sampler="simplePlaneTexture" />
+			<img
+				src={logoMain}
+				alt="logo"
+				data-sampler="simplePlaneTexture"
+				ref={resetRef}
+			/>
 		</Plane>
 	);
 };

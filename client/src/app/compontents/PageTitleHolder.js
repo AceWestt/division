@@ -5,16 +5,20 @@ import { Vec2 } from 'curtainsjs';
 import { vertexShader, fragmentShader } from './../utils/shaders/shaders';
 
 const PageTitleHolder = ({ title }) => {
+	const resetRef = useRef(null);
 	return (
 		<div className="title-holder">
-			<Curtains pixelRatio={Math.min(1.5, window.devicePixelRatio)}>
-				<Curtain title={title} />
+			<Curtains
+				pixelRatio={Math.min(1.5, window.devicePixelRatio)}
+				watchScroll={false}
+			>
+				<Curtain title={title} resetRef={resetRef} />
 			</Curtains>
 		</div>
 	);
 };
 
-const Curtain = ({ title }) => {
+const Curtain = ({ title, resetRef }) => {
 	const [plane, setPlane] = useState(null);
 
 	const mousePosition = useRef(new Vec2());
@@ -136,7 +140,12 @@ const Curtain = ({ title }) => {
 			onRender={onRender}
 			onAfterResize={onAfterResize}
 		>
-			<img src={title} alt="title" data-sampler="simplePlaneTexture" />
+			<img
+				src={title}
+				alt="title"
+				data-sampler="simplePlaneTexture"
+				ref={resetRef}
+			/>
 		</Plane>
 	);
 };

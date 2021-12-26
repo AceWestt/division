@@ -11,63 +11,76 @@ const Cases = () => {
 
 	const [activeCat, setActiveCat] = useState(0);
 
-	return (
-		<div className="section section-home section-cases">
-			<PageTitleHolder title={titleImg} />
-			<div className="cases-wrap">
-				<CatBlock
-					setActiveCat={setActiveCat}
-					activeCat={activeCat}
-					smallScreen={smallScreen}
-				/>
-				<div className="cases">
-					{cases.map((c, index) => {
-						let item = null;
-						let mobileClass = 'mobile-full';
-						let mobileOrder = null;
-						if (c.mobileWidth && c.mobileWidth === 1) {
-							mobileClass = 'mobile-half';
-						}
+	const [ready, setReady] = useState(false);
 
-						if (activeCat > 0) {
-							mobileClass = 'mobile-half';
-						}
+	useEffect(() => {
+		let timeout = setTimeout(() => {
+			setReady(true);
+		}, 100);
 
-						if (smallScreen) {
-							mobileOrder = c.mobileOrder;
-						}
+		return () => clearTimeout(timeout);
+	}, []);
 
-						if (activeCat > 0) {
-							if (activeCat === c.cat_id) {
+	if (ready) {
+		return (
+			<div className="section section-home section-cases">
+				<PageTitleHolder title={titleImg} />
+				<div className="cases-wrap">
+					<CatBlock
+						setActiveCat={setActiveCat}
+						activeCat={activeCat}
+						smallScreen={smallScreen}
+					/>
+					<div className="cases">
+						{cases.map((c, index) => {
+							let item = null;
+							let mobileClass = 'mobile-full';
+							let mobileOrder = null;
+							if (c.mobileWidth && c.mobileWidth === 1) {
+								mobileClass = 'mobile-half';
+							}
+
+							if (activeCat > 0) {
+								mobileClass = 'mobile-half';
+							}
+
+							if (smallScreen) {
+								mobileOrder = c.mobileOrder;
+							}
+
+							if (activeCat > 0) {
+								if (activeCat === c.cat_id) {
+									item = c;
+								}
+							} else {
 								item = c;
 							}
-						} else {
-							item = c;
-						}
 
-						if (item) {
-							return (
-								<Link
-									to={`/cases/${/*c.id*/ 1}`}
-									className={`case ${mobileClass}`}
-									key={`case-${c.id}-${index}`}
-									style={{ order: mobileOrder ? mobileOrder : 'auto' }}
-								>
-									<img src={c.img} alt="case" />
-								</Link>
-							);
-						}
-						return '';
-					})}
-				</div>
-				<div className="btn-holder">
-					<Link to="/cases" className="btn btn-primary btn-outlined">
-						Eще
-					</Link>
+							if (item) {
+								return (
+									<Link
+										to={`/cases/${c.id}`}
+										className={`case ${mobileClass}`}
+										key={`case-${c.id}-${index}`}
+										style={{ order: mobileOrder ? mobileOrder : 'auto' }}
+									>
+										<img src={c.img} alt="case" />
+									</Link>
+								);
+							}
+							return '';
+						})}
+					</div>
+					<div className="btn-holder">
+						<Link to="/cases" className="btn btn-primary btn-outlined">
+							Eще
+						</Link>
+					</div>
 				</div>
 			</div>
-		</div>
-	);
+		);
+	}
+	return '';
 };
 
 export default Cases;
