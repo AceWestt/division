@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import phoneIcn from '../../images/footer-phone-ICN.svg';
 import emailIcn from '../../images/footer-email-ICN.svg';
 import logo from '../../images/footer-logo.svg';
 import { useAppContext } from '../../appContext';
+import music from './bg.mp3';
 
-const Footer = () => {
-	const { smallScreen, isFooterDisabled } = useAppContext();
+const Footer = ({ footerRef }) => {
+	const { smallScreen, isFooterDisabled, isSoundOn } = useAppContext();
+
+	const musicRef = useRef(null);
+
+	useEffect(() => {
+		if (isSoundOn) {
+			musicRef.current.play();
+		} else {
+			musicRef.current.pause();
+		}
+	}, [isSoundOn]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -16,7 +27,7 @@ const Footer = () => {
 	}
 
 	return (
-		<div className="section section-footer">
+		<div className="section section-footer" ref={footerRef}>
 			<h4>
 				Напишите нам,
 				<br />
@@ -87,6 +98,9 @@ const Footer = () => {
 				</div>
 				<div className="address">г. Ташкент улица Тадбиркор 78</div>
 			</div>
+			<audio autoPlay loop src={music} ref={musicRef}>
+				Your browser does not support the audio element.
+			</audio>
 		</div>
 	);
 };

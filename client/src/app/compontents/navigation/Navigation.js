@@ -4,7 +4,7 @@ import BurgerMenu from './svgComponents/BurgerMenu';
 import NavPhone from './svgComponents/NavPhone';
 import SoundIcon from './svgComponents/SoundIcon';
 
-const Navigation = () => {
+const Navigation = ({ setIsMenuOpen, handleScrollToFooter }) => {
 	const { isSoundOn, setIsSoundOn } = useAppContext();
 	return (
 		<div className="section section-navigation">
@@ -28,11 +28,14 @@ const Navigation = () => {
 					<span>(97) 268 77 70</span>
 				</a>
 			</div>
-			<div className="btn-holder request-price">
+			<div
+				className="btn-holder request-price"
+				onClick={() => handleScrollToFooter()}
+			>
 				<div className="btn btn-primary">Запросить стоимость</div>
 			</div>
 			<div className="btn-holder open-menu">
-				<div className="btn btn-icon">
+				<div className="btn btn-icon" onClick={() => setIsMenuOpen(true)}>
 					<BurgerMenu />
 				</div>
 			</div>

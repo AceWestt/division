@@ -27,6 +27,7 @@ import case26 from './caseImgs/relax/26.png';
 import case27 from './caseImgs/torku/27.jpg';
 import case28 from './caseImgs/kent/28.jpg';
 import case29 from './caseImgs/havvo_group/29.jpg';
+import case30 from './caseImgs/kodir/30.jpg';
 
 //case 1 assets
 import case1gallery1 from './caseImgs/mood/gallery1.jpg';
@@ -162,6 +163,10 @@ import case28img2 from './caseImgs/kent/img2.jpg';
 import case29img from './caseImgs/havvo_group/img.jpg';
 import case29gallery1 from './caseImgs/havvo_group/gallery1.jpg';
 import case29gallery2 from './caseImgs/havvo_group/gallery2.jpg';
+
+//case 30 assets
+import case30img1 from './caseImgs/kodir/img.jpg';
+import case30img2 from './caseImgs/kodir/img2.jpg';
 
 export const caseCats = [
 	{
@@ -955,6 +960,30 @@ export const cases = [
 					'Разработали удобный лендинг. Основной упор был сделать на продукцию, показ ассортимента. Подвязали анимацию сайта к скроллингу',
 			},
 			{ type: 'gallery', gallery: [case29gallery1, case29gallery2] },
+		],
+	},
+	{
+		id: 30,
+		img: case30,
+		cat_id: 5,
+		mobileWidth: 1,
+		mobileOrder: 30,
+		title: 'Кадиров Хамидулла Хикматович',
+		subtitle: 'Интервенционный онколог с международной практикой',
+		blocks: [
+			{
+				type: 'text',
+				label: 'Задача',
+				text: 'Разработать лендинг для онколога с огромным опытом работы',
+			},
+			{ type: 'img', img: case30img1 },
+			{
+				type: 'text',
+				label: 'Результаты',
+				text:
+					'Разработали лендинг-пейдж, в качестве основных цветовбыли выбраны синий и белый. Цвета олицетворяющие чистоту',
+			},
+			{ type: 'img', img: case30img2 },
 		],
 	},
 ];

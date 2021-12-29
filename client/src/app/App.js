@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import './App.scss';
 import { AppProvider } from './appContext';
 import { Switch, Route, useRouteMatch } from 'react-router';
@@ -12,16 +12,32 @@ import { ScrollToPlugin, ScrollTrigger } from 'gsap/all';
 import Footer from './compontents/footer/Footer';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import Menu from './compontents/menu/Menu';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
 
 const App = () => {
 	const match = useRouteMatch();
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const footerRef = useRef(null);
+
+	const scrollTo = (obj) => {
+		gsap.to(window, { duration: 0.5, scrollTo: obj });
+	};
+
+	const handleScrollToFooter = () => {
+		scrollTo(footerRef.current);
+	};
+
 	return (
 		<div className="app">
 			<AppProvider>
-				<Navigation />
+				<Navigation
+					setIsMenuOpen={setIsMenuOpen}
+					handleScrollToFooter={handleScrollToFooter}
+				/>
 				<Switch>
 					<Route exact path={`${match.path}`} component={Home} />
 					<Route exact path="/cases" component={Cases} />
@@ -30,7 +46,13 @@ const App = () => {
 					<Route exact path="/contact" component={Contact} />
 					<Route exact path="/about" component={About} />
 				</Switch>
-				<Footer />
+				<Footer footerRef={footerRef} />
+				{isMenuOpen && (
+					<Menu
+						setIsMenuOpen={setIsMenuOpen}
+						handleScrollToFooter={handleScrollToFooter}
+					/>
+				)}
 			</AppProvider>
 		</div>
 	);

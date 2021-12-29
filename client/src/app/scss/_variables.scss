@@ -35,3 +35,8 @@ $mobileQuery: 'screen and (max-width: #{$mobileBreakPoint})';
 		scrollbar-track-color: $background-color;
 	}
 }
+
+@mixin textoutline($color: #fff) {
+	text-shadow: -1px -1px 0 $color, 1px -1px 0 $color, -1px 1px 0 $color,
+		1px 1px 0 $color;
+}
