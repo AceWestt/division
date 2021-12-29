@@ -15,8 +15,10 @@ import logofooter from '../images/footer-logo.svg';
 import locationIcnMobile from '../images/location-about-mobile.svg';
 import faceBookIcnMobile from '../images/facebook-icn-about-mobile.svg';
 import instagramIcnMobile from '../images/instagram-icn-about-mobile.svg';
+import phoneFooter from '../images/about-footer-phone.svg';
+import emailFooter from '../images/about-footer-mail.svg';
 
-const About = () => {
+const About = ({ footerRef }) => {
 	const { smallScreen, setIsFooterDisabled } = useAppContext();
 
 	useEffect(() => {
@@ -45,14 +47,18 @@ const About = () => {
 				<img src={sloganImg} alt="img" />
 			</div>
 			<MediaBlock />
-			{smallScreen ? <TeamBlockMobile /> : <TeamBlock />}
+			{smallScreen ? (
+				<TeamBlockMobile footerRef={footerRef} />
+			) : (
+				<TeamBlock footerRef={footerRef} />
+			)}
 		</div>
 	);
 };
 
 export default About;
 
-const TeamBlock = () => {
+const TeamBlock = ({ footerRef }) => {
 	const teamArrayLength = teamMembers.length;
 	const teamCountMax = Math.ceil(teamArrayLength / 10);
 	let teamArrayToRender = [];
@@ -93,7 +99,7 @@ const TeamBlock = () => {
 	};
 
 	return (
-		<div className="team-block">
+		<div className="team-block" ref={footerRef}>
 			<div className="head">
 				<div className="title-block">
 					<div className="title">Наша команда</div>
@@ -141,6 +147,22 @@ const TeamBlock = () => {
 			<div className="foot">
 				<img src={logofooter} alt="logo" />
 				<div className="social-links">
+					<a
+						href="tel:+ 998 97 444 84 93"
+						className="btn btn-link btn-footer btn-with-icon"
+						style={{ marginRight: '3.125vw' }}
+					>
+						<img src={phoneFooter} alt="phone" />
+						<span>+ 998 97 444 84 93</span>
+					</a>
+					<a
+						href="mailto:u.ergashev@dvsn.uz"
+						className="btn btn-link btn-footer btn-with-icon"
+						style={{ marginRight: '3.125vw' }}
+					>
+						<img src={emailFooter} alt="phone" />
+						<span>u.ergashev@dvsn.uz</span>
+					</a>
 					<a href="https://www.instagram.com/" className="btn btn-link btn-footer">
 						Instagram,
 					</a>
@@ -154,7 +176,7 @@ const TeamBlock = () => {
 	);
 };
 
-const TeamBlockMobile = () => {
+const TeamBlockMobile = ({ footerRef }) => {
 	const teamArrayLength = teamMembers.length;
 	const teamCountMax = Math.ceil(teamArrayLength / 2);
 	let teamArrayToRender = [];
@@ -195,7 +217,7 @@ const TeamBlockMobile = () => {
 	};
 
 	return (
-		<div className="team-block">
+		<div className="team-block" ref={footerRef}>
 			<div className="head">
 				<div className="title-block">
 					<div className="title">Наша команда</div>
@@ -241,16 +263,36 @@ const TeamBlockMobile = () => {
 				</div>
 			</div>
 			<div className="foot">
+				<a
+					href="tel:+ 998 97 444 84 93"
+					className="btn btn-link btn-footer address"
+				>
+					<img src={phoneFooter} alt="phone" />
+					<span>+ 998 97 444 84 93</span>
+				</a>
+				<a
+					href="mailto:u.ergashev@dvsn.uz"
+					className="btn btn-link btn-footer address"
+				>
+					<img src={emailFooter} alt="phone" />
+					<span>u.ergashev@dvsn.uz</span>
+				</a>
 				<div className="address">
 					<img src={locationIcnMobile} alt="location" />
 					<span>г. Ташкент улица Тадбиркор 78</span>
 				</div>
 				<img src={logofooter} alt="logo" />
 				<div className="social-links">
-					<a href="https://www.instagram.com/" className="btn btn-link btn-footer">
+					<a
+						href="https://www.instagram.com/division.agency/"
+						className="btn btn-link btn-footer"
+					>
 						<img src={instagramIcnMobile} alt="instagram" />
 					</a>
-					<a href="https://www.facebook.com/" className="btn btn-link btn-footer">
+					<a
+						href="https://www.facebook.com/dvsn.agency"
+						className="btn btn-link btn-footer"
+					>
 						<img src={faceBookIcnMobile} alt="facebook" />
 					</a>
 				</div>

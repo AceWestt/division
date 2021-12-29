@@ -21,11 +21,11 @@ const Navigation = ({ setIsMenuOpen, handleScrollToFooter }) => {
 			</div>
 			<div className="btn-holder nav-phone">
 				<a
-					href="tel:(97) 268 77 70"
+					href="tel:(97) 4448493"
 					className="btn btn-with-icon btn-transparent btn-link"
 				>
 					<NavPhone />
-					<span>(97) 268 77 70</span>
+					<span>(97) 444 84 93</span>
 				</a>
 			</div>
 			<div

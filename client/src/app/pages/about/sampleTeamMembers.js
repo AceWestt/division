@@ -52,7 +52,7 @@ export const teamMembers = [
 	{
 		img: img6,
 		name: 'Вадим',
-		title: 'Управляющий партнёр',
+		title: 'Веб дизайнер',
 	},
 	{
 		img: img7,

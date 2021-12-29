@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { caseCats, cases } from './home/sampleCases';
 import { clients } from './home/sampleClients';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import pentawards from '../images/pentawards.svg';
 import tafAward from '../images/taf-award.svg';
 import redjolbors from '../images/redjolbors-award.svg';
@@ -18,6 +18,8 @@ const Home = () => {
 
 	const [ready, setReady] = useState(false);
 
+	const params = useParams();
+
 	useEffect(() => {
 		let timeout = setTimeout(() => {
 			setReady(true);
@@ -25,6 +27,10 @@ const Home = () => {
 
 		return () => clearTimeout(timeout);
 	}, []);
+
+	useEffect(() => {
+		console.log(params);
+	}, [params]);
 
 	if (ready) {
 		return (

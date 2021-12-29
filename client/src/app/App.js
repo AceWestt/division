@@ -22,13 +22,18 @@ const App = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const footerRef = useRef(null);
+	const aboutFooterRef = useRef(null);
 
 	const scrollTo = (obj) => {
 		gsap.to(window, { duration: 0.5, scrollTo: obj });
 	};
 
 	const handleScrollToFooter = () => {
-		scrollTo(footerRef.current);
+		if (footerRef.current) {
+			scrollTo(footerRef.current);
+		} else {
+			scrollTo(aboutFooterRef.current);
+		}
 	};
 
 	return (
@@ -44,7 +49,9 @@ const App = () => {
 					<Route path="/cases/:id" component={Case} />
 					<Route exact path="/services" component={Services} />
 					<Route exact path="/contact" component={Contact} />
-					<Route exact path="/about" component={About} />
+					<Route exact path="/about">
+						<About footerRef={aboutFooterRef} />
+					</Route>
 				</Switch>
 				<Footer footerRef={footerRef} />
 				{isMenuOpen && (

@@ -63,10 +63,10 @@ const Footer = ({ footerRef }) => {
 					<div className="item phone">
 						<label>Номер телефона</label>
 						<a
-							href="tel:+998 97 268 77 70"
+							href="tel:+ 998 97 444 84 93"
 							className="btn btn-with-icon btn-link btn-footer"
 						>
-							<img src={phoneIcn} alt="phone" /> <span>+ 998 97 268 77 70</span>
+							<img src={phoneIcn} alt="phone" /> <span>+ 998 97 444 84 93</span>
 						</a>
 					</div>
 					<div className="item email">
@@ -89,10 +89,16 @@ const Footer = ({ footerRef }) => {
 			<div className="block bottom-block">
 				<img src={logo} alt="logo" />
 				<div className="social-links">
-					<a href="https://www.instagram.com/" className="btn btn-link btn-footer">
+					<a
+						href="https://www.instagram.com/division.agency/"
+						className="btn btn-link btn-footer"
+					>
 						Instagram,
 					</a>
-					<a href="https://www.facebook.com/" className="btn btn-link btn-footer">
+					<a
+						href="https://www.facebook.com/dvsn.agency"
+						className="btn btn-link btn-footer"
+					>
 						Facebook
 					</a>
 				</div>

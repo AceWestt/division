@@ -123,14 +123,20 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 					>
 						<div className="btn btn-primary">Запросить стоимость</div>
 					</div>
-					<a href="tel:+998972687770" className="btn btn-link btn-footer btn-phone">
-						+ 998 97 268 77 70
+					<a href="tel:+998974448493" className="btn btn-link btn-footer btn-phone">
+						+ 998 97 444 84 93
 					</a>
 					<div className="social-links">
-						<a href="https://www.instagram.com/" className="btn btn-link btn-footer">
+						<a
+							href="https://www.instagram.com/division.agency/"
+							className="btn btn-link btn-footer"
+						>
 							Instagram,
 						</a>
-						<a href="https://www.facebook.com/" className="btn btn-link btn-footer">
+						<a
+							href="https://www.facebook.com/dvsn.agency"
+							className="btn btn-link btn-footer"
+						>
 							Facebook
 						</a>
 					</div>
@@ -243,10 +249,16 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 					<img src={logo} alt="logo" />
 				</div>
 				<div className="social-links">
-					<a href="https://www.instagram.com/" className="btn btn-link btn-footer">
+					<a
+						href="https://www.instagram.com/division.agency/"
+						className="btn btn-link btn-footer"
+					>
 						Instagram,
 					</a>
-					<a href="https://www.facebook.com/" className="btn btn-link btn-footer">
+					<a
+						href="https://www.facebook.com/dvsn.agency"
+						className="btn btn-link btn-footer"
+					>
 						Facebook
 					</a>
 				</div>

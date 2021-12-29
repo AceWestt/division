@@ -38,10 +38,12 @@ const Service = ({ s }) => {
 
 	return (
 		<div className={`service ${isActive ? 'active' : ''}`} ref={serviceRef}>
-			<div className="header" ref={headerRef}>
-				<div className="title" onClick={() => setIsActive(!isActive)}>
-					{s.title}
-				</div>
+			<div
+				className="header"
+				ref={headerRef}
+				onClick={() => setIsActive(!isActive)}
+			>
+				<div className="title">{s.title}</div>
 				<div className="open-button">
 					<img src={chevron} alt="chevron" />
 				</div>
