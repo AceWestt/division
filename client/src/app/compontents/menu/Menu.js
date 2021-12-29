@@ -40,7 +40,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 			<div className="modal menu-modal mobile">
 				<img className="modal-bg" src={mobileBg} alt="bg" />
 				<div className="menu-header">
-					<div className="lang-select">
+					<div className="lang-select" style={{ opacity: 0 }}>
 						<div
 							className={lang === 'ru' ? 'active' : ''}
 							onClick={() => setLang('ru')}
@@ -109,7 +109,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(servicesRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Услуги,
+							Услуги
 						</Link>
 					</div>
 				</div>
@@ -152,7 +152,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 	return (
 		<div className="modal menu-modal" id="menu">
 			<div className="menu-header">
-				<div className="lang-select">
+				<div className="lang-select" style={{ opacity: 0 }}>
 					<div
 						className={lang === 'ru' ? 'active' : ''}
 						onClick={() => setLang('ru')}
@@ -205,7 +205,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(contactRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Контакты,
+							Контакты
 						</Link>
 					</div>
 					<div className="side">
