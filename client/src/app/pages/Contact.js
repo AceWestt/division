@@ -27,7 +27,7 @@ const Contact = () => {
 						<a href="mailto:u.ergashev@dvsn.uz">u.ergashev@dvsn.uz</a>
 					</div>
 					<div className="detail phone">
-						<a href="tel:+ 998 97 268 77 70">+ 998 97 268 77 70</a>
+						<a href="tel:+ 998 97 4448493">+ 998 97 444 84 93</a>
 					</div>
 					<div className="detail socials">
 						<a href="https://www.facebook.com/">Facebook,</a>

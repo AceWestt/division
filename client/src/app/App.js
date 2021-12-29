@@ -32,7 +32,9 @@ const App = () => {
 		if (footerRef.current) {
 			scrollTo(footerRef.current);
 		} else {
-			scrollTo(aboutFooterRef.current);
+			if (aboutFooterRef.current) {
+				scrollTo(aboutFooterRef.current);
+			}
 		}
 	};
 
