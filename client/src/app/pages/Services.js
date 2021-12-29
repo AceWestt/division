@@ -2,8 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import titleImg from '../images/page-title-services.svg';
 import chevron from '../images/right-chevron-ICN.svg';
+import { useAppContext } from '../appContext';
 
 const Services = () => {
+	const { setIsFooterDisabled } = useAppContext();
+	useEffect(() => {
+		setIsFooterDisabled(false);
+	}, [setIsFooterDisabled]);
 	return (
 		<div className="section section-services">
 			<PageTitleHolder title={titleImg} />

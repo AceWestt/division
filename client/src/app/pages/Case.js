@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { useAppContext } from '../appContext';
 import { cases } from './home/sampleCases';
 
 const Case = () => {
 	const match = useRouteMatch();
 	const caseID = match.params.id;
 	const currentCase = cases[caseID - 1];
+	const { setIsFooterDisabled } = useAppContext();
+	useEffect(() => {
+		setIsFooterDisabled(false);
+	}, [setIsFooterDisabled]);
 	return (
 		<div className="section section-case">
 			{currentCase.title && <div className="title">{currentCase.title}</div>}

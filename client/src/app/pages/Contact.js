@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import titleImg from '../images/page-title-contact.svg';
 import logo from '../images/logo-contact.svg';
 import logoMobile from '../images/logo-contact-mobile.svg';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { useAppContext } from '../appContext';
 
 const Contact = () => {
+	const { setIsFooterDisabled } = useAppContext();
+	useEffect(() => {
+		setIsFooterDisabled(false);
+	}, [setIsFooterDisabled]);
 	return (
 		<div className="section section-contact">
 			<PageTitleHolder title={titleImg} />

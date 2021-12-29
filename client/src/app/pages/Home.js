@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { caseCats, cases } from './home/sampleCases';
 import { clients } from './home/sampleClients';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import pentawards from '../images/pentawards.svg';
 import tafAward from '../images/taf-award.svg';
 import redjolbors from '../images/redjolbors-award.svg';
@@ -12,13 +12,11 @@ import { useAppContext } from '../appContext';
 import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron';
 
 const Home = () => {
-	const { smallScreen } = useAppContext();
+	const { smallScreen, setIsFooterDisabled } = useAppContext();
 
 	const [activeCat, setActiveCat] = useState(0);
 
 	const [ready, setReady] = useState(false);
-
-	const params = useParams();
 
 	useEffect(() => {
 		let timeout = setTimeout(() => {
@@ -29,8 +27,8 @@ const Home = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log(params);
-	}, [params]);
+		setIsFooterDisabled(false);
+	}, [setIsFooterDisabled]);
 
 	if (ready) {
 		return (

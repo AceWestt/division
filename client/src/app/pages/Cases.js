@@ -7,7 +7,7 @@ import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron
 import PageTitleHolder from '../compontents/PageTitleHolder';
 
 const Cases = () => {
-	const { smallScreen } = useAppContext();
+	const { smallScreen, setIsFooterDisabled } = useAppContext();
 
 	const [activeCat, setActiveCat] = useState(0);
 
@@ -20,6 +20,10 @@ const Cases = () => {
 
 		return () => clearTimeout(timeout);
 	}, []);
+
+	useEffect(() => {
+		setIsFooterDisabled(false);
+	}, [setIsFooterDisabled]);
 
 	if (ready) {
 		return (
