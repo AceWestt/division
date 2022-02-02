@@ -13,6 +13,11 @@ body {
 
 .app a {
 	text-decoration: none;
+	&:hover,
+	&:active,
+	&:focus {
+		text-decoration: none;
+	}
 }
 
 button {

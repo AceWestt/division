@@ -17,9 +17,24 @@ import faceBookIcnMobile from '../images/facebook-icn-about-mobile.svg';
 import instagramIcnMobile from '../images/instagram-icn-about-mobile.svg';
 import phoneFooter from '../images/about-footer-phone.svg';
 import emailFooter from '../images/about-footer-mail.svg';
+import music from '../compontents/footer/bg.mp3';
+import parse from 'html-react-parser';
 
 const About = ({ footerRef }) => {
-	const { smallScreen, setIsFooterDisabled } = useAppContext();
+	const { smallScreen, setIsFooterDisabled, isSoundOn, lang, backendData } =
+		useAppContext();
+
+	const musicRef = useRef(null);
+
+	useEffect(() => {
+		if (musicRef.current) {
+			if (isSoundOn) {
+				musicRef.current.play();
+			} else {
+				musicRef.current.pause();
+			}
+		}
+	}, [isSoundOn]);
 
 	useEffect(() => {
 		setIsFooterDisabled(true);
@@ -29,28 +44,37 @@ const About = ({ footerRef }) => {
 		<div className="section section-about">
 			<PageTitleHolder title={titleImg} />
 			<div className="description">
-				<span>Division Marketing Agency</span> — мы превратили свою работу в
-				настоящую страсть. Наша история началась летом 2018 года. Тогда наша команда
-				состояла только из трех человек, а сегодня нас уже больше 25-ти.
+				{parse(
+					backendData.aboutContent.slogan[lang]
+						.replace('<b>', '<span>')
+						.replace('</b>', '</span>')
+				)}
 			</div>
 			<div className="hero-imgs">
-				<img src={hero1} alt="heroimg" />
-				<img src={hero2} alt="heroimg" />
-				<img src={hero3} alt="heroimg" />
-				<img src={hero4} alt="heroimg" />
+				<img src={backendData.aboutContent.teamPhoto1} alt="heroimg" />
+				<img src={backendData.aboutContent.teamPhoto2} alt="heroimg" />
+				<img src={backendData.aboutContent.teamPhoto3} alt="heroimg" />
+				<img src={backendData.aboutContent.teamPhoto4} alt="heroimg" />
 			</div>
 			<div className="short-text">
-				Наше главное преимущество — нестандартное решение задач любой сложности.
+				{backendData.aboutContent.advantageText[lang]}
 			</div>
 			<div className="slogan-wrap">
-				<span>Мы полны энергии и всегда готовы к новым вызовам!</span>
-				<img src={sloganImg} alt="img" />
+				<span>{backendData.aboutContent.energyText[lang]}</span>
+				<img src={backendData.aboutContent.energyImg} alt="img" />
 			</div>
-			<MediaBlock />
+			<MediaBlock lang={lang} backendData={backendData} />
+			<audio loop src={music} ref={musicRef}>
+				Your browser does not support the audio element.
+			</audio>
 			{smallScreen ? (
-				<TeamBlockMobile footerRef={footerRef} />
+				<TeamBlockMobile
+					footerRef={footerRef}
+					backendData={backendData}
+					lang={lang}
+				/>
 			) : (
-				<TeamBlock footerRef={footerRef} />
+				<TeamBlock footerRef={footerRef} backendData={backendData} lang={lang} />
 			)}
 		</div>
 	);
@@ -58,12 +82,12 @@ const About = ({ footerRef }) => {
 
 export default About;
 
-const TeamBlock = ({ footerRef }) => {
-	const teamArrayLength = teamMembers.length;
+const TeamBlock = ({ footerRef, backendData, lang }) => {
+	const teamArrayLength = backendData.team.length || 0;
 	const teamCountMax = Math.ceil(teamArrayLength / 10);
 	let teamArrayToRender = [];
 	for (let i = 0; i < teamCountMax; i++) {
-		teamArrayToRender.push(teamMembers.slice(i * 10, (i + 1) * 10));
+		teamArrayToRender.push(backendData.team.slice(i * 10, (i + 1) * 10));
 	}
 
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -89,11 +113,12 @@ const TeamBlock = ({ footerRef }) => {
 
 	const getPositionClass = (index) => {
 		let position = 'next-slide';
-		if (index === activeIndex) {
-			position = 'active-slide';
-		}
+
 		if (index === activeIndex - 1 || (activeIndex === 0 && index === lastIndex)) {
 			position = 'last-slide';
+		}
+		if (index === activeIndex) {
+			position = 'active-slide';
 		}
 		return position;
 	};
@@ -118,8 +143,8 @@ const TeamBlock = ({ footerRef }) => {
 											return (
 												<div className="team-member" key={`team-member-${mIndex}`}>
 													<img src={member.img} alt="member" />
-													<div className="name">{member.name}</div>
-													<div className="title">{member.title}</div>
+													<div className="name">{member.name[lang]}</div>
+													<div className="title">{member.title[lang]}</div>
 												</div>
 											);
 										})}
@@ -148,40 +173,46 @@ const TeamBlock = ({ footerRef }) => {
 				<img src={logofooter} alt="logo" />
 				<div className="social-links">
 					<a
-						href="tel:+ 998 97 444 84 93"
+						href={`tel:${backendData.contactContent.phone}`}
 						className="btn btn-link btn-footer btn-with-icon"
 						style={{ marginRight: '3.125vw' }}
 					>
 						<img src={phoneFooter} alt="phone" />
-						<span>+ 998 97 444 84 93</span>
+						<span>{backendData.contactContent.phone}</span>
 					</a>
 					<a
-						href="mailto:u.ergashev@dvsn.uz"
+						href={`mailto:${backendData.contactContent.email}`}
 						className="btn btn-link btn-footer btn-with-icon"
 						style={{ marginRight: '3.125vw' }}
 					>
 						<img src={emailFooter} alt="phone" />
-						<span>u.ergashev@dvsn.uz</span>
+						<span>{backendData.contactContent.email}</span>
 					</a>
-					<a href="https://www.instagram.com/" className="btn btn-link btn-footer">
+					<a
+						href={backendData.contactContent.instagram}
+						className="btn btn-link btn-footer"
+					>
 						Instagram,
 					</a>
-					<a href="https://www.facebook.com/" className="btn btn-link btn-footer">
+					<a
+						href={backendData.contactContent.facebook}
+						className="btn btn-link btn-footer"
+					>
 						Facebook
 					</a>
 				</div>
-				<div className="address">г. Ташкент улица Тадбиркор 78</div>
+				<div className="address">{backendData.contactContent.address[lang]}</div>
 			</div>
 		</div>
 	);
 };
 
-const TeamBlockMobile = ({ footerRef }) => {
-	const teamArrayLength = teamMembers.length;
+const TeamBlockMobile = ({ footerRef, backendData, lang }) => {
+	const teamArrayLength = backendData.team.length || 0;
 	const teamCountMax = Math.ceil(teamArrayLength / 2);
 	let teamArrayToRender = [];
 	for (let i = 0; i < teamCountMax; i++) {
-		teamArrayToRender.push(teamMembers.slice(i * 2, (i + 1) * 2));
+		teamArrayToRender.push(backendData.team.slice(i * 2, (i + 1) * 2));
 	}
 
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -207,12 +238,15 @@ const TeamBlockMobile = ({ footerRef }) => {
 
 	const getPositionClass = (index) => {
 		let position = 'next-slide';
-		if (index === activeIndex) {
-			position = 'active-slide';
-		}
+
 		if (index === activeIndex - 1 || (activeIndex === 0 && index === lastIndex)) {
 			position = 'last-slide';
 		}
+
+		if (index === activeIndex) {
+			position = 'active-slide';
+		}
+
 		return position;
 	};
 
@@ -236,8 +270,8 @@ const TeamBlockMobile = ({ footerRef }) => {
 											return (
 												<div className="team-member" key={`team-member-${mIndex}`}>
 													<img src={member.img} alt="member" />
-													<div className="name">{member.name}</div>
-													<div className="title">{member.title}</div>
+													<div className="name">{member.name[lang]}</div>
+													<div className="title">{member.title[lang]}</div>
 												</div>
 											);
 										})}
@@ -264,33 +298,33 @@ const TeamBlockMobile = ({ footerRef }) => {
 			</div>
 			<div className="foot">
 				<a
-					href="tel:+ 998 97 444 84 93"
+					href={`tel:${backendData.contactContent.phone}`}
 					className="btn btn-link btn-footer address"
 				>
 					<img src={phoneFooter} alt="phone" />
-					<span>+ 998 97 444 84 93</span>
+					<span>{backendData.contactContent.phone}</span>
 				</a>
 				<a
-					href="mailto:u.ergashev@dvsn.uz"
+					href={`mailto:${backendData.contactContent.email}`}
 					className="btn btn-link btn-footer address"
 				>
 					<img src={emailFooter} alt="phone" />
-					<span>u.ergashev@dvsn.uz</span>
+					<span>{backendData.contactContent.email}</span>
 				</a>
 				<div className="address">
 					<img src={locationIcnMobile} alt="location" />
-					<span>г. Ташкент улица Тадбиркор 78</span>
+					<span>{backendData.contactContent.address[lang]}</span>
 				</div>
 				<img src={logofooter} alt="logo" />
 				<div className="social-links">
 					<a
-						href="https://www.instagram.com/division.agency/"
+						href={backendData.contactContent.instagram}
 						className="btn btn-link btn-footer"
 					>
 						<img src={instagramIcnMobile} alt="instagram" />
 					</a>
 					<a
-						href="https://www.facebook.com/dvsn.agency"
+						href={backendData.contactContent.facebook}
 						className="btn btn-link btn-footer"
 					>
 						<img src={faceBookIcnMobile} alt="facebook" />
@@ -301,7 +335,7 @@ const TeamBlockMobile = ({ footerRef }) => {
 	);
 };
 
-const MediaBlock = () => {
+const MediaBlock = ({ backendData, lang }) => {
 	const [isScroll, setIsScroll] = useState(false);
 	const [speed, setSpeed] = useState(5);
 	const [posx, setPosx] = useState(0);
@@ -309,9 +343,11 @@ const MediaBlock = () => {
 	const newsitemRef = useRef(null);
 
 	useEffect(() => {
-		const width = newsitemRef.current.offsetWidth;
-		setSpeed(width * 0.0455);
-	}, []);
+		if (newsitemRef.current) {
+			const width = newsitemRef.current.offsetWidth;
+			setSpeed(width * 0.0455);
+		}
+	}, [newsitemRef]);
 
 	return (
 		<div className="media-block">
@@ -341,20 +377,15 @@ const MediaBlock = () => {
 				}}
 			>
 				<div className="news">
-					{newsItems.map((n, i) => {
+					{backendData.media.map((n, i) => {
+						let date = new Date(n.date);
+						date = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 						return (
-							<div
-								href={n.url}
-								target="_blank"
-								rel="noreferrer"
-								className="news-item"
-								key={`news-${i}`}
-								ref={newsitemRef}
-							>
-								<img src={n.img} alt={n.title} />
-								<div className="date">{n.date}</div>
-								<a href={n.url} target="_blank" rel="noreferrer" className="title">
-									{n.title}
+							<div className="news-item" key={`news-${i}`} ref={newsitemRef}>
+								<img src={n.img} alt={n.title[lang]} />
+								<div className="date">{date}</div>
+								<a href={n.link} target="_blank" rel="noreferrer" className="title">
+									{n.title[lang]}
 								</a>
 							</div>
 						);

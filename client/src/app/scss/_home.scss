@@ -315,39 +315,7 @@
 							transform: translateX(0);
 							margin-bottom: 0;
 							flex-wrap: wrap;
-							&:nth-child(2) {
-								.client {
-									&:nth-child(4),
-									&:nth-child(7),
-									&:nth-child(8) {
-										display: none;
-									}
-								}
-							}
-							&:nth-child(3) {
-								display: none;
-							}
-							&:nth-child(4) {
-								.client {
-									&:nth-child(2),
-									&:nth-child(4),
-									&:nth-child(7) {
-										display: none;
-									}
-								}
-							}
-							&:nth-child(5) {
-								.client {
-									&:nth-child(3),
-									&:nth-child(5),
-									&:nth-child(6),
-									&:nth-child(4),
-									&:nth-child(9),
-									&:nth-child(8) {
-										display: none;
-									}
-								}
-							}
+							justify-content: flex-start;
 						}
 						.client {
 							display: flex;

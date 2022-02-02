@@ -5,7 +5,7 @@ import NavPhone from './svgComponents/NavPhone';
 import SoundIcon from './svgComponents/SoundIcon';
 
 const Navigation = ({ setIsMenuOpen, handleScrollToFooter }) => {
-	const { isSoundOn, setIsSoundOn } = useAppContext();
+	const { isSoundOn, setIsSoundOn, backendData } = useAppContext();
 	return (
 		<div className="section section-navigation">
 			<div className="btn-holder toggle-sound">
@@ -21,11 +21,11 @@ const Navigation = ({ setIsMenuOpen, handleScrollToFooter }) => {
 			</div>
 			<div className="btn-holder nav-phone">
 				<a
-					href="tel:(97) 4448493"
+					href={`tel:${backendData.contactContent.phone}`}
 					className="btn btn-with-icon btn-transparent btn-link"
 				>
 					<NavPhone />
-					<span>(97) 444 84 93</span>
+					<span>{backendData.contactContent.phone}</span>
 				</a>
 			</div>
 			<div

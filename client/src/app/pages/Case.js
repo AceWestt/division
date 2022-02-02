@@ -5,22 +5,22 @@ import { cases } from './home/sampleCases';
 
 const Case = () => {
 	const match = useRouteMatch();
+	const { setIsFooterDisabled, lang, backendData } = useAppContext();
 	const caseID = match.params.id;
-	const currentCase = cases[caseID - 1];
-	const { setIsFooterDisabled } = useAppContext();
+	const currentCase = backendData.cases.cases.find((c) => c._id === caseID);
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
 	return (
 		<div className="section section-case">
-			{currentCase.title && <div className="title">{currentCase.title}</div>}
+			{currentCase.title && <div className="title">{currentCase.title[lang]}</div>}
 			{currentCase.subtitle && (
-				<div className="subtitle">{currentCase.subtitle}</div>
+				<div className="subtitle">{currentCase.subtitle[lang]}</div>
 			)}
 			{currentCase.blocks && currentCase.blocks.length > 0 && (
 				<div className="blocks">
 					{currentCase.blocks.map((b, index) => {
-						return <Block b={b} key={`case-block-${index}`} />;
+						return <Block b={b} key={`case-block-${index}`} lang={lang} />;
 					})}
 				</div>
 			)}
@@ -36,15 +36,8 @@ const Case = () => {
 
 export default Case;
 
-const Block = ({ b }) => {
-	const {
-		type,
-		label = '',
-		text = '',
-		img = null,
-		gallery = [],
-		video = null,
-	} = b;
+const Block = ({ b, lang }) => {
+	const { type, text = null, img = null, gallery = [], video = null } = b;
 
 	if (type === 'img' && img) {
 		return (
@@ -68,7 +61,7 @@ const Block = ({ b }) => {
 		return (
 			<div className="block block-video">
 				<iframe
-					src={video}
+					src={video.url}
 					title="YouTube video player"
 					frameBorder="0"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -77,13 +70,25 @@ const Block = ({ b }) => {
 			</div>
 		);
 	}
-	if (type === 'text' && (label || text)) {
+	if (type === 'text' && text) {
 		return (
 			<div className="block block-text">
-				{label && <label>{label}</label>}{' '}
+				<label>
+					{lang === 'ru'
+						? text.labelRu || ''
+						: lang === 'en'
+						? text.labelEn || ''
+						: text.labelUz || ''}
+				</label>
 				{text && (
 					<div className="text">
-						<p>{text}</p>
+						<p>
+							{lang === 'ru'
+								? text.textRu || ''
+								: lang === 'en'
+								? text.textEn || ''
+								: text.textUz || ''}
+						</p>
 					</div>
 				)}
 			</div>

@@ -18,7 +18,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 	const aboutRef = useRef(null);
 	const servicesRef = useRef(null);
 
-	const { lang, setLang, smallScreen } = useAppContext();
+	const { lang, setLang, smallScreen, backendData } = useAppContext();
 	const [activePage, setActivePage] = useState('');
 
 	const { pathname } = useLocation();
@@ -29,10 +29,14 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 	}, [pathname]);
 
 	const handleImgAppear = (img) => {
-		gsap.to(img, { opacity: 1, duration: 0.3, ease: 'none' });
+		if (!smallScreen) {
+			gsap.to(img, { opacity: 1, duration: 0.3, ease: 'none' });
+		}
 	};
 	const handleImgDisappear = (img) => {
-		gsap.to(img, { opacity: 0, duration: 0.3, ease: 'none' });
+		if (!smallScreen) {
+			gsap.to(img, { opacity: 0, duration: 0.3, ease: 'none' });
+		}
 	};
 
 	if (smallScreen) {
@@ -40,7 +44,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 			<div className="modal menu-modal mobile">
 				<img className="modal-bg" src={mobileBg} alt="bg" />
 				<div className="menu-header">
-					<div className="lang-select" style={{ opacity: 0 }}>
+					<div className="lang-select">
 						<div
 							className={lang === 'ru' ? 'active' : ''}
 							onClick={() => setLang('ru')}
@@ -69,8 +73,6 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 						<Link
 							to="/"
 							className={activePage === '' ? 'active' : ''}
-							onPointerOver={() => handleImgAppear(mainRef.current)}
-							onPointerLeave={() => handleImgDisappear(mainRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
 							Главная,
@@ -78,8 +80,6 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 						<Link
 							to="/about"
 							className={activePage === 'about' ? 'active' : ''}
-							onPointerOver={() => handleImgAppear(aboutRef.current)}
-							onPointerLeave={() => handleImgDisappear(aboutRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
 							О нас,
@@ -87,8 +87,6 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 						<Link
 							to="/cases"
 							className={activePage === 'cases' ? 'active' : ''}
-							onPointerOver={() => handleImgAppear(casesRef.current)}
-							onPointerLeave={() => handleImgDisappear(casesRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
 							Кейсы,
@@ -96,8 +94,6 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 						<Link
 							to="/contact"
 							className={activePage === 'contact' ? 'active' : ''}
-							onPointerOver={() => handleImgAppear(contactRef.current)}
-							onPointerLeave={() => handleImgDisappear(contactRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
 							Контакты,
@@ -105,8 +101,6 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 						<Link
 							to="/services"
 							className={activePage === 'services' ? 'active' : ''}
-							onPointerOver={() => handleImgAppear(servicesRef.current)}
-							onPointerLeave={() => handleImgDisappear(servicesRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
 							Услуги
@@ -123,24 +117,27 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 					>
 						<div className="btn btn-primary">Запросить стоимость</div>
 					</div>
-					<a href="tel:+998974448493" className="btn btn-link btn-footer btn-phone">
-						+ 998 97 444 84 93
+					<a
+						href={`tel:${backendData.contactContent.phone}`}
+						className="btn btn-link btn-footer btn-phone"
+					>
+						{backendData.contactContent.phone}
 					</a>
 					<div className="social-links">
 						<a
-							href="https://www.instagram.com/division.agency/"
+							href={backendData.contactContent.instagram}
 							className="btn btn-link btn-footer"
 						>
 							Instagram,
 						</a>
 						<a
-							href="https://www.facebook.com/dvsn.agency"
+							href={backendData.contactContent.facebook}
 							className="btn btn-link btn-footer"
 						>
 							Facebook
 						</a>
 					</div>
-					<div className="address">г. Ташкент улица Тадбиркор 78</div>
+					<div className="address">{backendData.contactContent.address[lang]}</div>
 					<div className="logo">
 						<img src={logo} alt="logo" />
 					</div>
@@ -152,7 +149,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 	return (
 		<div className="modal menu-modal" id="menu">
 			<div className="menu-header">
-				<div className="lang-select" style={{ opacity: 0 }}>
+				<div className="lang-select">
 					<div
 						className={lang === 'ru' ? 'active' : ''}
 						onClick={() => setLang('ru')}
@@ -231,14 +228,34 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 				</div>
 				<div className="imgs">
 					<div className="img-holder">
-						<img className="main" ref={mainRef} src={mainGif} alt="main" />
-						<img className="cases" ref={casesRef} src={casesGif} alt="main" />
-						<img className="contacts" ref={contactRef} src={contactsGif} alt="main" />
-						<img className="about" ref={aboutRef} src={aboutGif} alt="main" />
+						<img
+							className="main"
+							ref={mainRef}
+							src={backendData.generalContent.mainLinkGif}
+							alt="main"
+						/>
+						<img
+							className="cases"
+							ref={casesRef}
+							src={backendData.generalContent.casesLinkGif}
+							alt="main"
+						/>
+						<img
+							className="contacts"
+							ref={contactRef}
+							src={backendData.generalContent.contactsLinkGif}
+							alt="main"
+						/>
+						<img
+							className="about"
+							ref={aboutRef}
+							src={backendData.generalContent.aboutLinkGif}
+							alt="main"
+						/>
 						<img
 							className="services"
 							ref={servicesRef}
-							src={servicesGif}
+							src={backendData.generalContent.servicesLinkGif}
 							alt="main"
 						/>
 					</div>
@@ -250,19 +267,19 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 				</div>
 				<div className="social-links">
 					<a
-						href="https://www.instagram.com/division.agency/"
+						href={backendData.contactContent.instagram}
 						className="btn btn-link btn-footer"
 					>
 						Instagram,
 					</a>
 					<a
-						href="https://www.facebook.com/dvsn.agency"
+						href={backendData.contactContent.facebook}
 						className="btn btn-link btn-footer"
 					>
 						Facebook
 					</a>
 				</div>
-				<div className="address">г. Ташкент улица Тадбиркор 78</div>
+				<div className="address">{backendData.contactContent.address[lang]}</div>
 			</div>
 		</div>
 	);

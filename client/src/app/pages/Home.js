@@ -12,9 +12,14 @@ import { useAppContext } from '../appContext';
 import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron';
 
 const Home = () => {
-	const { smallScreen, setIsFooterDisabled } = useAppContext();
+	const { smallScreen, lang, setIsFooterDisabled, backendData } =
+		useAppContext();
 
-	const [activeCat, setActiveCat] = useState(0);
+	const [activeCat, setActiveCat] = useState({
+		id: '-1',
+		title:
+			lang === 'ru' ? 'Все кейсы' : lang === 'en' ? 'All Cases' : 'Barcha keyslar',
+	});
 
 	const [ready, setReady] = useState(false);
 
@@ -40,46 +45,44 @@ const Home = () => {
 						setActiveCat={setActiveCat}
 						activeCat={activeCat}
 						smallScreen={smallScreen}
+						lang={lang}
+						categories={backendData.cases.categories}
 					/>
 					<div className="cases">
-						{cases.map((c, index) => {
-							let item = null;
-							let mobileClass = 'mobile-full';
-							let mobileOrder = null;
-							if (c.mobileWidth && c.mobileWidth === 1) {
-								mobileClass = 'mobile-half';
-							}
+						{backendData.cases.cases &&
+							backendData.cases.cases.length > 0 &&
+							backendData.cases.cases.map((c, index) => {
+								let item = null;
+								let mobileClass = 'mobile-full';
+								if (c.mobileWidth && c.mobileWidth === 1) {
+									mobileClass = 'mobile-half';
+								}
 
-							if (activeCat > 0) {
-								mobileClass = 'mobile-half';
-							}
+								if (activeCat.id !== '-1') {
+									mobileClass = 'mobile-half';
+								}
 
-							if (smallScreen) {
-								mobileOrder = c.mobileOrder;
-							}
-
-							if (activeCat > 0) {
-								if (activeCat === c.cat_id) {
+								if (activeCat.id !== '-1') {
+									if (activeCat.id === c.category_id) {
+										item = c;
+									}
+								} else {
 									item = c;
 								}
-							} else {
-								item = c;
-							}
 
-							if (item) {
-								return (
-									<Link
-										to={`/cases/${c.id}`}
-										className={`case ${mobileClass}`}
-										key={`case-${c.id}-${index}`}
-										style={{ order: mobileOrder ? mobileOrder : 'auto' }}
-									>
-										<img src={c.img} alt="case" />
-									</Link>
-								);
-							}
-							return '';
-						})}
+								if (item) {
+									return (
+										<Link
+											to={`/cases/${c._id}`}
+											className={`case ${mobileClass}`}
+											key={`case-${c._id}`}
+										>
+											<img src={c.preview} alt="case" />
+										</Link>
+									);
+								}
+								return '';
+							})}
 					</div>
 					<div className="btn-holder">
 						<Link to="/cases" className="btn btn-primary">
@@ -87,8 +90,12 @@ const Home = () => {
 						</Link>
 					</div>
 					<div className="blocks">
-						<AwardBlock />
-						<ClientsBlock activeCat={activeCat} smallScreen={smallScreen} />
+						<AwardBlock backendData={backendData} />
+						<ClientsBlock
+							activeCat={activeCat}
+							smallScreen={smallScreen}
+							backendData={backendData}
+						/>
 					</div>
 				</div>
 			</div>
@@ -100,7 +107,13 @@ const Home = () => {
 
 export default Home;
 
-const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
+const CatBlock = ({
+	setActiveCat,
+	activeCat,
+	smallScreen,
+	lang,
+	categories,
+}) => {
 	const [isMobileCatsOpen, setIsMobileCatsOpen] = useState(false);
 	const [catWrapHeight, setCatWrapHeight] = useState('36px');
 
@@ -120,10 +133,14 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 		}
 	}, [isMobileCatsOpen]);
 
-	const handleCatClick = (i) => {
+	const handleCatClick = (c) => {
 		setIsMobileCatsOpen(false);
-		setActiveCat(i);
+		setActiveCat({ id: c._id, title: c.name[lang] });
 	};
+
+	if (!categories || categories.length < 1) {
+		return '';
+	}
 
 	if (smallScreen) {
 		return (
@@ -133,18 +150,30 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 					style={{ height: catWrapHeight }}
 				>
 					<div className="cat-list" ref={mobileCatListRef}>
-						{activeCat !== 0 && (
-							<div className="cat" onClick={() => handleCatClick(0)}>
+						{activeCat.id !== '-1' && (
+							<div
+								className="cat"
+								onClick={() =>
+									handleCatClick({
+										_id: '-1',
+										name: {
+											ru: 'Все кейсы',
+											en: 'All Cases',
+											uz: 'Barcha keyslar',
+										},
+									})
+								}
+							>
 								Все кейсы
 							</div>
 						)}
-						{caseCats.map((c, i) => {
-							if (c.id === activeCat) {
+						{categories.map((c, i) => {
+							if (c._id === activeCat.id) {
 								return '';
 							}
 							return (
-								<div className="cat" key={i} onClick={() => handleCatClick(c.id)}>
-									{c.title.ru}
+								<div className="cat" key={i} onClick={() => handleCatClick(c)}>
+									{c.name[lang]}
 								</div>
 							);
 						})}
@@ -154,9 +183,7 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 						onClick={() => setIsMobileCatsOpen(!isMobileCatsOpen)}
 						ref={mobileActiveCatRef}
 					>
-						<span>
-							{activeCat === 0 ? 'Все кейсы' : caseCats[activeCat - 1].title.ru}
-						</span>
+						<span>{activeCat.title}</span>
 						<MobileCatShevron />
 					</div>
 				</div>
@@ -166,19 +193,34 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 	return (
 		<div className="categories">
 			<div
-				className={`cat ${activeCat === 0 ? 'active' : ''}`}
-				onClick={() => setActiveCat(0)}
+				className={`cat ${activeCat.id === '-1' ? 'active' : ''}`}
+				onClick={() =>
+					setActiveCat({
+						id: '-1',
+						title:
+							lang === 'ru'
+								? 'Все кейсы'
+								: lang === 'en'
+								? 'All Cases'
+								: 'Barcha keyslar',
+					})
+				}
 			>
-				Все кейсы
+				{lang === 'ru'
+					? 'Все кейсы'
+					: lang === 'en'
+					? 'All Cases'
+					: 'Barcha keyslar'}
 			</div>
-			{caseCats.map((cat, index) => {
+
+			{categories.map((cat, index) => {
 				return (
 					<div
-						className={`cat ${activeCat === cat.id ? 'active' : ''}`}
-						onClick={() => setActiveCat(cat.id)}
+						className={`cat ${activeCat.id === cat._id ? 'active' : ''}`}
+						onClick={() => setActiveCat({ id: cat._id, title: cat.name[lang] })}
 						key={`case-cat-${cat.id}`}
 					>
-						{cat.title.ru}
+						{cat.name[lang]}
 					</div>
 				);
 			})}
@@ -186,82 +228,74 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 	);
 };
 
-const AwardBlock = () => {
+const AwardBlock = ({ backendData }) => {
 	const columns = useRef([]);
 
 	useEffect(() => {
-		gsap.fromTo(
-			columns.current[0].children,
-			{ x: '0' },
-			{ x: '-=100%', duration: 60, repeat: -1, ease: 'none' }
-		);
-		gsap.fromTo(
-			columns.current[1].children,
-			{ x: '-=100%' },
-			{ x: '0', duration: 60, repeat: -1, ease: 'none' }
-		);
-		gsap.fromTo(
-			columns.current[2].children,
-			{ x: '0' },
-			{ x: '-=100%', duration: 60, repeat: -1, ease: 'none' }
-		);
-		gsap.fromTo(
-			columns.current[3].children,
-			{ x: '-=100%' },
-			{ x: '0', duration: 60, repeat: -1, ease: 'none' }
-		);
+		if (columns.current.length > 0) {
+			columns.current.map((c, index) => {
+				gsap.fromTo(
+					c.children,
+					{ x: '0' },
+					{ x: '-=100%', duration: 60, repeat: -1, ease: 'none' }
+				);
+				return c;
+			});
+		}
 	}, []);
 
 	return (
 		<div className="block awards">
 			<h3>Награды</h3>
-			<div className="award-list">
-				{awards.map((a, index) => {
-					let right = false;
-					if ((index + 1) % 2 === 0) {
-						right = true;
-					}
-					return (
-						<div
-							className={`row ${right ? 'right' : ''}`}
-							key={`award-row-${index}`}
-							ref={(e) => {
-								if (e) {
-									columns.current[index] = e;
-								}
-							}}
-						>
-							<div className="row-content first">
-								{[...Array(20)].map((e, i) => {
-									return (
-										<div className="award" key={`award-of-${index}-first-content-${i}`}>
-											<span>{a.title}</span>
-											<img src={a.icn} alt="award" />
-											<span>/</span>
-										</div>
-									);
-								})}
+			{backendData.awards && backendData.awards.length > 0 && (
+				<div className="award-list">
+					{backendData.awards.map((a, index) => {
+						let right = false;
+						if ((index + 1) % 2 === 0) {
+							right = true;
+						}
+						return (
+							<div
+								className={`row ${right ? 'right' : ''}`}
+								key={`award-row-${index}`}
+								ref={(e) => {
+									if (e) {
+										columns.current[index] = e;
+									}
+								}}
+							>
+								<div className="row-content first">
+									{[...Array(20)].map((e, i) => {
+										return (
+											<div className="award" key={`award-of-${index}-first-content-${i}`}>
+												<span>{a.name}</span>
+												<img src={a.logo} alt="award" />
+												<span>/</span>
+											</div>
+										);
+									})}
+								</div>
+								<div className="row-content second">
+									{[...Array(20)].map((e, i) => {
+										return (
+											<div className="award" key={`award-of-${index}-first-content-${i}`}>
+												<span>{a.name}</span>
+												<img src={a.logo} alt="award" />
+												<span>/</span>
+											</div>
+										);
+									})}
+								</div>
 							</div>
-							<div className="row-content second">
-								{[...Array(20)].map((e, i) => {
-									return (
-										<div className="award" key={`award-of-${index}-first-content-${i}`}>
-											<span>{a.title}</span>
-											<img src={a.icn} alt="award" />
-											<span>/</span>
-										</div>
-									);
-								})}
-							</div>
-						</div>
-					);
-				})}
-			</div>
+						);
+					})}
+				</div>
+			)}
 		</div>
 	);
 };
 
-const ClientsBlock = ({ activeCat, smallScreen }) => {
+const ClientsBlock = ({ activeCat, smallScreen, backendData }) => {
 	const clientListRef = useRef(null);
 	const clientsBlockRef = useRef(null);
 
@@ -282,17 +316,41 @@ const ClientsBlock = ({ activeCat, smallScreen }) => {
 		}
 	}, [activeCat, smallScreen]);
 
+	if (smallScreen) {
+		return (
+			<div className="block clients-block" ref={clientsBlockRef}>
+				<h3>Клиенты</h3>
+				<div className="client-list" ref={clientListRef}>
+					<div className={`row`}>
+						{backendData.clients.map((cg, index) => {
+							return cg.map((c, i) => {
+								if (c.hideOnMobile) {
+									return '';
+								}
+								return (
+									<div className="client" key={`client-${i}`}>
+										<img src={c.logo} alt="client" />
+									</div>
+								);
+							});
+						})}
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="block clients-block" ref={clientsBlockRef}>
 			<h3>Клиенты</h3>
 			<div className="client-list" ref={clientListRef}>
-				{clients.map((cg, index) => {
+				{backendData.clients.map((cg, index) => {
 					return (
 						<div className={`row`} key={`clients-group-${index}`}>
 							{cg.map((c, i) => {
 								return (
 									<div className="client" key={`client-${i}`}>
-										<img src={c} alt="client" />
+										<img src={c.logo} alt="client" />
 									</div>
 								);
 							})}

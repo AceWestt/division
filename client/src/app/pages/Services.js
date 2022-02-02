@@ -5,7 +5,7 @@ import chevron from '../images/right-chevron-ICN.svg';
 import { useAppContext } from '../appContext';
 
 const Services = () => {
-	const { setIsFooterDisabled } = useAppContext();
+	const { setIsFooterDisabled, lang, backendData } = useAppContext();
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
@@ -13,8 +13,8 @@ const Services = () => {
 		<div className="section section-services">
 			<PageTitleHolder title={titleImg} />
 			<div className="services">
-				{servicesSample.map((s, i) => {
-					return <Service key={`service-${i}`} s={s} />;
+				{backendData.services.map((s, i) => {
+					return <Service key={`service-${i}`} s={s} lang={lang} />;
 				})}
 			</div>
 		</div>
@@ -23,7 +23,7 @@ const Services = () => {
 
 export default Services;
 
-const Service = ({ s }) => {
+const Service = ({ s, lang }) => {
 	const [isActive, setIsActive] = useState(false);
 
 	const serviceRef = useRef(null);
@@ -48,12 +48,12 @@ const Service = ({ s }) => {
 				ref={headerRef}
 				onClick={() => setIsActive(!isActive)}
 			>
-				<div className="title">{s.title}</div>
+				<div className="title">{s.title[lang]}</div>
 				<div className="open-button">
 					<img src={chevron} alt="chevron" />
 				</div>
 			</div>
-			<p ref={textRef}>{s.text}</p>
+			<p ref={textRef}>{s.text[lang]}</p>
 		</div>
 	);
 };

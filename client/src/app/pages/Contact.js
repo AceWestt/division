@@ -6,8 +6,8 @@ import logoMobile from '../images/logo-contact-mobile.svg';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import { useAppContext } from '../appContext';
 
-const Contact = () => {
-	const { setIsFooterDisabled } = useAppContext();
+const Contact = ({ handleScrollToFooter }) => {
+	const { setIsFooterDisabled, lang, backendData } = useAppContext();
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
@@ -18,8 +18,22 @@ const Contact = () => {
 				<div className="side side-map">
 					<div className="map-container">
 						<YMaps>
-							<Map className="map" state={{ center: [41.270079, 69.23447], zoom: 15 }}>
-								<Placemark geometry={[41.270079, 69.23447]} />
+							<Map
+								className="map"
+								state={{
+									center: [
+										backendData.contactContent.officeCoords.long,
+										backendData.contactContent.officeCoords.lat,
+									],
+									zoom: 15,
+								}}
+							>
+								<Placemark
+									geometry={[
+										backendData.contactContent.officeCoords.long,
+										backendData.contactContent.officeCoords.lat,
+									]}
+								/>
 							</Map>
 						</YMaps>
 					</div>
@@ -29,17 +43,28 @@ const Contact = () => {
 				</div>
 				<div className="side side-details">
 					<div className="detail email">
-						<a href="mailto:u.ergashev@dvsn.uz">u.ergashev@dvsn.uz</a>
+						<a href={`mailto:${backendData.contactContent.email}`}>
+							{backendData.contactContent.email}
+						</a>
 					</div>
 					<div className="detail phone">
-						<a href="tel:+ 998 97 4448493">+ 998 97 444 84 93</a>
+						<a href={`tel:${backendData.contactContent.phone}`}>
+							{backendData.contactContent.phone}
+						</a>
 					</div>
 					<div className="detail socials">
-						<a href="https://www.facebook.com/">Facebook,</a>
-						<a href="https://www.instagram.com/">Instagram</a>
+						<a href={backendData.contactContent.facebook}>Facebook,</a>
+						<a href={backendData.contactContent.instagram}>Instagram</a>
 					</div>
-					<div className="detail address">г. Ташкент улица Тадбиркор 78</div>
-					<div className="btn btn-with-icon cta">
+					<div className="detail address">
+						{backendData.contactContent.address[lang]}
+					</div>
+					<div
+						className="btn btn-with-icon cta"
+						onClick={() => {
+							handleScrollToFooter();
+						}}
+					>
 						<svg width="66" height="66" viewBox="0 0 66 66" fill="none">
 							<circle cx="33" cy="33" r="33" fill="#1170FF" />
 							<circle cx="33.359" cy="33.2916" r="1.80337" stroke="white" />

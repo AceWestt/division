@@ -50,7 +50,9 @@ const App = () => {
 					<Route exact path="/cases" component={Cases} />
 					<Route path="/cases/:id" component={Case} />
 					<Route exact path="/services" component={Services} />
-					<Route exact path="/contact" component={Contact} />
+					<Route exact path="/contact">
+						<Contact handleScrollToFooter={handleScrollToFooter} />{' '}
+					</Route>
 					<Route exact path="/about">
 						<About footerRef={aboutFooterRef} />
 					</Route>

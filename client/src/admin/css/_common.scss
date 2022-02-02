@@ -1,0 +1,41 @@
+.admin-root {
+	width: 100%;
+	h5 {
+		margin: 0;
+	}
+}
+
+textarea {
+	&.rs-input {
+		resize: none;
+	}
+}
+
+.screen {
+	width: 100%;
+	&.login-screen {
+		height: 100vh;
+		.rs-container {
+			height: 100%;
+		}
+	}
+	&.main-router-screen {
+	}
+}
+
+.rs-uploader-picture .rs-uploader-file-item-preview {
+	height: 100%;
+}
+
+.rs-uploader-picture .rs-uploader-file-item {
+	width: 150px;
+	height: 100px;
+}
+
+.rs-sidenav-collapse-out .rs-dropdown-item {
+	// color: #a6a6a6;
+	&:hover,
+	&.rs-dropdown-item-active {
+		// color: #fff;
+	}
+}

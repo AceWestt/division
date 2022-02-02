@@ -7,9 +7,14 @@ import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron
 import PageTitleHolder from '../compontents/PageTitleHolder';
 
 const Cases = () => {
-	const { smallScreen, setIsFooterDisabled } = useAppContext();
+	const { smallScreen, setIsFooterDisabled, backendData, lang } =
+		useAppContext();
 
-	const [activeCat, setActiveCat] = useState(0);
+	const [activeCat, setActiveCat] = useState({
+		id: '-1',
+		title:
+			lang === 'ru' ? 'Все кейсы' : lang === 'en' ? 'All Cases' : 'Barcha keyslar',
+	});
 
 	const [ready, setReady] = useState(false);
 
@@ -34,52 +39,52 @@ const Cases = () => {
 						setActiveCat={setActiveCat}
 						activeCat={activeCat}
 						smallScreen={smallScreen}
+						lang={lang}
+						categories={backendData.cases.categories}
 					/>
 					<div className="cases">
-						{cases.map((c, index) => {
-							let item = null;
-							let mobileClass = 'mobile-full';
-							let mobileOrder = null;
-							if (c.mobileWidth && c.mobileWidth === 1) {
-								mobileClass = 'mobile-half';
-							}
+						{backendData.cases.cases &&
+							backendData.cases.cases.length > 0 &&
+							backendData.cases.cases.map((c, index) => {
+								let item = null;
+								let mobileClass = 'mobile-full';
+								if (c.mobileWidth && c.mobileWidth === 1) {
+									mobileClass = 'mobile-half';
+								}
 
-							if (activeCat > 0) {
-								mobileClass = 'mobile-half';
-							}
+								if (activeCat.id !== '-1') {
+									mobileClass = 'mobile-half';
+								}
 
-							if (smallScreen) {
-								mobileOrder = c.mobileOrder;
-							}
-
-							if (activeCat > 0) {
-								if (activeCat === c.cat_id) {
+								if (activeCat.id !== '-1') {
+									if (activeCat.id === c.category_id) {
+										item = c;
+									}
+								} else {
 									item = c;
 								}
-							} else {
-								item = c;
-							}
 
-							if (item) {
-								return (
-									<Link
-										to={`/cases/${c.id}`}
-										className={`case ${mobileClass}`}
-										key={`case-${c.id}-${index}`}
-										style={{ order: mobileOrder ? mobileOrder : 'auto' }}
-									>
-										<img src={c.img} alt="case" />
-									</Link>
-								);
-							}
-							return '';
-						})}
+								if (item) {
+									return (
+										<Link
+											to={`/cases/${c._id}`}
+											className={`case ${mobileClass}`}
+											key={`case-${c._id}`}
+										>
+											<img src={c.preview} alt="case" />
+										</Link>
+									);
+								}
+								return '';
+							})}
 					</div>
-					<div className="btn-holder">
-						<Link to="/cases" className="btn btn-primary btn-outlined">
-							Eще
-						</Link>
-					</div>
+					{backendData.cases?.cases?.length > 30 && (
+						<div className="btn-holder">
+							<Link to="/cases" className="btn btn-primary btn-outlined">
+								Eще
+							</Link>
+						</div>
+					)}
 				</div>
 			</div>
 		);
@@ -89,7 +94,13 @@ const Cases = () => {
 
 export default Cases;
 
-const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
+const CatBlock = ({
+	setActiveCat,
+	activeCat,
+	smallScreen,
+	lang,
+	categories,
+}) => {
 	const [isMobileCatsOpen, setIsMobileCatsOpen] = useState(false);
 	const [catWrapHeight, setCatWrapHeight] = useState('36px');
 
@@ -109,9 +120,9 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 		}
 	}, [isMobileCatsOpen]);
 
-	const handleCatClick = (i) => {
+	const handleCatClick = (c) => {
 		setIsMobileCatsOpen(false);
-		setActiveCat(i);
+		setActiveCat({ id: c._id, title: c.name[lang] });
 	};
 
 	if (smallScreen) {
@@ -122,18 +133,30 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 					style={{ height: catWrapHeight }}
 				>
 					<div className="cat-list" ref={mobileCatListRef}>
-						{activeCat !== 0 && (
-							<div className="cat" onClick={() => handleCatClick(0)}>
+						{activeCat.id !== '-1' && (
+							<div
+								className="cat"
+								onClick={() =>
+									handleCatClick({
+										_id: '-1',
+										name: {
+											ru: 'Все кейсы',
+											en: 'All Cases',
+											uz: 'Barcha keyslar',
+										},
+									})
+								}
+							>
 								Все кейсы
 							</div>
 						)}
-						{caseCats.map((c, i) => {
-							if (c.id === activeCat) {
+						{categories.map((c, i) => {
+							if (c._id === activeCat.id) {
 								return '';
 							}
 							return (
-								<div className="cat" key={i} onClick={() => handleCatClick(c.id)}>
-									{c.title.ru}
+								<div className="cat" key={i} onClick={() => handleCatClick(c)}>
+									{c.name[lang]}
 								</div>
 							);
 						})}
@@ -143,9 +166,7 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 						onClick={() => setIsMobileCatsOpen(!isMobileCatsOpen)}
 						ref={mobileActiveCatRef}
 					>
-						<span>
-							{activeCat === 0 ? 'Все кейсы' : caseCats[activeCat - 1].title.ru}
-						</span>
+						<span>{activeCat.title}</span>
 						<MobileCatShevron />
 					</div>
 				</div>
@@ -155,19 +176,34 @@ const CatBlock = ({ setActiveCat, activeCat, smallScreen }) => {
 	return (
 		<div className="categories">
 			<div
-				className={`cat ${activeCat === 0 ? 'active' : ''}`}
-				onClick={() => setActiveCat(0)}
+				className={`cat ${activeCat.id === '-1' ? 'active' : ''}`}
+				onClick={() =>
+					setActiveCat({
+						id: '-1',
+						title:
+							lang === 'ru'
+								? 'Все кейсы'
+								: lang === 'en'
+								? 'All Cases'
+								: 'Barcha keyslar',
+					})
+				}
 			>
-				Все кейсы
+				{lang === 'ru'
+					? 'Все кейсы'
+					: lang === 'en'
+					? 'All Cases'
+					: 'Barcha keyslar'}
 			</div>
-			{caseCats.map((cat, index) => {
+
+			{categories.map((cat, index) => {
 				return (
 					<div
-						className={`cat ${activeCat === cat.id ? 'active' : ''}`}
-						onClick={() => setActiveCat(cat.id)}
+						className={`cat ${activeCat.id === cat._id ? 'active' : ''}`}
+						onClick={() => setActiveCat({ id: cat._id, title: cat.name[lang] })}
 						key={`case-cat-${cat.id}`}
 					>
-						{cat.title.ru}
+						{cat.name[lang]}
 					</div>
 				);
 			})}

@@ -12,6 +12,11 @@ node_modules/
 # production
 /build
 build/
+client/public/*
+!client/public/files
+client/public/files/*
+!client/public/files/defaults
+client/public/files/uploads
 
 # misc
 /config.env
