@@ -32,7 +32,7 @@ exports.update = async (req, res, next) => {
 
 		const uploadpath = '/files/uploads/general/';
 
-		if (files?.mainLinkGif) {
+		if (files && files.mainLinkGif) {
 			screen.mainLinkGif = await fileUpload(
 				files.mainLinkGif,
 				screen.mainLinkGif,
@@ -42,7 +42,7 @@ exports.update = async (req, res, next) => {
 				uploadpath
 			);
 		}
-		if (files?.aboutLinkGif) {
+		if (files && files.aboutLinkGif) {
 			screen.aboutLinkGif = await fileUpload(
 				files.aboutLinkGif,
 				screen.aboutLinkGif,
@@ -53,7 +53,7 @@ exports.update = async (req, res, next) => {
 			);
 		}
 
-		if (files?.casesLinkGif) {
+		if (files && files.casesLinkGif) {
 			screen.casesLinkGif = await fileUpload(
 				files.casesLinkGif,
 				screen.casesLinkGif,
@@ -64,7 +64,7 @@ exports.update = async (req, res, next) => {
 			);
 		}
 
-		if (files?.servicesLinkGif) {
+		if (files && files.servicesLinkGif) {
 			screen.servicesLinkGif = await fileUpload(
 				files.servicesLinkGif,
 				screen.servicesLinkGif,
@@ -75,7 +75,7 @@ exports.update = async (req, res, next) => {
 			);
 		}
 
-		if (files?.contactsLinkGif) {
+		if (files && files.contactsLinkGif) {
 			screen.contactsLinkGif = await fileUpload(
 				files.contactsLinkGif,
 				screen.contactsLinkGif,
