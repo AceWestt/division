@@ -19,14 +19,13 @@
 		font-weight: 600;
 		font-size: 2.083vw;
 		line-height: 2.656vw;
-		max-width: 47.5vw;
 		margin-bottom: 5.208vw;
 		@media #{$mobileQuery} {
 			font-weight: 800;
 			font-size: 4.8vw;
 			line-height: 6.133vw;
-			max-width: 100%;
 			margin-bottom: 8vw;
+			white-space: pre-wrap;
 		}
 	}
 	.blocks {
@@ -61,10 +60,11 @@
 					}
 				}
 				.text {
-					max-width: 800px;
-					@media #{$mobileQuery} {
-						max-width: 100%;
-					}
+					// max-width: 800px;
+					// @media #{$mobileQuery} {
+					// 	max-width: 100%;
+					// }
+					white-space: pre-wrap;
 					p {
 						margin: 0;
 						font-size: 0.938vw;
