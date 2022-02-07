@@ -5,7 +5,6 @@
 	font-weight: 400;
 	font-style: normal;
 	white-space: pre-wrap;
-	color: #000;
 }
 
 body {
@@ -181,6 +180,7 @@ button {
 	width: 100%;
 	padding: 0 3.125vw;
 	flex-direction: column;
+	color: #000;
 	@media #{$mobileQuery} {
 		padding: 0 5.333vw;
 	}
