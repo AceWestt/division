@@ -84,7 +84,7 @@ const Home = () => {
 											<div className="desc-block">
 												<div className="wrap">
 													<div className="title">{item.title[lang]}</div>
-													<div className="description">{item.description[lang]}</div>
+													<div className="description">{item.description?.[lang] || ''}</div>
 													<div className="cat-title">
 														{getCatNameForDesc(item.category_id)}
 													</div>
