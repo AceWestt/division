@@ -3,11 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import closeBtn from './imgs/closebtn.svg';
 import logo from './imgs/logo.svg';
 import mobileBg from './imgs/mobile-bg.png';
-import mainGif from './imgs/main.gif';
-import casesGif from './imgs/cases.gif';
-import contactsGif from './imgs/contacts.gif';
-import aboutGif from './imgs/about-us.gif';
-import servicesGif from './imgs/services.gif';
 import { gsap } from 'gsap';
 import { useAppContext } from '../../appContext';
 

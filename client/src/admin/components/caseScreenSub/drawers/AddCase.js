@@ -83,6 +83,15 @@ const AddCase = React.forwardRef((props, ref) => {
 		subtitleUz: Schema.Types.StringType().isRequired(
 			'Введите описание кейса на узбекском!'
 		),
+		descriptionRu: Schema.Types.StringType().isRequired(
+			'Введите описание кейса на русском!'
+		),
+		descriptionEn: Schema.Types.StringType().isRequired(
+			'Введите описание кейса на английском!'
+		),
+		descriptionUz: Schema.Types.StringType().isRequired(
+			'Введите описание кейса на узбекском!'
+		),
 		blocks: Schema.Types.ArrayType().of(
 			Schema.Types.ObjectType().shape({
 				type: Schema.Types.StringType(),
@@ -159,6 +168,9 @@ const AddCase = React.forwardRef((props, ref) => {
 		subtitleRu: '',
 		subtitleEn: '',
 		subtitleUz: '',
+		descriptionRu: '',
+		descriptionEn: '',
+		descriptionUz: '',
 		blocks: [
 			{
 				type: 'text',
@@ -275,6 +287,15 @@ const AddCase = React.forwardRef((props, ref) => {
 					ru: formValue.subtitleRu,
 					en: formValue.subtitleEn,
 					uz: formValue.subtitleUz,
+				})
+			);
+
+			formData.append(
+				'description',
+				JSON.stringify({
+					ru: formValue.descriptionRu,
+					en: formValue.descriptionEn,
+					uz: formValue.descriptionUz,
 				})
 			);
 
@@ -396,6 +417,19 @@ const AddCase = React.forwardRef((props, ref) => {
 						ruerror={formError.subtitleRu}
 						enerror={formError.subtitleEn}
 						uzerror={formError.subtitleUz}
+					/>
+					<MultiLangInputField
+						runame="descriptionRu"
+						enname="descriptionEn"
+						uzname="descriptionUz"
+						label="Описание кейса при наведении"
+						textarea
+						popoverProps={{
+							text: 'Описание кейса при наведении на превью',
+						}}
+						ruerror={formError.descriptionRu}
+						enerror={formError.descriptionEn}
+						uzerror={formError.descriptionUz}
 					/>
 					<Divider />
 					<Badge

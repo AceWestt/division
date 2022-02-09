@@ -119,12 +119,14 @@ exports.addCase = async (req, res, next) => {
 		const subtitle = JSON.parse(body.subtitle);
 		const textBlocks = JSON.parse(body.textBlocks);
 		const blocksKeyInfo = JSON.parse(body.blocksKeyInfo);
+		const description = JSON.parse(body.description);
 
 		const caseInstance = await new Case({
 			mobileWidth: body.mobileWidth,
 			title: title,
 			subtitle: subtitle,
 			category_id: category_id,
+			description: description,
 		});
 
 		if (files && files.preview) {
@@ -213,12 +215,14 @@ exports.updateCase = async (req, res, next) => {
 		const subtitle = JSON.parse(body.subtitle);
 		const textBlocks = JSON.parse(body.textBlocks);
 		const blocksKeyInfo = JSON.parse(body.blocksKeyInfo);
+		const description = JSON.parse(body.description);
 
 		const caseInstance = await Case.findById(case_id);
 
 		caseInstance.mobileWidth = body.mobileWidth;
 		caseInstance.title = title;
 		caseInstance.subtitle = subtitle;
+		caseInstance.description = description;
 
 		if (files && files.preview) {
 			const previewName = await fileUpload(

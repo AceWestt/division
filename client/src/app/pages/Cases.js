@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { caseCats, cases } from './home/sampleCases';
 import { Link } from 'react-router-dom';
 import titleImg from '../images/page-title-cases.svg';
 import { useAppContext } from '../appContext';
@@ -29,6 +28,15 @@ const Cases = () => {
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
+
+	const getCatNameForDesc = (id) => {
+		let catname = '';
+		const cat = backendData?.cases?.categories?.filter((f) => f._id === id)[0];
+		if (cat && cat.name) {
+			catname = cat.name[lang];
+		}
+		return catname;
+	};
 
 	if (ready) {
 		return (
@@ -72,6 +80,15 @@ const Cases = () => {
 											key={`case-${c._id}`}
 										>
 											<img src={c.preview} alt="case" />
+											<div className="desc-block">
+												<div className="wrap">
+													<div className="title">{item.title[lang]}</div>
+													<div className="description">{item.description[lang]}</div>
+													<div className="cat-title">
+														{getCatNameForDesc(item.category_id)}
+													</div>
+												</div>
+											</div>
 										</Link>
 									);
 								}

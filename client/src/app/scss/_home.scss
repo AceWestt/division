@@ -187,6 +187,75 @@
 					height: 100%;
 					object-fit: cover;
 				}
+				.desc-block {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					width: 0;
+					height: 0;
+					color: #fff;
+					background: #000;
+
+					display: flex;
+					flex-direction: column;
+					overflow: hidden;
+					transition: all 0.3s linear;
+					// opacity: 0;
+					border-radius: 50%;
+					@media #{$mobileQuery} {
+						display: none;
+					}
+					.wrap {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						display: flex;
+						flex-direction: column;
+						padding: 2.083vw 1.563vw;
+						opacity: 0;
+						top: 1.042vw;
+						transition: all 0.3s 0.3s;
+					}
+					.title {
+						font-size: 1.042vw;
+						line-height: 1.354vw;
+						font-weight: 800;
+						margin-top: 0;
+						margin-right: 0;
+					}
+					.description,
+					.cat-title {
+						font-size: 0.833vw;
+						line-height: 1.042vw;
+						font-weight: 600;
+						margin-top: 1.042vw;
+						margin-bottom: auto;
+					}
+					.description {
+						white-space: pre-wrap;
+					}
+					.cat-title {
+						margin-top: auto;
+						margin-bottom: 0;
+					}
+				}
+				&:hover {
+					.desc-block {
+						// opacity: 1;
+						border-radius: 0;
+						width: 100%;
+						height: 100%;
+						top: 0;
+						left: 0;
+						.wrap {
+							opacity: 1;
+							top: 0;
+						}
+					}
+				}
+
 				&:nth-child(2),
 				&:nth-child(10),
 				&:nth-child(11),

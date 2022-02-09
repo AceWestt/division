@@ -90,7 +90,6 @@ const AppProvider = ({ children }) => {
 			};
 			setBackendData(data);
 			setDataSuccess(true);
-			console.log(data);
 		}
 	}, [
 		generalContentSuccess,

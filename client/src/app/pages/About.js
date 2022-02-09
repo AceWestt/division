@@ -1,16 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import titleImg from '../images/page-title-about.svg';
-import hero1 from '../images/hero-1-about.png';
-import hero2 from '../images/hero-2-about.png';
-import hero3 from '../images/hero-3-about.png';
-import hero4 from '../images/hero-4-about.png';
-import sloganImg from '../images/slogan-img.png';
 import teamBlockArt from '../images/team-block-art-about.svg';
 import teamControlBtn from '../images/team-control-about.svg';
-import { newsItems } from './about/sampleNews';
 import { useAppContext } from '../appContext';
-import { teamMembers } from './about/sampleTeamMembers';
 import logofooter from '../images/footer-logo.svg';
 import locationIcnMobile from '../images/location-about-mobile.svg';
 import faceBookIcnMobile from '../images/facebook-icn-about-mobile.svg';

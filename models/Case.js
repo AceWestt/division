@@ -38,6 +38,20 @@ const CaseSchema = new mongoose.Schema({
 			required: true,
 		},
 	},
+	description: {
+		ru: {
+			type: String,
+			required: true,
+		},
+		en: {
+			type: String,
+			required: true,
+		},
+		uz: {
+			type: String,
+			required: true,
+		},
+	},
 	blocks: [],
 	created: {
 		type: Date,

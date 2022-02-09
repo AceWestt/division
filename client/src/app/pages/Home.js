@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { caseCats, cases } from './home/sampleCases';
-import { clients } from './home/sampleClients';
 import { Link } from 'react-router-dom';
-import pentawards from '../images/pentawards.svg';
-import tafAward from '../images/taf-award.svg';
-import redjolbors from '../images/redjolbors-award.svg';
-import adstarsAward from '../images/adstars-award.svg';
 import gsap from 'gsap';
 import LogoHolder from './home/LogoHolder';
 import { useAppContext } from '../appContext';
@@ -34,6 +28,15 @@ const Home = () => {
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
+
+	const getCatNameForDesc = (id) => {
+		let catname = '';
+		const cat = backendData?.cases?.categories?.filter((f) => f._id === id)[0];
+		if (cat && cat.name) {
+			catname = cat.name[lang];
+		}
+		return catname;
+	};
 
 	if (ready) {
 		return (
@@ -73,11 +76,20 @@ const Home = () => {
 								if (item) {
 									return (
 										<Link
-											to={`/cases/${c._id}`}
+											to={`/cases/${item._id}`}
 											className={`case ${mobileClass}`}
-											key={`case-${c._id}`}
+											key={`case-${item._id}`}
 										>
-											<img src={c.preview} alt="case" />
+											<img src={item.preview} alt="case" />
+											<div className="desc-block">
+												<div className="wrap">
+													<div className="title">{item.title[lang]}</div>
+													<div className="description">{item.description[lang]}</div>
+													<div className="cat-title">
+														{getCatNameForDesc(item.category_id)}
+													</div>
+												</div>
+											</div>
 										</Link>
 									);
 								}
@@ -361,10 +373,3 @@ const ClientsBlock = ({ activeCat, smallScreen, backendData }) => {
 		</div>
 	);
 };
-
-const awards = [
-	{ title: 'pentawards shortlist', icn: pentawards },
-	{ title: 'taf!', icn: tafAward },
-	{ title: 'redjolbors', icn: redjolbors },
-	{ title: 'adstars shortlist', icn: adstarsAward },
-];

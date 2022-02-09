@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useAppContext } from '../appContext';
-import { cases } from './home/sampleCases';
 
 const Case = () => {
 	const match = useRouteMatch();
