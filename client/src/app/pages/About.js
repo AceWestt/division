@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
-import titleImg from '../images/page-title-about.svg';
+import titleImg from '../images/page-title-aboutus-ru.svg';
+import titleImgEn from '../images/page-title-aboutus-en.svg';
+import titleImgUz from '../images/page-title-aboutus-uz.svg';
 import teamBlockArt from '../images/team-block-art-about.svg';
 import teamControlBtn from '../images/team-control-about.svg';
 import { useAppContext } from '../appContext';
@@ -35,7 +37,11 @@ const About = ({ footerRef }) => {
 
 	return (
 		<div className="section section-about">
-			<PageTitleHolder title={titleImg} />
+			<div className="title-holder-wrap">
+				<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
+				<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
+				<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
+			</div>
 			<div className="description">
 				{parse(
 					backendData.aboutContent.slogan[lang]
@@ -268,6 +274,9 @@ const TeamBlockMobile = ({ footerRef, backendData, lang }) => {
 												</div>
 											);
 										})}
+										{arrayGroup.length < 2 && (
+											<div className="team-member" style={{ height: '100%' }}></div>
+										)}
 									</div>
 								);
 							})}

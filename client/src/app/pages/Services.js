@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import titleImg from '../images/page-title-services.svg';
+import titleImgEn from '../images/page-title-services-en.svg';
+import titleImgUz from '../images/page-title-services-uz.svg';
 import chevron from '../images/right-chevron-ICN.svg';
 import { useAppContext } from '../appContext';
 
@@ -11,7 +13,11 @@ const Services = () => {
 	}, [setIsFooterDisabled]);
 	return (
 		<div className="section section-services">
-			<PageTitleHolder title={titleImg} />
+			<div className="title-holder-wrap">
+				<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
+				<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
+				<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
+			</div>
 			<div className="services">
 				{backendData.services.map((s, i) => {
 					return <Service key={`service-${i}`} s={s} lang={lang} />;

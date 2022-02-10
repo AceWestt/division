@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import titleImg from '../images/page-title-contact.svg';
+import titleImgEn from '../images/page-title-contacts-en.svg';
+import titleImgUz from '../images/page-title-contacts-uz.svg';
 import logo from '../images/logo-contact.svg';
 import logoMobile from '../images/logo-contact-mobile.svg';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
@@ -13,7 +15,11 @@ const Contact = ({ handleScrollToFooter }) => {
 	}, [setIsFooterDisabled]);
 	return (
 		<div className="section section-contact">
-			<PageTitleHolder title={titleImg} />
+			<div className="title-holder-wrap">
+				<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
+				<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
+				<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
+			</div>
 			<div className="contact-details">
 				<div className="side side-map">
 					<div className="map-container">

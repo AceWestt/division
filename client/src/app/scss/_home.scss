@@ -189,21 +189,30 @@
 				}
 				.desc-block {
 					position: absolute;
-					top: 50%;
-					left: 50%;
+					top: 0;
+					left: 0;
 					width: 0;
 					height: 0;
 					color: #fff;
-					background: #000;
-
+					width: 100%;
+					height: 100%;
 					display: flex;
 					flex-direction: column;
 					overflow: hidden;
-					transition: all 0.3s linear;
 					// opacity: 0;
-					border-radius: 50%;
 					@media #{$mobileQuery} {
 						display: none;
+					}
+					.bg {
+						position: absolute;
+						width: 0;
+						height: 0;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						background: #000;
+						border-radius: 50%;
+						transition: all 0.3s linear;
 					}
 					.wrap {
 						position: absolute;
@@ -245,10 +254,11 @@
 					.desc-block {
 						// opacity: 1;
 						border-radius: 0;
-						width: 100%;
-						height: 100%;
-						top: 0;
-						left: 0;
+						.bg {
+							width: 70vw;
+							height: 70vw;
+						}
+
 						.wrap {
 							opacity: 1;
 							top: 0;

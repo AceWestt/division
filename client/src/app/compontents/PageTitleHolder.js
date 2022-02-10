@@ -4,10 +4,10 @@ import { Plane, useCurtains } from 'react-curtains';
 import { Vec2 } from 'curtainsjs';
 import { vertexShader, fragmentShader } from './../utils/shaders/shaders';
 
-const PageTitleHolder = ({ title }) => {
+const PageTitleHolder = ({ title, disabled }) => {
 	const resetRef = useRef(null);
 	return (
-		<div className="title-holder">
+		<div className="title-holder" style={{ opacity: disabled ? '0' : '1' }}>
 			<Curtains
 				pixelRatio={Math.min(1.5, window.devicePixelRatio)}
 				watchScroll={false}

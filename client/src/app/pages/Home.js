@@ -82,6 +82,7 @@ const Home = () => {
 										>
 											<img src={item.preview} alt="case" />
 											<div className="desc-block">
+												<div className="bg"></div>
 												<div className="wrap">
 													<div className="title">{item.title[lang]}</div>
 													<div className="description">{item.description?.[lang] || ''}</div>

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import titleImg from '../images/page-title-cases.svg';
+import titleImgEn from '../images/page-title-cases-en.svg';
+import titleImgUz from '../images/page-title-cases-uz.svg';
 import { useAppContext } from '../appContext';
 import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron';
 import PageTitleHolder from '../compontents/PageTitleHolder';
@@ -41,7 +43,11 @@ const Cases = () => {
 	if (ready) {
 		return (
 			<div className="section section-home section-cases">
-				<PageTitleHolder title={titleImg} />
+				<div className="title-holder-wrap">
+					<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
+					<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
+					<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
+				</div>
 				<div className="cases-wrap">
 					<CatBlock
 						setActiveCat={setActiveCat}
@@ -81,6 +87,7 @@ const Cases = () => {
 										>
 											<img src={c.preview} alt="case" />
 											<div className="desc-block">
+												<div className="bg"></div>
 												<div className="wrap">
 													<div className="title">{item.title[lang]}</div>
 													<div className="description">{item.description?.[lang] || ''}</div>

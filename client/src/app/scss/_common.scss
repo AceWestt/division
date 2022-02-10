@@ -131,16 +131,28 @@ button {
 	}
 }
 
+.title-holder-wrap {
+	width: 100%;
+	height: 7.813vw;
+	margin-top: 3.49vw;
+	margin-bottom: 6.51vw;
+	@media #{$mobileQuery} {
+		margin-left: -5.333vw;
+		height: 26.933vw;
+	}
+}
+
 .title-holder {
 	width: 100%;
 	margin-left: -1.042vw;
-	margin-top: 3.49vw;
-	margin-bottom: 6.51vw;
+	position: absolute;
+	top: 0;
+	left: 0;
 	padding-left: 1.042vw;
 	display: flex;
 	@media #{$mobileQuery} {
 		padding: 8vw 0;
-		margin-left: -5.333vw;
+
 		padding-left: 5.333vw;
 	}
 	.curtains-canvas {
