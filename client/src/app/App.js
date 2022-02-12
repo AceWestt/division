@@ -62,7 +62,7 @@ const App = () => {
 							alt="development"
 						/>
 					</Route>
-					<Route exact path={`${match.path}`} component={Home} />
+					<Route exact path={`/test`} component={Home} />
 					<Route exact path="/cases" component={Cases} />
 					<Route path="/cases/:id" component={Case} />
 					<Route exact path="/services" component={Services} />
