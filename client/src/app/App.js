@@ -13,7 +13,7 @@ import Footer from './compontents/footer/Footer';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Menu from './compontents/menu/Menu';
-import zagluwka from './images/zaglushka.jpg';
+import Zaglushka from './pages/Zaglushka';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
@@ -47,21 +47,7 @@ const App = () => {
 					handleScrollToFooter={handleScrollToFooter}
 				/>
 				<Switch>
-					<Route exact path={`${match.path}`}>
-						<img
-							src={zagluwka}
-							style={{
-								width: '100vw',
-								height: '100vh',
-								ojbectFit: 'cover',
-								position: 'fixed',
-								top: 0,
-								left: 0,
-								zIndex: 1000,
-							}}
-							alt="development"
-						/>
-					</Route>
+					<Route exact path={`${match.path}`} component={Zaglushka} />
 					<Route exact path={`/test`} component={Home} />
 					<Route exact path="/cases" component={Cases} />
 					<Route path="/cases/:id" component={Case} />
