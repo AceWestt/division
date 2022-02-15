@@ -12,7 +12,6 @@ import faceBookIcnMobile from '../images/facebook-icn-about-mobile.svg';
 import instagramIcnMobile from '../images/instagram-icn-about-mobile.svg';
 import phoneFooter from '../images/about-footer-phone.svg';
 import emailFooter from '../images/about-footer-mail.svg';
-import music from '../compontents/footer/bg.mp3';
 import parse from 'html-react-parser';
 
 const About = ({ footerRef }) => {
@@ -63,7 +62,7 @@ const About = ({ footerRef }) => {
 				<img src={backendData.aboutContent.energyImg} alt="img" />
 			</div>
 			<MediaBlock lang={lang} backendData={backendData} />
-			<audio loop src={music} ref={musicRef}>
+			<audio loop src={backendData.generalContent.musicFile} ref={musicRef}>
 				Your browser does not support the audio element.
 			</audio>
 			{smallScreen ? (
@@ -126,8 +125,17 @@ const TeamBlock = ({ footerRef, backendData, lang }) => {
 		<div className="team-block" ref={footerRef}>
 			<div className="head">
 				<div className="title-block">
-					<div className="title">Наша команда</div>
-					<img src={teamBlockArt} alt="наша команда" />
+					<div className="title">
+						{lang === 'en'
+							? 'Our team'
+							: lang === 'uz'
+							? ' Bizning jamoa'
+							: 'Наша команда'}
+					</div>
+					<img
+						src={teamBlockArt}
+						alt="{lang === 'en' ? 'Our team': lang === 'uz' ? ' Bizning jamoa' : 'Наша команда'}"
+					/>
 				</div>
 				<div className="team-members-block">
 					<div className="team-members-wrap">
@@ -253,8 +261,17 @@ const TeamBlockMobile = ({ footerRef, backendData, lang }) => {
 		<div className="team-block" ref={footerRef}>
 			<div className="head">
 				<div className="title-block">
-					<div className="title">Наша команда</div>
-					<img src={teamBlockArt} alt="наша команда" />
+					<div className="title">
+						{lang === 'en'
+							? 'Our team'
+							: lang === 'uz'
+							? ' Bizning jamoa'
+							: 'Наша команда'}
+					</div>
+					<img
+						src={teamBlockArt}
+						alt="{lang === 'en' ? 'Our team': lang === 'uz' ? ' Bizning jamoa' : 'Наша команда'}"
+					/>
 				</div>
 				<div className="team-members-block">
 					<div className="team-members-wrap">
@@ -353,7 +370,9 @@ const MediaBlock = ({ backendData, lang }) => {
 
 	return (
 		<div className="media-block">
-			<div className="title">Медиа</div>
+			<div className="title">
+				{lang === 'en' ? 'Media' : lang === 'uz' ? ' Media' : 'Медиа'}
+			</div>
 			<div
 				className="news-wrap"
 				ref={newsRef}

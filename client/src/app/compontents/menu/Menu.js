@@ -70,35 +70,35 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							className={activePage === '' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Главная,
+							{lang === 'en' ? 'Main,' : lang === 'uz' ? 'Asosiy,' : 'Главная,'}
 						</Link>
 						<Link
 							to="/about"
 							className={activePage === 'about' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							О нас,
+							{lang === 'en' ? 'We' : lang === 'uz' ? 'Biz' : 'Мы'}
 						</Link>
 						<Link
 							to="/cases"
 							className={activePage === 'cases' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Кейсы,
+							{lang === 'en' ? 'Cases' : lang === 'uz' ? 'Keyslar' : 'Кейсы,'}
 						</Link>
 						<Link
 							to="/contact"
 							className={activePage === 'contact' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Контакты,
+							{lang === 'en' ? 'Contacts,' : lang === 'uz' ? 'Aloqa,' : 'Контакты,'}
 						</Link>
 						<Link
 							to="/services"
 							className={activePage === 'services' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Услуги
+							{lang === 'en' ? 'Services' : lang === 'uz' ? 'Xizmatlar' : 'Услуги'}
 						</Link>
 					</div>
 				</div>
@@ -110,7 +110,13 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							setIsMenuOpen(false);
 						}}
 					>
-						<div className="btn btn-primary">Запросить стоимость</div>
+						<div className="btn btn-primary">
+							{lang === 'en'
+								? 'Request for Quote'
+								: lang === 'uz'
+								? 'Narxlarni bilish'
+								: 'Запросить стоимость'}
+						</div>
 					</div>
 					<a
 						href={`tel:${backendData.contactContent.phone}`}
@@ -166,7 +172,9 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 				</div>
 				<div className="close-btn" onClick={() => setIsMenuOpen(false)}>
 					<img src={closeBtn} alt="close" />
-					<span>Закрыть</span>
+					<span>
+						{lang === 'en' ? 'Close' : lang === 'uz' ? ' Yopish' : 'Закрыть'}
+					</span>
 				</div>
 			</div>
 			<div className="menu-mid">
@@ -179,7 +187,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(mainRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Главная,
+							{lang === 'en' ? 'Main,' : lang === 'uz' ? 'Asosiy,' : 'Главная,'}
 						</Link>
 						<Link
 							to="/cases"
@@ -188,7 +196,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(casesRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Кейсы,
+							{lang === 'en' ? 'Cases,' : lang === 'uz' ? 'Keyslar, ' : 'Кейсы,'}
 						</Link>
 						<Link
 							to="/contact"
@@ -197,7 +205,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(contactRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Контакты
+							{lang === 'en' ? 'Contacts' : lang === 'uz' ? 'Aloqa' : 'Контакты'}
 						</Link>
 					</div>
 					<div className="side">
@@ -208,7 +216,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(aboutRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							О нас,
+							{lang === 'en' ? 'We' : lang === 'uz' ? ' Biz' : 'Мы'}
 						</Link>
 						<Link
 							to="/services"
@@ -217,7 +225,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(servicesRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							Услуги,
+							{lang === 'en' ? 'Services,' : lang === 'uz' ? ' Xizmatlar,' : 'Услуги,'}
 						</Link>
 					</div>
 				</div>

@@ -78,6 +78,20 @@ const GeneralContent = ({ history }) => {
 				}),
 			})
 		),
+		musicFile: Schema.Types.ArrayType().of(
+			Schema.Types.ObjectType().shape({
+				blobFile: Schema.Types.ObjectType().shape({
+					name: Schema.Types.StringType().pattern(
+						/^.*\.(mp3|wav)$/i,
+						'Неверный формат файла! Разрешены только "mp3" или "wav" '
+					),
+					size: Schema.Types.NumberType().max(
+						5242880,
+						'Размер файла не может превышать 5mb'
+					),
+				}),
+			})
+		),
 	});
 
 	const formRef = useRef(null);
@@ -88,6 +102,7 @@ const GeneralContent = ({ history }) => {
 		casesLinkGif: [],
 		servicesLinkGif: [],
 		contactsLinkGif: [],
+		musicFile: [],
 	});
 	const [isReady, setIsReady] = useState(false);
 	const [isEditable, setIsEditable] = useState(false);
@@ -116,6 +131,7 @@ const GeneralContent = ({ history }) => {
 				casesLinkGif: [],
 				servicesLinkGif: [],
 				contactsLinkGif: [],
+				musicFile: [],
 			});
 		}
 	}, [data, success, error]);
@@ -162,6 +178,8 @@ const GeneralContent = ({ history }) => {
 				'contactsLinkGif',
 				formValue.contactsLinkGif?.[0]?.blobFile || null
 			);
+
+			formData.append('musicFile', formValue.musicFile?.[0]?.blobFile || null);
 
 			const config = {
 				headers: {
@@ -300,6 +318,31 @@ const GeneralContent = ({ history }) => {
 						?.errorMessage
 				}
 			/>
+			<Form.Group>
+				{data?.musicFile && (
+					<audio controls style={{ marginTop: '10px' }}>
+						<source src={data?.musicFile} />
+					</audio>
+				)}
+				<FileUploader
+					label="Фоновая музыка"
+					name="musicFile"
+					disabled={formValue.musicFile.length > 0}
+					accept="all"
+					popoverProps={{
+						text: 'Фоновая музыка сайта',
+					}}
+					errExt={
+						formError.musicFile?.array?.[0]?.object?.blobFile?.object?.name
+							?.errorMessage
+					}
+					errSize={
+						formError.musicFile?.array?.[0]?.object?.blobFile?.object?.size
+							?.errorMessage
+					}
+				/>
+			</Form.Group>
+
 			<Form.Group>
 				<ButtonToolbar>
 					<Button

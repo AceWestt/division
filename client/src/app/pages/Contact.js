@@ -82,7 +82,13 @@ const Contact = ({ handleScrollToFooter }) => {
 								strokeWidth="1.5"
 							/>
 						</svg>
-						<span>Оставить заявку</span>
+						<span>
+							{lang === 'en'
+								? 'Submit an application'
+								: lang === 'uz'
+								? ' So‘rov qoldirish'
+								: 'Оставить заявку'}
+						</span>
 					</div>
 					<div className="logo">
 						<img src={logo} alt="logo" />

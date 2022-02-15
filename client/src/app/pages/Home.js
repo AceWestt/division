@@ -99,15 +99,20 @@ const Home = () => {
 					</div>
 					<div className="btn-holder">
 						<Link to="/cases" className="btn btn-primary">
-							Посмотреть все кейсы
+							{lang === 'en'
+								? 'View all cases'
+								: lang === 'uz'
+								? ' Barcha keyslarni ko‘rish'
+								: 'Посмотреть все кейсы'}
 						</Link>
 					</div>
 					<div className="blocks">
-						<AwardBlock backendData={backendData} />
+						<AwardBlock backendData={backendData} lang={lang} />
 						<ClientsBlock
 							activeCat={activeCat}
 							smallScreen={smallScreen}
 							backendData={backendData}
+							lang={lang}
 						/>
 					</div>
 				</div>
@@ -241,7 +246,7 @@ const CatBlock = ({
 	);
 };
 
-const AwardBlock = ({ backendData }) => {
+const AwardBlock = ({ backendData, lang }) => {
 	const columns = useRef([]);
 
 	useEffect(() => {
@@ -259,7 +264,13 @@ const AwardBlock = ({ backendData }) => {
 
 	return (
 		<div className="block awards">
-			<h3>Награды</h3>
+			<h3>
+				{lang === 'en'
+					? 'Awards'
+					: lang === 'uz'
+					? ' Sovrinlar'
+					: 'Посмотреть все кейсы'}
+			</h3>
 			{backendData.awards && backendData.awards.length > 0 && (
 				<div className="award-list">
 					{backendData.awards.map((a, index) => {
@@ -308,7 +319,7 @@ const AwardBlock = ({ backendData }) => {
 	);
 };
 
-const ClientsBlock = ({ activeCat, smallScreen, backendData }) => {
+const ClientsBlock = ({ activeCat, smallScreen, backendData, lang }) => {
 	const clientListRef = useRef(null);
 	const clientsBlockRef = useRef(null);
 
@@ -332,7 +343,9 @@ const ClientsBlock = ({ activeCat, smallScreen, backendData }) => {
 	if (smallScreen) {
 		return (
 			<div className="block clients-block" ref={clientsBlockRef}>
-				<h3>Клиенты</h3>
+				<h3>
+					{lang === 'en' ? 'Clients' : lang === 'uz' ? ' Mijozlar' : 'Клиенты'}
+				</h3>
 				<div className="client-list" ref={clientListRef}>
 					<div className={`row`}>
 						{backendData.clients.map((cg, index) => {
@@ -355,7 +368,9 @@ const ClientsBlock = ({ activeCat, smallScreen, backendData }) => {
 
 	return (
 		<div className="block clients-block" ref={clientsBlockRef}>
-			<h3>Клиенты</h3>
+			<h3>
+				{lang === 'en' ? 'Clients' : lang === 'uz' ? ' Mijozlar' : 'Клиенты'}
+			</h3>
 			<div className="client-list" ref={clientListRef}>
 				{backendData.clients.map((cg, index) => {
 					return (

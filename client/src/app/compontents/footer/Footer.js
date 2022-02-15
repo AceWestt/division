@@ -3,12 +3,9 @@ import phoneIcn from '../../images/footer-phone-ICN.svg';
 import emailIcn from '../../images/footer-email-ICN.svg';
 import logo from '../../images/footer-logo.svg';
 import { useAppContext } from '../../appContext';
-import music from './bg.mp3';
 import { useForm } from 'react-hook-form';
 import { Message, toaster } from 'rsuite';
 import axios from 'axios';
-// import phoneFooter from '../../images/about-footer-phone.svg';
-// import emailFooter from '../../images/about-footer-mail.svg';
 
 const Footer = ({ footerRef }) => {
 	const { smallScreen, isFooterDisabled, isSoundOn, lang, backendData } =
@@ -134,10 +131,11 @@ const Footer = ({ footerRef }) => {
 	return (
 		<div className="section section-footer" ref={footerRef}>
 			<h4>
-				Напишите нам,
-				<br />
-				наши специалисты свяжутся
-				<br />с вами в ближайшее время
+				{lang === 'en'
+					? 'Write to us,\nour specialists will contact\nwith you soon'
+					: lang === 'uz'
+					? 'Bizga xat yozing,\nmutaxassislarimiz tez orada\nsiz bilan bog‘lanadi'
+					: 'Напишите нам,\nнаши специалисты свяжутся\nс вами в ближайшее время'}
 			</h4>
 
 			<div className="block contact-block">
@@ -182,18 +180,26 @@ const Footer = ({ footerRef }) => {
 							/>
 						</div>
 						<div className="footer-form-control warning">
-							<p>Заполняя данные, вы соглашаетесь с политикой конфиденциальности</p>
+							<p>
+								{lang === 'en'
+									? 'By submitting information, you agree to the privacy policy'
+									: lang === 'uz'
+									? 'Ma’lumotlarni to‘ldirish orqali siz maxfiylik siyosatiga rozilik bildirasiz'
+									: 'Заполняя данные, вы соглашаетесь с политикой конфиденциальности'}
+							</p>
 						</div>
 						<div className="footer-form-control submit">
 							<button className="btn btn-outlined btn-footer" type="submit">
-								Отправить
+								{lang === 'en' ? 'Send' : lang === 'uz' ? ' Yuborish' : 'Отправить'}
 							</button>
 						</div>
 					</form>
 				</div>
 				<div className="side contact-details-side">
 					<div className="item phone">
-						<label>Номер телефона</label>
+						<label>
+							{lang === 'en' ? 'Phone' : lang === 'uz' ? 'Telefon' : 'Телефон'}
+						</label>
 						<a
 							href={`tel:${backendData.contactContent.phone}`}
 							className="btn btn-with-icon btn-link btn-footer"
@@ -203,7 +209,9 @@ const Footer = ({ footerRef }) => {
 						</a>
 					</div>
 					<div className="item email">
-						<label>Почта</label>
+						<label>
+							{lang === 'en' ? 'Email' : lang === 'uz' ? 'Pochta' : 'Почта'}
+						</label>
 						<a
 							className="btn btn-with-icon btn-link btn-footer"
 							href={`mailto:${backendData.contactContent.email}`}
@@ -224,26 +232,6 @@ const Footer = ({ footerRef }) => {
 			<div className="block bottom-block">
 				<img src={logo} alt="logo" />
 				<div className="social-links">
-					{/* {!smallScreen && (
-						<>
-							<a
-								href="tel:+ 998 97 444 84 93"
-								className="btn btn-link btn-footer btn-with-icon"
-								style={{ marginRight: '3.125vw' }}
-							>
-								<img style={{ width: '0.721vw' }} src={phoneFooter} alt="phone" />
-								<span>+ 998 97 444 84 93</span>
-							</a>
-							<a
-								href="mailto:u.ergashev@dvsn.uz"
-								className="btn btn-link btn-footer btn-with-icon"
-								style={{ marginRight: '3.125vw' }}
-							>
-								<img style={{ width: '0.921vw' }} src={emailFooter} alt="phone" />
-								<span>u.ergashev@dvsn.uz</span>
-							</a>
-						</>
-					)} */}
 					<a
 						href={backendData.contactContent.instagram}
 						className="btn btn-link btn-footer"
@@ -259,7 +247,7 @@ const Footer = ({ footerRef }) => {
 				</div>
 				<div className="address">{backendData.contactContent.address[lang]}</div>
 			</div>
-			<audio loop src={music} ref={musicRef}>
+			<audio loop src={backendData.generalContent.musicFile} ref={musicRef}>
 				Your browser does not support the audio element.
 			</audio>
 		</div>
