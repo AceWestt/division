@@ -12,6 +12,10 @@ const GeneralContentSchema = new mongoose.Schema({
 	casesLinkGif: img('/files/defaults/menuGifs/cases.gif'),
 	servicesLinkGif: img('/files/defaults/menuGifs/services.gif'),
 	contactsLinkGif: img('/files/defaults/menuGifs/contacts.gif'),
+	musicFile: {
+		type: String,
+		default: '/files/defaults/general/bg.mp3',
+	},
 });
 
 const GeneralContent = mongoose.model('GeneralContent', GeneralContentSchema);

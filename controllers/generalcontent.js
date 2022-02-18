@@ -86,6 +86,17 @@ exports.update = async (req, res, next) => {
 			);
 		}
 
+		if (files && files.musicFile) {
+			screen.musicFile = await fileUpload(
+				files.musicFile,
+				screen.musicFile,
+				'/files/defaults/general/bg.mp3',
+				next,
+				'bg-music',
+				uploadpath
+			);
+		}
+
 		await screen.save((err) => {
 			if (err) {
 				return next(new ErrorResponse('something went wrong on save'));

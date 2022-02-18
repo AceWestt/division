@@ -7,6 +7,7 @@ import {
 	Button,
 	toaster,
 	Drawer,
+	DatePicker,
 } from 'rsuite';
 import FormWrapper from '../../FormWrapper';
 import FileUploader from '../../FileUploader';
@@ -39,6 +40,7 @@ const EditMedia = React.forwardRef((props, ref) => {
 		titleRu: Schema.Types.StringType().isRequired('Введите текст на русском!'),
 		titleEn: Schema.Types.StringType().isRequired('Введите текст на английском!'),
 		titleUz: Schema.Types.StringType().isRequired('Введите текст на узбекском!'),
+		date: Schema.Types.DateType().isRequired('Укажите дату!'),
 	});
 
 	const defaultFormValue = {
@@ -47,6 +49,7 @@ const EditMedia = React.forwardRef((props, ref) => {
 		titleRu: '',
 		titleEn: '',
 		titleUz: '',
+		date: new Date(),
 	};
 
 	const formRef = useRef(null);
@@ -63,6 +66,7 @@ const EditMedia = React.forwardRef((props, ref) => {
 				titleRu: media.title.ru,
 				titleEn: media.title.en,
 				titleUz: media.title.uz,
+				date: new Date(media.date),
 			});
 		}
 	}, [media]);
@@ -102,6 +106,7 @@ const EditMedia = React.forwardRef((props, ref) => {
 					uz: formValue.titleUz,
 				})
 			);
+			formData.append('date', formValue.date);
 			const config = {
 				headers: {
 					'Content-Type': 'multipart/form-data',
@@ -200,6 +205,19 @@ const EditMedia = React.forwardRef((props, ref) => {
 						uzerror={formError.titleUz}
 						textarea
 					/>
+					<Form.Group>
+						<Form.ControlLabel>Дата</Form.ControlLabel>
+						<Form.Control
+							name="date"
+							accepter={DatePicker}
+							oneTap
+							placement="autoVerticalStart"
+							format="dd-MM-yyyy"
+						/>
+						{formError.date && (
+							<Form.HelpText style={{ color: 'red' }}>{formError.date}</Form.HelpText>
+						)}
+					</Form.Group>
 					<Form.Group>
 						<ButtonToolbar>
 							<Button

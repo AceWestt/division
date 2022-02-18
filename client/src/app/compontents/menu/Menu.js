@@ -77,28 +77,31 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							className={activePage === 'about' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							{lang === 'en' ? 'We' : lang === 'uz' ? 'Biz' : 'Мы'}
+							{lang === 'en' ? 'We,' : lang === 'uz' ? 'Biz,' : 'Мы,'}
 						</Link>
+						{(lang === 'en' || lang === 'uz') && (
+							<div style={{ width: '13vw', height: 0 }} />
+						)}
 						<Link
 							to="/cases"
 							className={activePage === 'cases' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							{lang === 'en' ? 'Cases' : lang === 'uz' ? 'Keyslar' : 'Кейсы,'}
-						</Link>
-						<Link
-							to="/contact"
-							className={activePage === 'contact' ? 'active' : ''}
-							onClick={() => setIsMenuOpen(false)}
-						>
-							{lang === 'en' ? 'Contacts,' : lang === 'uz' ? 'Aloqa,' : 'Контакты,'}
+							{lang === 'en' ? 'Cases,' : lang === 'uz' ? 'Keyslar,' : 'Кейсы,'}
 						</Link>
 						<Link
 							to="/services"
 							className={activePage === 'services' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							{lang === 'en' ? 'Services' : lang === 'uz' ? 'Xizmatlar' : 'Услуги'}
+							{lang === 'en' ? 'Services,' : lang === 'uz' ? 'Xizmatlar,' : 'Услуги,'}
+						</Link>
+						<Link
+							to="/contact"
+							className={activePage === 'contact' ? 'active' : ''}
+							onClick={() => setIsMenuOpen(false)}
+						>
+							{lang === 'en' ? 'Contacts' : lang === 'uz' ? 'Aloqa' : 'Контакты'}
 						</Link>
 					</div>
 				</div>

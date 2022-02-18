@@ -101,6 +101,10 @@ const Media = () => {
 						<TextCell dataKey="title" />
 					</Table.Column>
 					<Table.Column width={120} align="center">
+						<Table.HeaderCell>Дата отображения</Table.HeaderCell>
+						<DateCell dataKey="date" />
+					</Table.Column>
+					<Table.Column width={120} align="center">
 						<Table.HeaderCell>Дата добавления</Table.HeaderCell>
 						<DateCell dataKey="created" />
 					</Table.Column>

@@ -55,8 +55,8 @@ const EditCase = React.forwardRef((props, ref) => {
 						'Неверный формат файла! Разрешен только "jpg", "gif" или "png"'
 					),
 					size: Schema.Types.NumberType().max(
-						5242880,
-						'Размер файла не может превышать 5mb'
+						7340032,
+						'Размер файла не может превышать 7mb'
 					),
 				}),
 			})

@@ -6,6 +6,7 @@ const crypto = require('crypto');
 exports.getAll = async (req, res, next) => {
 	try {
 		const media = await Media.find({});
+		media.sort((a, b) => b.date - a.date);
 		res.status(200).json({ data: media });
 	} catch (error) {
 		next(error);
@@ -30,6 +31,7 @@ exports.add = async (req, res, next) => {
 		const media = await new Media({
 			title: JSON.parse(body.title),
 			link: body.link,
+			date: body.date,
 		});
 
 		if (files && files.img) {
@@ -63,6 +65,7 @@ exports.update = async (req, res, next) => {
 		const media = await Media.findById(id);
 		media.title = JSON.parse(body.title);
 		media.link = body.link;
+		media.date = body.date;
 
 		if (files && files.img) {
 			const imgName = await fileUpload(

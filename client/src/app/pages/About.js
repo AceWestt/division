@@ -400,7 +400,10 @@ const MediaBlock = ({ backendData, lang }) => {
 				<div className="news">
 					{backendData.media.map((n, i) => {
 						let date = new Date(n.date);
-						date = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+						date = `${('0' + date.getDate()).slice(-2)}.${(
+							'0' +
+							(date.getMonth() + 1)
+						).slice(-2)}.${date.getFullYear()}`;
 						return (
 							<div className="news-item" key={`news-${i}`} ref={newsitemRef}>
 								<img src={n.img} alt={n.title[lang]} />
