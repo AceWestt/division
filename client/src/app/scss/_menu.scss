@@ -88,8 +88,9 @@
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
+		justify-content: space-between;
 		.links {
-			margin-left: 14.688vw;
+			margin-left: 13.542vw;
 			display: flex;
 			@media #{$mobileQuery} {
 				margin-left: 0;
@@ -102,12 +103,12 @@
 			}
 			a {
 				@include textoutline(#fff);
-				font-size: 4.167vw;
+				font-size: 3.125vw;
 				color: #000;
 				font-weight: 900;
 				transition: all 0.3s;
 				@media #{$mobileQuery} {
-					font-size: 8.533vw;
+					font-size: 5.867vw;
 				}
 				&.active,
 				&:hover {
@@ -117,7 +118,8 @@
 			}
 		}
 		.imgs {
-			margin-left: 7.031vw;
+			// margin-left: 7.031vw;
+			margin-right: 3.646vw;
 			width: 25.625vw;
 			.img-holder {
 				width: 100%;

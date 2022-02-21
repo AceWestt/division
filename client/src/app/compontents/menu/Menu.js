@@ -70,18 +70,21 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							className={activePage === '' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							{lang === 'en' ? 'Main,' : lang === 'uz' ? 'Asosiy,' : 'Главная,'}
+							{lang === 'en' ? 'Main,' : lang === 'uz' ? 'Bosh sahifa,' : 'Главная,'}
 						</Link>
 						<Link
 							to="/about"
 							className={activePage === 'about' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
+							style={{ marginRight: lang === 'uz' ? '0' : '20vw' }}
 						>
-							{lang === 'en' ? 'We,' : lang === 'uz' ? 'Biz,' : 'Мы,'}
+							{lang === 'en'
+								? 'About us,'
+								: lang === 'uz'
+								? 'Biz haqimizda,'
+								: 'О нас,'}
 						</Link>
-						{(lang === 'en' || lang === 'uz') && (
-							<div style={{ width: '13vw', height: 0 }} />
-						)}
+
 						<Link
 							to="/cases"
 							className={activePage === 'cases' ? 'active' : ''}
@@ -92,6 +95,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 						<Link
 							to="/services"
 							className={activePage === 'services' ? 'active' : ''}
+							style={{ marginRight: lang === 'uz' ? '0' : '20vw' }}
 							onClick={() => setIsMenuOpen(false)}
 						>
 							{lang === 'en' ? 'Services,' : lang === 'uz' ? 'Xizmatlar,' : 'Услуги,'}
@@ -101,7 +105,11 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							className={activePage === 'contact' ? 'active' : ''}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							{lang === 'en' ? 'Contacts' : lang === 'uz' ? 'Aloqa' : 'Контакты'}
+							{lang === 'en'
+								? 'Contacts'
+								: lang === 'uz'
+								? 'Aloqa maʼlumotlari'
+								: 'Контакты'}
 						</Link>
 					</div>
 				</div>
@@ -190,7 +198,7 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(mainRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							{lang === 'en' ? 'Main,' : lang === 'uz' ? 'Asosiy,' : 'Главная,'}
+							{lang === 'en' ? 'Main,' : lang === 'uz' ? 'Bosh sahifa,' : 'Главная,'}
 						</Link>
 						<Link
 							to="/cases"
@@ -208,7 +216,11 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerLeave={() => handleImgDisappear(contactRef.current)}
 							onClick={() => setIsMenuOpen(false)}
 						>
-							{lang === 'en' ? 'Contacts' : lang === 'uz' ? 'Aloqa' : 'Контакты'}
+							{lang === 'en'
+								? 'Contacts'
+								: lang === 'uz'
+								? 'Aloqa maʼlumotlari'
+								: 'Контакты'}
 						</Link>
 					</div>
 					<div className="side">
@@ -218,8 +230,13 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerOver={() => handleImgAppear(aboutRef.current)}
 							onPointerLeave={() => handleImgDisappear(aboutRef.current)}
 							onClick={() => setIsMenuOpen(false)}
+							style={{ marginLeft: lang === 'uz' ? '-8vw' : '7.292vw' }}
 						>
-							{lang === 'en' ? 'We' : lang === 'uz' ? ' Biz' : 'Мы'}
+							{lang === 'en'
+								? 'About us,'
+								: lang === 'uz'
+								? 'Biz haqimizda,'
+								: 'О нас,'}
 						</Link>
 						<Link
 							to="/services"
@@ -227,8 +244,9 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 							onPointerOver={() => handleImgAppear(servicesRef.current)}
 							onPointerLeave={() => handleImgDisappear(servicesRef.current)}
 							onClick={() => setIsMenuOpen(false)}
+							style={{ marginLeft: lang === 'uz' ? '-8vw' : '7.292vw' }}
 						>
-							{lang === 'en' ? 'Services,' : lang === 'uz' ? ' Xizmatlar,' : 'Услуги,'}
+							{lang === 'en' ? 'Services,' : lang === 'uz' ? 'Xizmatlar,' : 'Услуги,'}
 						</Link>
 					</div>
 				</div>
