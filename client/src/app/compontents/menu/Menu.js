@@ -20,7 +20,6 @@ const Menu = ({ setIsMenuOpen, handleScrollToFooter }) => {
 
 	useEffect(() => {
 		setActivePage(pathname.split('/')[1]);
-		console.log(pathname.split('/')[1]);
 	}, [pathname]);
 
 	const handleImgAppear = (img) => {

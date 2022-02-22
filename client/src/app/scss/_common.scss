@@ -138,7 +138,7 @@ button {
 	margin-bottom: 6.51vw;
 	@media #{$mobileQuery} {
 		margin-left: -5.333vw;
-		height: 26.933vw;
+		height: 35px;
 	}
 }
 
@@ -151,9 +151,9 @@ button {
 	padding-left: 1.042vw;
 	display: flex;
 	@media #{$mobileQuery} {
-		padding: 8vw 0;
-
+		padding: 2vw 0;
 		padding-left: 5.333vw;
+		width: 100vw;
 	}
 	.curtains-canvas {
 		position: absolute;
@@ -170,11 +170,11 @@ button {
 		}
 	}
 	img {
-		width: 44.555vw;
+		width: 76.042vw;
 		height: 7.813vw;
 		@media #{$mobileQuery} {
-			width: 69.333vw;
-			height: 10.933vw;
+			width: 90.667vw;
+			height: 9.333vw;
 		}
 	}
 }
