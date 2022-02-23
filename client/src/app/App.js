@@ -13,7 +13,6 @@ import Footer from './compontents/footer/Footer';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Menu from './compontents/menu/Menu';
-import Zaglushka from './pages/Zaglushka';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
@@ -47,8 +46,7 @@ const App = () => {
 					handleScrollToFooter={handleScrollToFooter}
 				/>
 				<Switch>
-					<Route exact path={`${match.path}`} component={Zaglushka} />
-					<Route exact path={`/test`} component={Home} />
+					<Route exact path={`${match.path}`} component={Home} />
 					<Route exact path="/cases" component={Cases} />
 					<Route path="/cases/:id" component={Case} />
 					<Route exact path="/services" component={Services} />
