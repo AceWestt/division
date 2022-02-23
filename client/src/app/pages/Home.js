@@ -54,7 +54,7 @@ const Home = () => {
 					<div className="cases">
 						{backendData.cases.cases &&
 							backendData.cases.cases.length > 0 &&
-							backendData.cases.cases.map((c, index) => {
+							backendData.cases.cases.slice(0, 30).map((c, index) => {
 								let item = null;
 								let mobileClass = 'mobile-full';
 								if (c.mobileWidth && c.mobileWidth === 1) {
@@ -146,7 +146,7 @@ const CatBlock = ({
 			if (isMobileCatsOpen) {
 				setCatWrapHeight(mobileCatListHeight);
 			} else {
-				setCatWrapHeight(mobileActiveCatHeight);
+				setCatWrapHeight(mobileActiveCatHeight + 1);
 			}
 		}
 	}, [isMobileCatsOpen]);
@@ -252,10 +252,16 @@ const AwardBlock = ({ backendData, lang }) => {
 	useEffect(() => {
 		if (columns.current.length > 0) {
 			columns.current.map((c, index) => {
+				let startingX = '-=100%';
+				let x = '+=100%';
+				if (index % 2 === 0) {
+					startingX = '0';
+					x = '-=100%';
+				}
 				gsap.fromTo(
 					c.children,
-					{ x: '0' },
-					{ x: '-=100%', duration: 60, repeat: -1, ease: 'none' }
+					{ x: startingX },
+					{ x: x, duration: 60, repeat: -1, ease: 'none' }
 				);
 				return c;
 			});
@@ -265,11 +271,7 @@ const AwardBlock = ({ backendData, lang }) => {
 	return (
 		<div className="block awards">
 			<h3>
-				{lang === 'en'
-					? 'Awards'
-					: lang === 'uz'
-					? ' Sovrinlar'
-					: 'Посмотреть все кейсы'}
+				{lang === 'en' ? 'Awards' : lang === 'uz' ? ' Sovrinlar' : 'Награды'}
 			</h3>
 			{backendData.awards && backendData.awards.length > 0 && (
 				<div className="award-list">

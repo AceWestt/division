@@ -6,6 +6,7 @@ import titleImgUz from '../images/page-title-cases-uz.svg';
 import { useAppContext } from '../appContext';
 import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron';
 import PageTitleHolder from '../compontents/PageTitleHolder';
+import { getFilteredCases } from '../utils/tools/arrayTools';
 
 const Cases = () => {
 	const { smallScreen, setIsFooterDisabled, backendData, lang } =
@@ -18,6 +19,7 @@ const Cases = () => {
 	});
 
 	const [ready, setReady] = useState(false);
+	const [limit, setLimit] = useState(30);
 
 	useEffect(() => {
 		let timeout = setTimeout(() => {
@@ -59,52 +61,49 @@ const Cases = () => {
 					<div className="cases">
 						{backendData.cases.cases &&
 							backendData.cases.cases.length > 0 &&
-							backendData.cases.cases.map((c, index) => {
-								let item = null;
-								let mobileClass = 'mobile-full';
-								if (c.mobileWidth && c.mobileWidth === 1) {
-									mobileClass = 'mobile-half';
-								}
-
-								if (activeCat.id !== '-1') {
-									mobileClass = 'mobile-half';
-								}
-
-								if (activeCat.id !== '-1') {
-									if (activeCat.id === c.category_id) {
-										item = c;
+							getFilteredCases(backendData.cases.cases, activeCat)
+								.splice(0, limit)
+								.map((c, index) => {
+									let mobileClass = 'mobile-full';
+									if (c.mobileWidth && c.mobileWidth === 1) {
+										mobileClass = 'mobile-half';
 									}
-								} else {
-									item = c;
-								}
 
-								if (item) {
-									return (
-										<Link
-											to={`/cases/${c._id}`}
-											className={`case ${mobileClass}`}
-											key={`case-${c._id}`}
-										>
-											<img src={c.preview} alt="case" />
-											<div className="desc-block">
-												<div className="bg"></div>
-												<div className="wrap">
-													<div className="title">{item.title[lang]}</div>
-													<div className="description">{item.description?.[lang] || ''}</div>
-													<div className="cat-title">
-														{getCatNameForDesc(item.category_id)}
+									if (activeCat.id !== '-1') {
+										mobileClass = 'mobile-half';
+									}
+
+									if (c) {
+										return (
+											<Link
+												to={`/cases/${c._id}`}
+												className={`case ${mobileClass}`}
+												key={`case-${c._id}`}
+											>
+												<img src={c.preview} alt="case" />
+												<div className="desc-block">
+													<div className="bg"></div>
+													<div className="wrap">
+														<div className="title">{c.title[lang]}</div>
+														<div className="description">{c.description?.[lang] || ''}</div>
+														<div className="cat-title">
+															{getCatNameForDesc(c.category_id)}
+														</div>
 													</div>
 												</div>
-											</div>
-										</Link>
-									);
-								}
-								return '';
-							})}
+											</Link>
+										);
+									}
+									return '';
+								})}
 					</div>
-					{backendData.cases?.cases?.length > 30 && (
+					{getFilteredCases(backendData.cases.cases, activeCat).length > limit && (
 						<div className="btn-holder">
-							<Link to="/cases" className="btn btn-primary btn-outlined">
+							<Link
+								to="/cases"
+								className="btn btn-primary btn-outlined"
+								onClick={() => setLimit(limit + 10)}
+							>
 								Eще
 							</Link>
 						</div>
@@ -139,7 +138,7 @@ const CatBlock = ({
 			if (isMobileCatsOpen) {
 				setCatWrapHeight(mobileCatListHeight);
 			} else {
-				setCatWrapHeight(mobileActiveCatHeight);
+				setCatWrapHeight(mobileActiveCatHeight + 1);
 			}
 		}
 	}, [isMobileCatsOpen]);
