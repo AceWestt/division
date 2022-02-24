@@ -79,7 +79,7 @@ exports.updateClient = async (req, res, next) => {
 				undefined,
 				next,
 				`client_logo_${client._id}`,
-				'/files/upload/clients/'
+				'/files/uploads/clients/'
 			);
 			client.logo = logoName;
 		}
