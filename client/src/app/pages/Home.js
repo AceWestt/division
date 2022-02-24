@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import LogoHolder from './home/LogoHolder';
 import { useAppContext } from '../appContext';
 import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron';
+import { getFilteredCases } from '../utils/tools/arrayTools';
 
 const Home = () => {
 	const { smallScreen, lang, setIsFooterDisabled, backendData } =
@@ -54,48 +55,46 @@ const Home = () => {
 					<div className="cases">
 						{backendData.cases.cases &&
 							backendData.cases.cases.length > 0 &&
-							backendData.cases.cases.slice(0, 30).map((c, index) => {
-								let item = null;
-								let mobileClass = 'mobile-full';
-								if (c.mobileWidth && c.mobileWidth === 1) {
-									mobileClass = 'mobile-half';
-								}
-
-								if (activeCat.id !== '-1') {
-									mobileClass = 'mobile-half';
-								}
-
-								if (activeCat.id !== '-1') {
-									if (activeCat.id === c.category_id) {
-										item = c;
+							getFilteredCases(backendData.cases.cases, activeCat)
+								.slice(0, 30)
+								.map((c, index) => {
+									let item = null;
+									let mobileClass = 'mobile-full';
+									if (c.mobileWidth && c.mobileWidth === 1) {
+										mobileClass = 'mobile-half';
 									}
-								} else {
-									item = c;
-								}
 
-								if (item) {
-									return (
-										<Link
-											to={`/cases/${item._id}`}
-											className={`case ${mobileClass}`}
-											key={`case-${item._id}`}
-										>
-											<img src={item.preview} alt="case" />
-											<div className="desc-block">
-												<div className="bg"></div>
-												<div className="wrap">
-													<div className="title">{item.title[lang]}</div>
-													<div className="description">{item.description?.[lang] || ''}</div>
-													<div className="cat-title">
-														{getCatNameForDesc(item.category_id)}
+									if (activeCat.id !== '-1') {
+										mobileClass = 'mobile-half';
+									}
+
+									item = c;
+
+									if (item) {
+										return (
+											<Link
+												to={`/cases/${item._id}`}
+												className={`case ${mobileClass}`}
+												key={`case-${item._id}`}
+											>
+												<img src={item.preview} alt="case" />
+												<div className="desc-block">
+													<div className="bg"></div>
+													<div className="wrap">
+														<div className="title">{item.title[lang]}</div>
+														<div className="description">
+															{item.description?.[lang] || ''}
+														</div>
+														<div className="cat-title">
+															{getCatNameForDesc(item.category_id)}
+														</div>
 													</div>
 												</div>
-											</div>
-										</Link>
-									);
-								}
-								return '';
-							})}
+											</Link>
+										);
+									}
+									return '';
+								})}
 					</div>
 					<div className="btn-holder">
 						<Link to="/cases" className="btn btn-primary">

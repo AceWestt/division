@@ -36,7 +36,14 @@ const Case = () => {
 export default Case;
 
 const Block = ({ b, lang }) => {
-	const { type, text = null, img = null, gallery = [], video = null } = b;
+	const {
+		type,
+		text = null,
+		img = null,
+		gallery = [],
+		video = null,
+		uploadedVideo = null,
+	} = b;
 
 	if (type === 'img' && img) {
 		return (
@@ -90,6 +97,16 @@ const Block = ({ b, lang }) => {
 						</p>
 					</div>
 				)}
+			</div>
+		);
+	}
+	if (type === 'uploadedVideo' && uploadedVideo?.url) {
+		return (
+			<div className="block block-uploaded-video">
+				<video autoPlay muted loop>
+					<source src={uploadedVideo.url} />
+					your browser does not support the video tag
+				</video>
 			</div>
 		);
 	}
