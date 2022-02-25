@@ -114,6 +114,7 @@ exports.addCase = async (req, res, next) => {
 		const files = req.files;
 
 		console.log(category_id);
+		console.log(files);
 
 		const title = JSON.parse(body.title);
 		const subtitle = JSON.parse(body.subtitle);
@@ -162,6 +163,24 @@ exports.addCase = async (req, res, next) => {
 						field = {
 							type: type,
 							img: imgName,
+						};
+					}
+				} else if (type === 'uploadedVideo') {
+					const key = blockKey.key;
+					if (files && files[key]) {
+						const file = files[key];
+						const uploadPath = '/files/uploads/cases/imgs/';
+						const vidName = await fileUpload(
+							file,
+							undefined,
+							undefined,
+							next,
+							`case_vid_${caseInstance._id}_${key}`,
+							uploadPath
+						);
+						field = {
+							type: type,
+							src: vidName,
 						};
 					}
 				} else if (type === 'gallery') {
@@ -238,11 +257,15 @@ exports.updateCase = async (req, res, next) => {
 
 		let blocks = [];
 		let oldBlockImgs = [];
+		let oldBlockVids = [];
 		let oldBlockGalleryImgs = [];
 		const oldBlocks = caseInstance.blocks;
 		await oldBlocks.map(async (ob, obindex) => {
 			if (ob.type === 'img') {
 				oldBlockImgs.push(ob.img);
+			}
+			if (ob.type === 'uploadedVideo') {
+				oldBlockVids.push(ob.src);
 			}
 			if (ob.type === 'gallery') {
 				const gallery = ob.gallery;
@@ -281,6 +304,29 @@ exports.updateCase = async (req, res, next) => {
 							img: blockKey.oldKey,
 						};
 					}
+				} else if (type === 'uploadedVideo') {
+					const key = blockKey.key;
+					if (files && files[key]) {
+						const file = files[key];
+						const uploadPath = '/files/uploads/cases/imgs/';
+						const vidName = await fileUpload(
+							file,
+							undefined,
+							undefined,
+							next,
+							`case_vid_${caseInstance._id}_${key}`,
+							uploadPath
+						);
+						field = {
+							type: type,
+							src: vidName,
+						};
+					} else {
+						field = {
+							type: type,
+							src: blockKey.oldKey,
+						};
+					}
 				} else if (type === 'gallery') {
 					const keys = blockKey.keys;
 					const oldKeys = blockKey.updatedOldKeys;
@@ -314,6 +360,7 @@ exports.updateCase = async (req, res, next) => {
 		caseInstance.blocks = blocks;
 
 		let updatedBlockImgs = [];
+		let updatedBlockVids = [];
 		let updatedBlockGalleryImgs = [];
 
 		const newBlocks = caseInstance.blocks;
@@ -321,6 +368,9 @@ exports.updateCase = async (req, res, next) => {
 		await newBlocks.map(async (nb, nbindex) => {
 			if (nb.type === 'img') {
 				updatedBlockImgs.push(nb.img);
+			}
+			if (nb.type === 'uploadedVideo') {
+				updatedBlockVids.push(nb.src);
 			}
 			if (nb.type === 'gallery') {
 				const gallery = nb.gallery;
@@ -338,6 +388,9 @@ exports.updateCase = async (req, res, next) => {
 		const extraBlocksGalleryImgsToDelete = oldBlockGalleryImgs.filter(
 			(og) => !updatedBlockGalleryImgs.includes(og)
 		);
+		const extraBlockVidsToDelete = oldBlockVids.filter(
+			(ov) => !updatedBlockVids.includes(ov)
+		);
 
 		await caseInstance.save(async (err) => {
 			if (err) {
@@ -351,6 +404,19 @@ exports.updateCase = async (req, res, next) => {
 							await ifFileExists(`${__clientdir}${img.replace(`${__uploadRoot}`, '')}`)
 						) {
 							fs.unlink(`${__clientdir}${img.replace(`${__uploadRoot}`, '')}`);
+						}
+					} catch (error) {
+						return next(new ErrorResponse('internal error', 500));
+					}
+				});
+			}
+			if (extraBlockVidsToDelete && extraBlockVidsToDelete.length > 0) {
+				extraBlockVidsToDelete.map(async (vid) => {
+					try {
+						if (
+							await ifFileExists(`${__clientdir}${vid.replace(`${__uploadRoot}`, '')}`)
+						) {
+							fs.unlink(`${__clientdir}${vid.replace(`${__uploadRoot}`, '')}`);
 						}
 					} catch (error) {
 						return next(new ErrorResponse('internal error', 500));
@@ -462,6 +528,18 @@ const handleDeleteCase = async (caseInstance, next) => {
 						await ifFileExists(`${__clientdir}${img.replace(`${__uploadRoot}`, '')}`)
 					) {
 						fs.unlink(`${__clientdir}${img.replace(`${__uploadRoot}`, '')}`);
+					}
+				} catch (error) {
+					return next(new ErrorResponse('internal error', 500));
+				}
+			}
+			if (b.type === 'uploadedVideo') {
+				const vid = b.src;
+				try {
+					if (
+						await ifFileExists(`${__clientdir}${vid.replace(`${__uploadRoot}`, '')}`)
+					) {
+						fs.unlink(`${__clientdir}${vid.replace(`${__uploadRoot}`, '')}`);
 					}
 				} catch (error) {
 					return next(new ErrorResponse('internal error', 500));

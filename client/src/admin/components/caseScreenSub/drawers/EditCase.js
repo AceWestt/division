@@ -137,6 +137,29 @@ const EditCase = React.forwardRef((props, ref) => {
 							}),
 						})
 					),
+				src: Schema.Types.ArrayType()
+					.addRule((value, data) => {
+						const { src, oldSrc } = data;
+						if (!oldSrc && src.length < 1) {
+							return false;
+						}
+
+						return true;
+					}, 'Загрузите видео!')
+					.of(
+						Schema.Types.ObjectType().shape({
+							blobFile: Schema.Types.ObjectType().shape({
+								name: Schema.Types.StringType().pattern(
+									/^.*\.(mp4)$/i,
+									'Неверный формат файла! Разрешен только "mp4"'
+								),
+								size: Schema.Types.NumberType().max(
+									8388608,
+									'Размер файла не может превышать 8mb'
+								),
+							}),
+						})
+					),
 				gallery: Schema.Types.ArrayType()
 					.addRule((value, data) => {
 						const { gallery, oldGallery } = data;
@@ -219,6 +242,9 @@ const EditCase = React.forwardRef((props, ref) => {
 					if (block.type === 'img') {
 						field.img = [];
 						field.oldImg = block.img;
+					} else if (block.type === 'uploadedVideo') {
+						field.src = [];
+						field.oldSrc = block.src;
 					} else if (block.type === 'gallery') {
 						field.gallery = [];
 						field.oldGallery = block.gallery;
@@ -272,6 +298,7 @@ const EditCase = React.forwardRef((props, ref) => {
 
 			let blocksTextToSend = {};
 			let blockImgsToSend = [];
+			let blocksVidsToSend = [];
 			let blocksKeyInfo = [];
 			if (formValue.blocks && formValue.blocks.length > 0) {
 				const blocks = formValue.blocks;
@@ -297,6 +324,15 @@ const EditCase = React.forwardRef((props, ref) => {
 						blockImgsToSend.push(img);
 						blocksKey.key = key;
 						blocksKey.oldKey = b.oldImg;
+					} else if (b.type === 'uploadedVideo') {
+						const key = `vid_${index}`;
+						const vid = {
+							key: key,
+							src: b.src?.[0]?.blobFile || null,
+						};
+						blocksVidsToSend.push(vid);
+						blocksKey.key = key;
+						blocksKey.oldKey = b.oldSrc;
 					} else if (b.type === 'gallery') {
 						const gallery = b.gallery;
 						const updatedOldGallery = b.oldGallery;
@@ -370,6 +406,12 @@ const EditCase = React.forwardRef((props, ref) => {
 				blockImgsToSend.map((img, index) => {
 					formData.append(img.key, img.img);
 					return img;
+				});
+			}
+			if (blocksVidsToSend && blocksVidsToSend.length > 0) {
+				blocksVidsToSend.map((vid, index) => {
+					formData.append(vid.key, vid.src);
+					return vid;
 				});
 			}
 
@@ -656,6 +698,8 @@ const BlockItem = ({
 		setType(value);
 		if (value === 'img') {
 			onChange(rowIndex, { type: value, img: [] });
+		} else if (value === 'uploadedVideo') {
+			onChange(rowIndex, { type: value, src: [] });
 		} else if (value === 'gallery') {
 			onChange(rowIndex, { type: value, gallery: [] });
 		} else if (value === 'video') {
@@ -713,6 +757,7 @@ const BlockItem = ({
 					data={[
 						{ value: 'text', label: 'Текст' },
 						{ value: 'img', label: 'Изображение' },
+						{ value: 'uploadedVideo', label: 'Видео' },
 						{ value: 'gallery', label: 'Галлерея' },
 						{ value: 'video', label: 'Ссылка к embed видео' },
 					]}
@@ -803,6 +848,27 @@ const BlockItem = ({
 						}
 						errSize={
 							rowError?.img?.array?.[0]?.object?.blobFile?.object?.size?.errorMessage
+						}
+					/>
+				)}
+				{type === 'uploadedVideo' && (
+					<FileUploaderAlt
+						label="Видео блока"
+						accept="all"
+						disabled={disabled || rowValue.src?.length > 0}
+						oldVid={rowValue.oldSrc}
+						onChange={(list) => {
+							onChange(rowIndex, { ...rowValue, src: list });
+						}}
+						popoverProps={{
+							text: 'Видео блока',
+						}}
+						errExt={
+							rowError?.src?.errorMessage ||
+							rowError?.src?.array?.[0]?.object?.blobFile?.object?.name?.errorMessage
+						}
+						errSize={
+							rowError?.src?.array?.[0]?.object?.blobFile?.object?.size?.errorMessage
 						}
 					/>
 				)}

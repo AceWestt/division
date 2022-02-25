@@ -42,7 +42,7 @@ const Block = ({ b, lang }) => {
 		img = null,
 		gallery = [],
 		video = null,
-		uploadedVideo = null,
+		src = null,
 	} = b;
 
 	if (type === 'img' && img) {
@@ -100,11 +100,11 @@ const Block = ({ b, lang }) => {
 			</div>
 		);
 	}
-	if (type === 'uploadedVideo' && uploadedVideo?.url) {
+	if (type === 'uploadedVideo' && src) {
 		return (
 			<div className="block block-uploaded-video">
 				<video autoPlay muted loop>
-					<source src={uploadedVideo.url} />
+					<source src={src} />
 					your browser does not support the video tag
 				</video>
 			</div>

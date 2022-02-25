@@ -66,6 +66,7 @@ const FileUploaderAlt = React.forwardRef(
 			onChange,
 			oldImg = null,
 			oldGallery = [],
+			oldVid = null,
 			onGalleryDeleteClick = () => {},
 			listType = 'picture',
 			disabled = false,
@@ -89,6 +90,20 @@ const FileUploaderAlt = React.forwardRef(
 					</div>
 				)}
 				{oldImg && <span style={oldImgStyles.span}>Новое изображение: </span>}
+				{oldVid && (
+					<div style={oldImgStyles.root}>
+						<span style={oldImgStyles.span}>Текущее видео: </span>
+						<video
+							autoPlay
+							muted
+							loop
+							style={{ ...oldImgStyles.img, opacity: disabled ? 0.5 : 1 }}
+						>
+							<source src={oldVid} />
+							your browser does not support the video tag
+						</video>
+					</div>
+				)}
 				{oldGallery && oldGallery.length > 0 && (
 					<div style={oldGalleryStyles.root}>
 						<span style={oldGalleryStyles.span}>Текущая галлерея</span>
