@@ -5,7 +5,7 @@ import { Plane, useCurtains } from 'react-curtains';
 import { Vec2 } from 'curtainsjs';
 import { vertexShader, fragmentShader } from '../../utils/shaders/shaders';
 
-const LogoHolder = () => {
+const LogoHolder = ({ onReadyCallBack }) => {
 	const resetRef = useRef(null);
 	return (
 		<div className="logo-holder">
@@ -13,13 +13,13 @@ const LogoHolder = () => {
 				pixelRatio={Math.min(1.5, window.devicePixelRatio)}
 				watchScroll={false}
 			>
-				<Curtain resetRef={resetRef} />
+				<Curtain resetRef={resetRef} onReadyCallBack={onReadyCallBack} />
 			</Curtains>
 		</div>
 	);
 };
 
-const Curtain = ({ resetRef }) => {
+const Curtain = ({ resetRef, onReadyCallBack }) => {
 	const [plane, setPlane] = useState(null);
 
 	const mousePosition = useRef(new Vec2());
@@ -114,7 +114,7 @@ const Curtain = ({ resetRef }) => {
 		setResolution(plane);
 
 		setPlane(plane);
-		console.log('ready');
+		onReadyCallBack();
 	};
 
 	const onRender = (plane) => {

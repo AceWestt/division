@@ -7,10 +7,16 @@ import { useAppContext } from '../appContext';
 import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import { getFilteredCases } from '../utils/tools/arrayTools';
+import OnImagesLoaded from 'react-on-images-loaded';
 
 const Cases = () => {
-	const { smallScreen, setIsFooterDisabled, backendData, lang } =
-		useAppContext();
+	const {
+		smallScreen,
+		setIsFooterDisabled,
+		backendData,
+		lang,
+		setIsScreenReady,
+	} = useAppContext();
 
 	const [activeCat, setActiveCat] = useState({
 		id: '-1',
@@ -42,13 +48,44 @@ const Cases = () => {
 		return catname;
 	};
 
+	const [isRuTitleReady, setIsRuTitleReady] = useState(false);
+	const [isEnTitleReady, setIsEnTitleReady] = useState(false);
+	const [isUzTitleReady, setIsUzTitleReady] = useState(false);
+	const [areImagesReady, setAreImagesReady] = useState(false);
+
+	useEffect(() => {
+		if (isRuTitleReady && isEnTitleReady && isUzTitleReady && areImagesReady) {
+			setIsScreenReady(true);
+		} else {
+			setIsScreenReady(false);
+		}
+	}, [
+		isRuTitleReady,
+		isEnTitleReady,
+		isUzTitleReady,
+		areImagesReady,
+		setIsScreenReady,
+	]);
+
 	if (ready) {
 		return (
 			<div className="section section-home section-cases">
 				<div className="title-holder-wrap">
-					<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
-					<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
-					<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
+					<PageTitleHolder
+						disabled={lang !== 'en'}
+						title={titleImgEn}
+						onReadyCallback={() => setIsRuTitleReady(true)}
+					/>
+					<PageTitleHolder
+						disabled={lang !== 'uz'}
+						title={titleImgUz}
+						onReadyCallback={() => setIsEnTitleReady(true)}
+					/>
+					<PageTitleHolder
+						disabled={lang !== 'ru'}
+						title={titleImg}
+						onReadyCallback={() => setIsUzTitleReady(true)}
+					/>
 				</div>
 				<div className="cases-wrap">
 					<CatBlock
@@ -58,45 +95,52 @@ const Cases = () => {
 						lang={lang}
 						categories={backendData.cases.categories}
 					/>
-					<div className="cases">
-						{backendData.cases.cases &&
-							backendData.cases.cases.length > 0 &&
-							getFilteredCases(backendData.cases.cases, activeCat)
-								.splice(0, limit)
-								.map((c, index) => {
-									let mobileClass = 'mobile-full';
-									if (c.mobileWidth && c.mobileWidth === 1) {
-										mobileClass = 'mobile-half';
-									}
+					{backendData.cases.cases && backendData.cases.cases.length > 0 && (
+						<OnImagesLoaded
+							onLoaded={() => setAreImagesReady(true)}
+							onTimeout={() => setAreImagesReady(true)}
+							timeout={7000}
+						>
+							<div className="cases">
+								{getFilteredCases(backendData.cases.cases, activeCat)
+									.splice(0, limit)
+									.map((c, index) => {
+										let mobileClass = 'mobile-full';
+										if (c.mobileWidth && c.mobileWidth === 1) {
+											mobileClass = 'mobile-half';
+										}
 
-									if (activeCat.id !== '-1') {
-										mobileClass = 'mobile-half';
-									}
+										if (activeCat.id !== '-1') {
+											mobileClass = 'mobile-half';
+										}
 
-									if (c) {
-										return (
-											<Link
-												to={`/cases/${c._id}`}
-												className={`case ${mobileClass}`}
-												key={`case-${c._id}`}
-											>
-												<img src={c.preview} alt="case" />
-												<div className="desc-block">
-													<div className="bg"></div>
-													<div className="wrap">
-														<div className="title">{c.title[lang]}</div>
-														<div className="description">{c.description?.[lang] || ''}</div>
-														<div className="cat-title">
-															{getCatNameForDesc(c.category_id)}
+										if (c) {
+											return (
+												<Link
+													to={`/cases/${c._id}`}
+													className={`case ${mobileClass}`}
+													key={`case-${c._id}`}
+												>
+													<img src={c.preview} alt="case" />
+													<div className="desc-block">
+														<div className="bg"></div>
+														<div className="wrap">
+															<div className="title">{c.title[lang]}</div>
+															<div className="description">{c.description?.[lang] || ''}</div>
+															<div className="cat-title">
+																{getCatNameForDesc(c.category_id)}
+															</div>
 														</div>
 													</div>
-												</div>
-											</Link>
-										);
-									}
-									return '';
-								})}
-					</div>
+												</Link>
+											);
+										}
+										return '';
+									})}
+							</div>
+						</OnImagesLoaded>
+					)}
+
 					{getFilteredCases(backendData.cases.cases, activeCat).length > limit && (
 						<div className="btn-holder">
 							<Link

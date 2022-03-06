@@ -5,10 +5,16 @@ import LogoHolder from './home/LogoHolder';
 import { useAppContext } from '../appContext';
 import MobileCatShevron from '../compontents/home/svgComponents/MobileCatShevron';
 import { getFilteredCases } from '../utils/tools/arrayTools';
+import OnImagesLoaded from 'react-on-images-loaded';
 
 const Home = () => {
-	const { smallScreen, lang, setIsFooterDisabled, backendData } =
-		useAppContext();
+	const {
+		smallScreen,
+		lang,
+		setIsFooterDisabled,
+		backendData,
+		setIsScreenReady,
+	} = useAppContext();
 
 	const [activeCat, setActiveCat] = useState({
 		id: '-1',
@@ -17,6 +23,18 @@ const Home = () => {
 	});
 
 	const [ready, setReady] = useState(false);
+
+	const imagesHolderRef = useRef(null);
+	const [isLogoReady, setIsLogoReady] = useState(false);
+	const [areImagesReady, setAreImagesReady] = useState(false);
+
+	useEffect(() => {
+		if (isLogoReady && areImagesReady) {
+			setIsScreenReady(true);
+		} else {
+			setIsScreenReady(false);
+		}
+	}, [isLogoReady, areImagesReady, setIsScreenReady]);
 
 	useEffect(() => {
 		let timeout = setTimeout(() => {
@@ -42,9 +60,9 @@ const Home = () => {
 	if (ready) {
 		return (
 			<div className="section section-home">
-				<LogoHolder />
+				<LogoHolder onReadyCallBack={() => setIsLogoReady(true)} />
 
-				<div className="cases-wrap">
+				<div className="cases-wrap" ref={imagesHolderRef}>
 					<CatBlock
 						setActiveCat={setActiveCat}
 						activeCat={activeCat}
@@ -52,50 +70,57 @@ const Home = () => {
 						lang={lang}
 						categories={backendData.cases.categories}
 					/>
-					<div className="cases">
-						{backendData.cases.cases &&
-							backendData.cases.cases.length > 0 &&
-							getFilteredCases(backendData.cases.cases, activeCat)
-								.slice(0, 30)
-								.map((c, index) => {
-									let item = null;
-									let mobileClass = 'mobile-full';
-									if (c.mobileWidth && c.mobileWidth === 1) {
-										mobileClass = 'mobile-half';
-									}
+					{backendData.cases.cases && backendData.cases.cases.length > 0 && (
+						<OnImagesLoaded
+							onLoaded={() => setAreImagesReady(true)}
+							onTimeOut={() => setAreImagesReady(true)}
+							timeout={7000}
+						>
+							<div className="cases">
+								{getFilteredCases(backendData.cases.cases, activeCat)
+									.slice(0, 30)
+									.map((c, index) => {
+										let item = null;
+										let mobileClass = 'mobile-full';
+										if (c.mobileWidth && c.mobileWidth === 1) {
+											mobileClass = 'mobile-half';
+										}
 
-									if (activeCat.id !== '-1') {
-										mobileClass = 'mobile-half';
-									}
+										if (activeCat.id !== '-1') {
+											mobileClass = 'mobile-half';
+										}
 
-									item = c;
+										item = c;
 
-									if (item) {
-										return (
-											<Link
-												to={`/cases/${item._id}`}
-												className={`case ${mobileClass}`}
-												key={`case-${item._id}`}
-											>
-												<img src={item.preview} alt="case" />
-												<div className="desc-block">
-													<div className="bg"></div>
-													<div className="wrap">
-														<div className="title">{item.title[lang]}</div>
-														<div className="description">
-															{item.description?.[lang] || ''}
-														</div>
-														<div className="cat-title">
-															{getCatNameForDesc(item.category_id)}
+										if (item) {
+											return (
+												<Link
+													to={`/cases/${item._id}`}
+													className={`case ${mobileClass}`}
+													key={`case-${item._id}`}
+												>
+													<img src={item.preview} alt="case" />
+													<div className="desc-block">
+														<div className="bg"></div>
+														<div className="wrap">
+															<div className="title">{item.title[lang]}</div>
+															<div className="description">
+																{item.description?.[lang] || ''}
+															</div>
+															<div className="cat-title">
+																{getCatNameForDesc(item.category_id)}
+															</div>
 														</div>
 													</div>
-												</div>
-											</Link>
-										);
-									}
-									return '';
-								})}
-					</div>
+												</Link>
+											);
+										}
+										return '';
+									})}
+							</div>
+						</OnImagesLoaded>
+					)}
+
 					<div className="btn-holder">
 						<Link to="/cases" className="btn btn-primary">
 							{lang === 'en'
@@ -105,15 +130,15 @@ const Home = () => {
 								: 'Посмотреть все кейсы'}
 						</Link>
 					</div>
-					<div className="blocks">
-						<AwardBlock backendData={backendData} lang={lang} />
-						<ClientsBlock
-							activeCat={activeCat}
-							smallScreen={smallScreen}
-							backendData={backendData}
-							lang={lang}
-						/>
-					</div>
+				</div>
+				<div className="blocks">
+					<AwardBlock backendData={backendData} lang={lang} />
+					<ClientsBlock
+						activeCat={activeCat}
+						smallScreen={smallScreen}
+						backendData={backendData}
+						lang={lang}
+					/>
 				</div>
 			</div>
 		);

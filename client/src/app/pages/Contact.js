@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PageTitleHolder from '../compontents/PageTitleHolder';
 import titleImg from '../images/page-title-contact.svg';
 import titleImgEn from '../images/page-title-contacts-en.svg';
@@ -9,16 +9,42 @@ import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import { useAppContext } from '../appContext';
 
 const Contact = ({ handleScrollToFooter }) => {
-	const { setIsFooterDisabled, lang, backendData } = useAppContext();
+	const { setIsFooterDisabled, lang, backendData, setIsScreenReady } =
+		useAppContext();
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
+
+	const [isRuTitleReady, setIsRuTitleReady] = useState(false);
+	const [isEnTitleReady, setIsEnTitleReady] = useState(false);
+	const [isUzTitleReady, setIsUzTitleReady] = useState(false);
+
+	useEffect(() => {
+		if (isRuTitleReady && isEnTitleReady && isUzTitleReady) {
+			setIsScreenReady(true);
+		} else {
+			setIsScreenReady(false);
+		}
+	}, [isRuTitleReady, isEnTitleReady, isUzTitleReady, setIsScreenReady]);
+
 	return (
 		<div className="section section-contact">
 			<div className="title-holder-wrap">
-				<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
-				<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
-				<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
+				<PageTitleHolder
+					disabled={lang !== 'en'}
+					title={titleImgEn}
+					onReadyCallback={() => setIsEnTitleReady(true)}
+				/>
+				<PageTitleHolder
+					disabled={lang !== 'uz'}
+					title={titleImgUz}
+					onReadyCallback={() => setIsUzTitleReady(true)}
+				/>
+				<PageTitleHolder
+					disabled={lang !== 'ru'}
+					title={titleImg}
+					onReadyCallback={() => setIsRuTitleReady(true)}
+				/>
 			</div>
 			<div className="contact-details">
 				<div className="side side-map">

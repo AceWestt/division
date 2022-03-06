@@ -7,16 +7,41 @@ import chevron from '../images/right-chevron-ICN.svg';
 import { useAppContext } from '../appContext';
 
 const Services = () => {
-	const { setIsFooterDisabled, lang, backendData } = useAppContext();
+	const { setIsFooterDisabled, lang, backendData, setIsScreenReady } =
+		useAppContext();
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
+
+	const [isRuTitleReady, setIsRuTitleReady] = useState(false);
+	const [isEnTitleReady, setIsEnTitleReady] = useState(false);
+	const [isUzTitleReady, setIsUzTitleReady] = useState(false);
+
+	useEffect(() => {
+		if (isRuTitleReady && isEnTitleReady && isUzTitleReady) {
+			setIsScreenReady(true);
+		} else {
+			setIsScreenReady(false);
+		}
+	}, [isRuTitleReady, isEnTitleReady, isUzTitleReady, setIsScreenReady]);
 	return (
 		<div className="section section-services">
 			<div className="title-holder-wrap">
-				<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
-				<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
-				<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
+				<PageTitleHolder
+					disabled={lang !== 'en'}
+					title={titleImgEn}
+					onReadyCallback={() => setIsEnTitleReady(true)}
+				/>
+				<PageTitleHolder
+					disabled={lang !== 'uz'}
+					title={titleImgUz}
+					onReadyCallback={() => setIsUzTitleReady(true)}
+				/>
+				<PageTitleHolder
+					disabled={lang !== 'ru'}
+					title={titleImg}
+					onReadyCallback={() => setIsRuTitleReady(true)}
+				/>
 			</div>
 			<div className="services">
 				{backendData.services.map((s, i) => {

@@ -13,10 +13,17 @@ import instagramIcnMobile from '../images/instagram-icn-about-mobile.svg';
 import phoneFooter from '../images/about-footer-phone.svg';
 import emailFooter from '../images/about-footer-mail.svg';
 import parse from 'html-react-parser';
+import OnImagesLoaded from 'react-on-images-loaded';
 
 const About = ({ footerRef }) => {
-	const { smallScreen, setIsFooterDisabled, isSoundOn, lang, backendData } =
-		useAppContext();
+	const {
+		smallScreen,
+		setIsFooterDisabled,
+		isSoundOn,
+		lang,
+		backendData,
+		setIsScreenReady,
+	} = useAppContext();
 
 	const musicRef = useRef(null);
 
@@ -34,46 +41,84 @@ const About = ({ footerRef }) => {
 		setIsFooterDisabled(true);
 	}, [setIsFooterDisabled]);
 
+	const [isRuTitleReady, setIsRuTitleReady] = useState(false);
+	const [isEnTitleReady, setIsEnTitleReady] = useState(false);
+	const [isUzTitleReady, setIsUzTitleReady] = useState(false);
+	const [areImagesReady, setAreImagesReady] = useState(false);
+
+	useEffect(() => {
+		if (isRuTitleReady && isEnTitleReady && isUzTitleReady && areImagesReady) {
+			setIsScreenReady(true);
+		} else {
+			setIsScreenReady(false);
+		}
+	}, [
+		isRuTitleReady,
+		isEnTitleReady,
+		isUzTitleReady,
+		areImagesReady,
+		setIsScreenReady,
+	]);
+
 	return (
 		<div className="section section-about">
-			<div className="title-holder-wrap">
-				<PageTitleHolder disabled={lang !== 'en'} title={titleImgEn} />
-				<PageTitleHolder disabled={lang !== 'uz'} title={titleImgUz} />
-				<PageTitleHolder disabled={lang !== 'ru'} title={titleImg} />
-			</div>
-			<div className="description">
-				{parse(
-					backendData.aboutContent.slogan[lang]
-						.replace('<b>', '<span>')
-						.replace('</b>', '</span>')
+			<OnImagesLoaded
+				onLoaded={() => setAreImagesReady(true)}
+				onTimeout={() => setAreImagesReady(true)}
+				timeout={7000}
+			>
+				<div className="title-holder-wrap">
+					<PageTitleHolder
+						disabled={lang !== 'en'}
+						title={titleImgEn}
+						onReadyCallback={() => setIsRuTitleReady(true)}
+					/>
+					<PageTitleHolder
+						disabled={lang !== 'uz'}
+						title={titleImgUz}
+						onReadyCallback={() => setIsUzTitleReady(true)}
+					/>
+					<PageTitleHolder
+						disabled={lang !== 'ru'}
+						title={titleImg}
+						onReadyCallback={() => setIsEnTitleReady(true)}
+					/>
+				</div>
+				<div className="description">
+					{parse(
+						backendData.aboutContent.slogan[lang]
+							.replace('<b>', '<span>')
+							.replace('</b>', '</span>')
+					)}
+				</div>
+				<div className="hero-imgs">
+					<img src={backendData.aboutContent.teamPhoto1} alt="heroimg" />
+					<img src={backendData.aboutContent.teamPhoto2} alt="heroimg" />
+					<img src={backendData.aboutContent.teamPhoto3} alt="heroimg" />
+					<img src={backendData.aboutContent.teamPhoto4} alt="heroimg" />
+				</div>
+				<div className="short-text">
+					{backendData.aboutContent.advantageText[lang]}
+				</div>
+				<div className="slogan-wrap">
+					<span>{backendData.aboutContent.energyText[lang]}</span>
+					<img src={backendData.aboutContent.energyImg} alt="img" />
+				</div>
+				<MediaBlock lang={lang} backendData={backendData} />
+
+				{smallScreen ? (
+					<TeamBlockMobile
+						footerRef={footerRef}
+						backendData={backendData}
+						lang={lang}
+					/>
+				) : (
+					<TeamBlock footerRef={footerRef} backendData={backendData} lang={lang} />
 				)}
-			</div>
-			<div className="hero-imgs">
-				<img src={backendData.aboutContent.teamPhoto1} alt="heroimg" />
-				<img src={backendData.aboutContent.teamPhoto2} alt="heroimg" />
-				<img src={backendData.aboutContent.teamPhoto3} alt="heroimg" />
-				<img src={backendData.aboutContent.teamPhoto4} alt="heroimg" />
-			</div>
-			<div className="short-text">
-				{backendData.aboutContent.advantageText[lang]}
-			</div>
-			<div className="slogan-wrap">
-				<span>{backendData.aboutContent.energyText[lang]}</span>
-				<img src={backendData.aboutContent.energyImg} alt="img" />
-			</div>
-			<MediaBlock lang={lang} backendData={backendData} />
+			</OnImagesLoaded>
 			<audio loop src={backendData.generalContent.musicFile} ref={musicRef}>
 				Your browser does not support the audio element.
 			</audio>
-			{smallScreen ? (
-				<TeamBlockMobile
-					footerRef={footerRef}
-					backendData={backendData}
-					lang={lang}
-				/>
-			) : (
-				<TeamBlock footerRef={footerRef} backendData={backendData} lang={lang} />
-			)}
 		</div>
 	);
 };

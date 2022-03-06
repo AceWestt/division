@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAxiosGet } from '../common/hooks/useAxiosGet';
+import LoadingScreen from './compontents/LoadingScreen';
 
 const AppContext = React.createContext();
 const smallScreenBreakPoint = 768;
@@ -14,6 +15,7 @@ const AppProvider = ({ children }) => {
 	const [dataSuccess, setDataSuccess] = useState(false);
 
 	const [isFooterDisabled, setIsFooterDisabled] = useState(false);
+	const [isScreenReady, setIsScreenReady] = useState(false);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -114,22 +116,16 @@ const AppProvider = ({ children }) => {
 		contactContentData,
 	]);
 
+	useEffect(() => {
+		if (!isScreenReady) {
+			document.getElementsByTagName('html')[0].classList.add('no-scroll');
+		} else {
+			document.getElementsByTagName('html')[0].classList.remove('no-scroll');
+		}
+	}, [isScreenReady]);
+
 	if (!dataSuccess) {
-		return (
-			<div
-				style={{
-					width: '100vw',
-					height: '100vh',
-					background: '#000',
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					marginTop: smallScreen ? '-8vw' : '-3.125vw',
-				}}
-			>
-				<div style={{ fontSize: '5vw', color: '#fff' }}>Data Loading...</div>
-			</div>
-		);
+		return <LoadingScreen />;
 	}
 
 	return (
@@ -144,8 +140,10 @@ const AppProvider = ({ children }) => {
 				setIsFooterDisabled,
 				pathname,
 				backendData,
+				setIsScreenReady,
 			}}
 		>
+			{!isScreenReady && <LoadingScreen />}
 			{children}
 		</AppContext.Provider>
 	);

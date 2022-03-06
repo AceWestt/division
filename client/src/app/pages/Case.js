@@ -2,34 +2,47 @@ import React, { useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useAppContext } from '../appContext';
 import parse from 'html-react-parser';
+import OnImagesLoaded from 'react-on-images-loaded';
 
 const Case = () => {
 	const match = useRouteMatch();
-	const { setIsFooterDisabled, lang, backendData } = useAppContext();
+	const { setIsFooterDisabled, lang, backendData, setIsScreenReady } =
+		useAppContext();
 	const caseID = match.params.id;
 	const currentCase = backendData.cases.cases.find((c) => c._id === caseID);
 	useEffect(() => {
 		setIsFooterDisabled(false);
 	}, [setIsFooterDisabled]);
+	useEffect(() => {
+		setIsScreenReady(false);
+	}, [setIsScreenReady]);
 	return (
 		<div className="section section-case">
-			{currentCase.title && <div className="title">{currentCase.title[lang]}</div>}
-			{currentCase.subtitle && (
-				<div className="subtitle">{currentCase.subtitle[lang]}</div>
-			)}
-			{currentCase.blocks && currentCase.blocks.length > 0 && (
-				<div className="blocks">
-					{currentCase.blocks.map((b, index) => {
-						return <Block b={b} key={`case-block-${index}`} lang={lang} />;
-					})}
-				</div>
-			)}
+			<OnImagesLoaded
+				onLoaded={() => setIsScreenReady(true)}
+				onTimeout={() => setIsScreenReady(true)}
+				timeout={7000}
+			>
+				{currentCase.title && (
+					<div className="title">{currentCase.title[lang]}</div>
+				)}
+				{currentCase.subtitle && (
+					<div className="subtitle">{currentCase.subtitle[lang]}</div>
+				)}
+				{currentCase.blocks && currentCase.blocks.length > 0 && (
+					<div className="blocks">
+						{currentCase.blocks.map((b, index) => {
+							return <Block b={b} key={`case-block-${index}`} lang={lang} />;
+						})}
+					</div>
+				)}
 
-			<div className="btn-holder">
-				<Link to="/cases" className="btn btn-primary btn-outlined">
-					Все кейсы
-				</Link>
-			</div>
+				<div className="btn-holder">
+					<Link to="/cases" className="btn btn-primary btn-outlined">
+						Все кейсы
+					</Link>
+				</div>
+			</OnImagesLoaded>
 		</div>
 	);
 };

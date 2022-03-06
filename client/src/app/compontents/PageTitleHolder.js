@@ -4,7 +4,7 @@ import { Plane, useCurtains } from 'react-curtains';
 import { Vec2 } from 'curtainsjs';
 import { vertexShader, fragmentShader } from './../utils/shaders/shaders';
 
-const PageTitleHolder = ({ title, disabled }) => {
+const PageTitleHolder = ({ title, disabled, onReadyCallback }) => {
 	const resetRef = useRef(null);
 	return (
 		<div className="title-holder" style={{ opacity: disabled ? '0' : '1' }}>
@@ -12,13 +12,17 @@ const PageTitleHolder = ({ title, disabled }) => {
 				pixelRatio={Math.min(1.5, window.devicePixelRatio)}
 				watchScroll={false}
 			>
-				<Curtain title={title} resetRef={resetRef} />
+				<Curtain
+					title={title}
+					resetRef={resetRef}
+					onReadyCallback={onReadyCallback}
+				/>
 			</Curtains>
 		</div>
 	);
 };
 
-const Curtain = ({ title, resetRef }) => {
+const Curtain = ({ title, resetRef, onReadyCallback }) => {
 	const [plane, setPlane] = useState(null);
 
 	const mousePosition = useRef(new Vec2());
@@ -113,6 +117,7 @@ const Curtain = ({ title, resetRef }) => {
 		setResolution(plane);
 
 		setPlane(plane);
+		onReadyCallback();
 	};
 
 	const onRender = (plane) => {
