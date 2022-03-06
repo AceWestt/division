@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useAppContext } from '../appContext';
+import parse from 'html-react-parser';
 
 const Case = () => {
 	const match = useRouteMatch();
@@ -89,11 +90,13 @@ const Block = ({ b, lang }) => {
 				{text && (
 					<div className="text">
 						<p>
-							{lang === 'ru'
-								? text.textRu || ''
-								: lang === 'en'
-								? text.textEn || ''
-								: text.textUz || ''}
+							{parse(
+								lang === 'ru'
+									? text.textRu || ''
+									: lang === 'en'
+									? text.textEn || ''
+									: text.textUz || ''
+							)}
 						</p>
 					</div>
 				)}

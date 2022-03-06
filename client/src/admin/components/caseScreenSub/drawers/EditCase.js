@@ -25,6 +25,7 @@ import FileUploader from '../../FileUploader';
 import FileUploaderAlt from '../../FileUploaderAlt';
 import axios from 'axios';
 import { theme } from '../../../adminContext';
+import LinkGenerator from '../../LinkGenerator';
 
 const styles = {
 	root: {},
@@ -829,6 +830,7 @@ const BlockItem = ({
 							uzerror={rowError?.text?.object?.textUz?.errorMessage || ''}
 							disabled={disabled}
 						/>
+						{!disabled && <LinkGenerator />}
 					</>
 				)}
 				{type === 'img' && (

@@ -14,8 +14,8 @@ const options = {
 };
 
 const connectDB = async () => {
-	await mongoose.connect(process.env.MONGO_URI || mongodbProdUri);
-	console.log('MongoDB connected');
+	await mongoose.connect(process.env.MONGO_URI || mongodbProdUri, options);
+	console.log('MongoDB connected.');
 };
 
 module.exports = connectDB;

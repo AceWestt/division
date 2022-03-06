@@ -114,6 +114,7 @@ const Curtain = ({ resetRef }) => {
 		setResolution(plane);
 
 		setPlane(plane);
+		console.log('ready');
 	};
 
 	const onRender = (plane) => {

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import LinkGenerator from '../../LinkGenerator';
 import {
 	Schema,
 	Message,
@@ -11,8 +12,8 @@ import {
 	ButtonGroup,
 	SelectPicker,
 	Divider,
-	Panel,
 	Badge,
+	Panel,
 } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import MinusIcon from '@rsuite/icons/Minus';
@@ -704,6 +705,7 @@ const BlockItem = ({ rowValue = {}, onChange, rowIndex, rowError }) => {
 							enerror={rowError?.text?.object?.textEn?.errorMessage || ''}
 							uzerror={rowError?.text?.object?.textUz?.errorMessage || ''}
 						/>
+						<LinkGenerator />
 					</>
 				)}
 				{type === 'img' && (
