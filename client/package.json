@@ -22,7 +22,8 @@
     "react-scripts": "4.0.3",
     "react-yandex-maps": "^4.6.0",
     "rsuite": "^5.2.1",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "react-on-images-loaded": "^2.2.5"    
   },
   "scripts": {
     "start": "react-scripts start",
