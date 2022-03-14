@@ -128,4 +128,15 @@
 			}
 		}
 	}
+	.back-to-main-btn {
+		width: 4.115vw;
+		margin-left: 2.604vw;
+		@media #{$mobileQuery} {
+			margin-left: auto;
+			width: 21.067vw;
+		}
+		img {
+			width: 100%;
+		}
+	}
 }
