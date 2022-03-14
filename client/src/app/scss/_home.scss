@@ -167,7 +167,7 @@
 			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
-			gap: 1.9vw 1vw;
+			gap: 1.9vw 0;
 			justify-content: space-between;
 			@media #{$mobileQuery} {
 				gap: 1.867vw;
@@ -283,7 +283,7 @@
 				&:nth-child(34n + 34),
 				&:nth-child(39n + 39),
 				&:nth-child(40n + 40) {
-					width: 45vw;
+					width: 46vw;
 					@media #{$mobileQuery} {
 						height: 50.133vw;
 						width: 100%;
