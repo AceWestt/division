@@ -19,7 +19,8 @@
 		display: flex;
 		flex-wrap: wrap;
 		width: 100%;
-		gap: 1.042vw;
+		gap: 1vw 0;
+		justify-content: space-between;
 		margin-bottom: 3.125vw;
 		@media #{$mobileQuery} {
 			gap: 1.067vw;
@@ -28,19 +29,15 @@
 		img {
 			height: 36.458vw;
 			object-fit: cover;
-			width: 23.438vw;
+			width: 24.25%;
 			@media #{$mobileQuery} {
 				height: 40vw;
-				width: 22.133vw;
 			}
 			&:first-child {
 				width: 100%;
 			}
 			&:nth-child(2) {
-				width: 44.792vw;
-				@media #{$mobileQuery} {
-					width: 42.933vw;
-				}
+				width: 49.5%;
 			}
 		}
 	}

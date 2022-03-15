@@ -167,14 +167,14 @@
 			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
-			gap: 1.4vw 0;
+			gap: 1vw 0;
 			justify-content: space-between;
 			@media #{$mobileQuery} {
 				gap: 1.867vw;
 			}
 			.case {
 				height: 26.042vw;
-				width: 22vw;
+				width: 24.25%;
 				cursor: pointer;
 				@media #{$mobileQuery} {
 					height: 50.133vw;
@@ -283,7 +283,7 @@
 				&:nth-child(34n + 34),
 				&:nth-child(39n + 39),
 				&:nth-child(40n + 40) {
-					width: 45.4vw;
+					width: 49.5%;
 					@media #{$mobileQuery} {
 						height: 50.133vw;
 						width: 100%;
