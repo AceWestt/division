@@ -17,3 +17,15 @@ code {
 html {
 	overflow-y: auto;
 }
+
+html::-webkit-scrollbar {
+	width: 0.885vw;
+	height: 0.885vw;
+}
+
+@media screen and (max-width: 768px) {
+	html::-webkit-scrollbar {
+		width: 4.533vw;
+		height: 4.533vw;
+	}
+}
