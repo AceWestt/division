@@ -19,7 +19,6 @@ const EditTeam = React.forwardRef((props, ref) => {
 
 	const model = Schema.Model({
 		img: Schema.Types.ArrayType()
-			.minLength(1, 'Загрузите изображение')
 			.of(
 				Schema.Types.ObjectType().shape({
 					blobFile: Schema.Types.ObjectType().shape({
