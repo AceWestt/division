@@ -91,7 +91,7 @@
 			margin-left: auto;
 			@media #{$mobileQuery} {
 				margin-left: auto;
-				margin-right: 30px;
+				margin-right: 5.333vw;
 			}
 			.btn.btn-with-icon {
 				span{
@@ -99,6 +99,7 @@
 						font-size: 4.267vw;
 						font-weight: 800;
 						line-height: 1;
+						margin-top: 2.667vw;
 					}
 				}
 				svg {
@@ -120,11 +121,9 @@
 			margin-right: 0;
 			margin-left: 2.083vw;
 			@media #{$mobileQuery} {
-				margin-left: 0;
-				margin-right: 5.333vw;
+				margin-left: 0;				
 			}
-			.btn.btn-icon {
-				
+			.btn.btn-icon {				
 				svg {
 					width: 1.667vw;
 					@media #{$mobileQuery} {
