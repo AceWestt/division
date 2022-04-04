@@ -90,11 +90,22 @@
 		&.nav-phone {
 			margin-left: auto;
 			@media #{$mobileQuery} {
-				display: none;
+				margin-left: auto;
+				margin-right: 30px;
 			}
 			.btn.btn-with-icon {
+				span{
+					@media #{$mobileQuery}{
+						font-size: 4.267vw;
+						font-weight: 800;
+						line-height: 1;
+					}
+				}
 				svg {
 					width: 0.521vw;
+					@media #{$mobileQuery}{
+						display: none;
+					}
 				}
 			}
 		}
@@ -109,13 +120,15 @@
 			margin-right: 0;
 			margin-left: 2.083vw;
 			@media #{$mobileQuery} {
-				margin-left: auto;
+				margin-left: 0;
+				margin-right: 5.333vw;
 			}
 			.btn.btn-icon {
+				
 				svg {
 					width: 1.667vw;
 					@media #{$mobileQuery} {
-						width: 20px;
+						width: 5.333vw;
 					}
 				}
 				&:hover {
@@ -132,7 +145,8 @@
 		width: 4.115vw;
 		margin-left: 2.604vw;
 		@media #{$mobileQuery} {
-			margin-left: auto;
+			margin-left: 5.333vw;
+			margin-right: auto;
 			width: 21.067vw;
 		}
 		img {
