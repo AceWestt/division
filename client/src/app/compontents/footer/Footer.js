@@ -103,28 +103,28 @@ const Footer = ({ footerRef }) => {
           toaster.push(successMessage("success", succesMessage), {
             placement: "bottomEnd",
           });
-          const res = await axios.post(
-            `https://graph.facebook.com/v13.0/492637309212319/events?access_token=EAAsGTYlTLmABALWOjwchK0fYIc1lVHmHSUofryNZBQmdd5MlGfu0FiayybzGHp8Dh6AGZCxn2HKEDxWGZAMWaMtemCMPEvEgCJmhAXwpsplqTxZBZBvSJZBinmnIDEV5jiFxCKdRWJRC8MVD9tGTvzVUsMTc5M378u5xYiFfNZBMZC70ZAPNl36j9JQjgZABPu0ncZD`,
-            {
-              data: [
-                {
-                  event_name: "Заявка",
-                  event_time: Date.now(),
-                  action_source: "email",
-                  user_data: {
-                    name: name,
-                    phone: phone,
-                    email: email,
-                  },
-                  custom_data: {
-                    message: message,
-                  },
-                },
-              ],
-            },
-            config
-          );
-          console.log(res);
+          //   const res = await axios.post(
+          //     `https://graph.facebook.com/v13.0/492637309212319/events?access_token=EAAsGTYlTLmABALWOjwchK0fYIc1lVHmHSUofryNZBQmdd5MlGfu0FiayybzGHp8Dh6AGZCxn2HKEDxWGZAMWaMtemCMPEvEgCJmhAXwpsplqTxZBZBvSJZBinmnIDEV5jiFxCKdRWJRC8MVD9tGTvzVUsMTc5M378u5xYiFfNZBMZC70ZAPNl36j9JQjgZABPu0ncZD`,
+          //     {
+          //       data: [
+          //         {
+          //           event_name: "Заявка",
+          //           event_time: Date.now(),
+          //           action_source: "email",
+          //           user_data: {
+          //             name: name,
+          //             phone: phone,
+          //             email: email,
+          //           },
+          //           custom_data: {
+          //             message: message,
+          //           },
+          //         },
+          //       ],
+          //     },
+          //     config
+          //   );
+          //   console.log(res);
         } else {
           toaster.push(
             successMessage(
