@@ -35,9 +35,7 @@ exports.add = async (req, res, next) => {
 
     let current_timestamp = Math.floor(new Date() / 1000);
 
-    const userData_0 = new UserData()
-      .setEmails([body.email])
-      .setPhones([body.phone]);
+    const userData_0 = new UserData().setEmails([body.email]);
     const serverEvent_0 = new ServerEvent()
       .setEventName("Call")
       .setEventTime(current_timestamp)
