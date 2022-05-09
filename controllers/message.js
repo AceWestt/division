@@ -48,7 +48,7 @@ exports.add = async (req, res, next) => {
     const eventRequest = new EventRequest(access_token, pixel_id).setEvents(
       eventsData
     );
-    eventRequest.execute();
+    console.log(eventRequest.execute());
 
     res.status(200).json({ status: "success" });
   } catch (error) {
